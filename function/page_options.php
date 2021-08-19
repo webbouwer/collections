@@ -1,8 +1,5 @@
 <?php
-
 // https://github.com/webbouwer/imagazine/blob/development/assets/metaboxes.php
-
-
 
 /* Add metabox */
 function add_page_collection_meta()
@@ -19,8 +16,9 @@ function add_page_collection_meta()
                  'Collection settings', // $title
                  'page_collection_settings', // $callback
                  'page', // $page
-                 'normal', // $context
-                 'high'); // $priority
+                 'side', // $context
+                 'high',
+                 null ); // $priority
         }
     }
 }
