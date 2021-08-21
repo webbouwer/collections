@@ -7,6 +7,9 @@ Description: Collections plugin for Wordpress
 Suggestion to use with
 https://wordpress.org/plugins/taxonomy-terms-order
 https://wordpress.org/plugins/admin-taxonomy-filter/
+https://weichie.com/blog/ajax-load-more-posts-wordpress/
+https://github.com/webbouwer/imagazine/blob/development/functions.php
+https://github.com/webbouwer/treasure/blob/setup03_markupoverlays/html/content-overview.php
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -79,6 +82,10 @@ class CollectionsPluginClass{
 				'ajaxurl' => admin_url( 'admin-ajax.php' )
 			) );
 			wp_enqueue_script( 'page_collection_load' );
+
+
+			wp_enqueue_script( 'imagesloaded', 'js/imagesloaded.js', false );
+			wp_enqueue_script( 'isotope', 'js/isotope.pkgd.min.js', false );
 
 			wp_enqueue_style( 'collection-page-style', plugins_url( 'css/ajax_page_collection.css', __FILE__ ) );
 

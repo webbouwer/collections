@@ -16,9 +16,9 @@ function collection_loader(){
       let slug = $('#loopcontainer').data('collection');//'chateau-du-lac';
       let amount = $('#loopcontainer').data('loadamount');//'chateau-du-lac';
 
-      $.getJSON("wp-json/artifacts/all-posts?page=" + pull_page + "&collection=" + slug+ "&load_amount=" + amount, function(data){
+      $('#loopcontainer-loader').fadeIn();
 
-        $('#loopcontainer-loader').show();
+      $.getJSON("wp-json/artifacts/all-posts?page=" + pull_page + "&collection=" + slug+ "&load_amount=" + amount, function(data){
 
         if(data.length){
           var items = [];
@@ -35,9 +35,10 @@ function collection_loader(){
       }).done(function(data){
         if(data.length){
           jsonFlag = true;
-          $('#loopcontainer-loader').hide(); // hide if also on scroll load
         }
       });
+
+      $('#loopcontainer-loader').fadeOut(); // hide if also on scroll load
 
     } //end isflag
   }
@@ -58,6 +59,19 @@ $(document).on('scroll', function(){
 $(document).on('click', '#artifact-loader', function(){
   collection_loader();
 });
+
+
+$(document).on('click', '#display-toggle a', function(e){
+  e.preventDefault();
+  if($('#loopcontainer.grid-view').length){
+    $('#loopcontainer').removeClass('grid-view');
+    $('#loopcontainer').addClass('list-view');
+  }else{
+    $('#loopcontainer').removeClass('list-view');
+    $('#loopcontainer').addClass('grid-view');
+  }
+});
+
 
 
 });

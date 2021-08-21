@@ -18,7 +18,9 @@ $load_amount = isset( $values['page_collection_loadamount'] ) ? $values['page_co
 // echo $slug;
 
 // AJAX https://weichie.com/blog/ajax-load-more-posts-wordpress/
-echo '<div id="loopcontainer" data-collection="'.$slug.'" data-loadamount="'.$load_amount.'"></div>';
+echo '<div id="loopcontainer" class="grid-view" data-collection="'.$slug.'" data-loadamount="'.$load_amount.'">';
+echo '<div id="display-toggle"><a class="list">list</a><a class="grid">grid</a></div>';
+echo '</div>';
 echo '<div id="loopcontainer-loader" class="loading-banner"><a class="btn" href="#!">Loading</a></div>';
 
 
