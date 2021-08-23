@@ -67,3 +67,12 @@ function add_tags_to_artifacts() {
     register_taxonomy_for_object_type( 'post_tag', 'artifact' );
 }
 add_action( 'init' , 'add_tags_to_artifacts' );
+
+// rest route
+function add_artifacts_rest_route( $route, $post ) {
+    if ( $post->post_type === 'artifact' ) {
+        $route = '/wp/v2/artifact/' . $post->ID;
+    }
+    return $route;
+}
+add_filter( 'rest_route_for_post', 'add_artifacts_rest_route', 10, 2 );

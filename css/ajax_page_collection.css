@@ -17,7 +17,6 @@
   float:right;
 }
 
-
 /* loop content */
 #loopcontainer
 {
@@ -33,6 +32,41 @@
   bottom:2vh;
   width:100%;
   text-align:center;
+}
+
+/* typemenu */
+#typemenu
+{
+  height:120px;
+  padding-top:40px;
+  float:left;
+}
+#typemenu ul
+{
+  /* text-align: right;*/
+  padding:0px 0px; /* innerpadding */
+}
+#typemenu ul li
+{
+  display:inline-block;
+  padding:5px;
+  list-style-type: none;
+}
+#typemenu ul li.notavailable
+{
+  opacity:0.2;
+}
+li#menubutton
+{
+  margin-right:3px;
+}
+.icon-button.selected span
+{
+  color:#00A3E8;
+}
+.icon-button.selected:hover span
+{
+  color:#ADB4BE;
 }
 
 /* ---- grid / list toggle ---- */
@@ -162,6 +196,11 @@
 
 
 /* ---- .list-item ---- */
+#loopcontainer.list-view .post-artifact
+{
+  position: relative;
+  width:100%;
+}
 #loopcontainer.list-view .post-artifact .innerpadding
 {
   position:relative;

@@ -4,7 +4,33 @@
  * Description: Page Theme custom taxonomy and post file
  */
 
- get_header();
+get_header();
+
+echo '<div id="viewcontainer">';
+
+
+// type menu
+$typeparent =get_terms( 'types', array('hide_empty' => 0, 'parent' => 4 ));
+$types = array();
+foreach ($typeparent as $child) {
+  $types[$child->slug] = $child->slug;
+  $type_names[$child->slug] = $child->name;
+}
+
+$logofilterclasses = '';
+echo '<div id="typemenu"><div class="innerpadding"><ul>';
+
+  foreach ( $type_names as $slug => $type ) :
+
+    echo '<li data-type="'.$slug.'" class="icon-button but-'.$slug.'"><span>'.$type.'</span></li>';
+
+    $logofilterclasses .= $slug.' ';
+
+  endforeach;
+
+  //echo '<li id="menubutton" class="but-menu icon-button"><span>info</span></li>';
+
+echo '</ul></div></div>';
 
 
 $posttype = 'artifact';
@@ -17,12 +43,12 @@ $load_amount = isset( $values['page_collection_loadamount'] ) ? $values['page_co
 
 // echo $slug;
 
+
 // AJAX https://weichie.com/blog/ajax-load-more-posts-wordpress/
-echo '<div id="loopcontainer" class="grid-view" data-collection="'.$slug.'" data-loadamount="'.$load_amount.'">';
+echo '<div id="loopcontainer" class="grid-view isotope" data-posttype="'.$posttype.'"  data-taxname="'.$taxname.'" data-term="'.$slug.'" data-ppp="'.$load_amount.'">';
 echo '<div id="display-toggle"><a class="list">list</a><a class="grid">grid</a></div>';
 echo '</div>';
 echo '<div id="loopcontainer-loader" class="loading-banner"><a class="btn" href="#!">Loading</a></div>';
-
 
 /*
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
@@ -66,5 +92,5 @@ if($collection_posts->post_count < $load_amount){
 }
 
 */
-
+echo '</div>';
  get_footer();

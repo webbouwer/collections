@@ -35,3 +35,11 @@ function add_collection_taxonomy() {
 add_action( 'init', 'add_collection_taxonomy' );
 
 // source: https://code.tutsplus.com/articles/applying-categories-tags-and-custom-taxonomies-to-media-attachments--wp-32319
+
+function collection_rest_route( $route, $term ) {
+    if ( $term->taxonomy === 'collection' ) {
+        $route = '/wp/v2/collection/' . $term->term_id;
+    }
+    return $route;
+}
+add_filter( 'rest_route_for_term', 'collection_rest_route', 10, 2 );
