@@ -149,8 +149,8 @@ jQuery(function($) {
 
         // FIRST LOAD
         getCollectionData();
-        $( "#typemenu" ).insertAfter( "#logobox" );
 
+        // see custom theme scripts
 
     });
 

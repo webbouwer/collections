@@ -16,11 +16,6 @@ box-sizing: border-box;
 }
 #logobox
 {
-  float:left;
-}
-#primarymenubox
-{
-  float:right;
 }
 
 /* loop content */
@@ -43,9 +38,6 @@ box-sizing: border-box;
 /* typemenu */
 #typemenu
 {
-  height:120px;
-  padding-top:40px;
-  float:left;
 }
 #typemenu ul
 {
@@ -229,4 +221,55 @@ li#menubutton
 #loopcontainer.list-view .post-artifact .overlay .item-icons
 {
   float:right;
+}
+
+/* --- overlay --- */
+#viewcontainer
+{
+  -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+        box-sizing: border-box;
+}
+#overlaycontainer,
+#infoboxcontainer
+{
+  position:absolute;
+  width:100%;
+  top:0px;
+  left:0px;
+  background: rgba(255, 255, 255, 1);
+  min-height:100vh;
+  z-index:99;
+}
+#overlaycontainer .outermargin
+{
+  max-width:960px;
+  height:100%;
+}
+#overlaycontainer.intro
+{
+  background: rgba(255, 255, 255, 0.70);
+}
+
+#overlaycontainer .popcontainer .mediabox
+{
+  text-align:center;
+}
+#overlaycontainer .popcontainer .mediabox img
+{
+  height:auto;
+  max-height:80vh;
+  width:auto;
+  max-width:100%;
+}
+.closeoverlay,
+.closeinfobox
+{
+  position:absolute;
+  right:0px;
+  top:0px;
+  height:64px;
+  width:64px;
+  z-index:999;
+  background-color:blue;
 }
