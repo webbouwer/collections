@@ -25,7 +25,10 @@ jQuery(function($) {
               //isFitWidth: true,
               columnWidth: colWidth,
               gutter: gutterWidth,
-          },
+          },/*
+          getSortData: {
+              byTagWeight: '.matchweight parseInt',
+          },*/
         });
 
         /* on resize */
@@ -39,21 +42,65 @@ jQuery(function($) {
               setColumnWidth();
             }
 
-            function setColumnWidth() {
+            function setColumnWidth(){
+
+              //setMatchweight();
+
               var w = container.width();
               /* check width for small screens .. */
               colWidth = w / 7;
 
-              container.isotope({
+              container
+              .isotope('reloadItems')
+              //.isotope('updateSortData')
+              .isotope({
                 masonry: {
                   columnWidth: colWidth,
                   gutter: gutterWidth,
-                }
-              }).isotope('reloadItems').isotope({ filter: filters }).isotope( 'layout' );
+                },
+                /*
+                sortBy : 'byTagWeight', // []
+                sortAscending: {
+                  byTagWeight: false, // weight descendingly
+                },*/
+              }).isotope({ filter: filters }).isotope( 'layout' );
 
             }
 
+            /*
+            function setMatchweight(){
 
+              let typefilters = Array(filters);
+              console.log( JSON.stringify(typefilters) );
+
+              if( typefilters.length == 0 ){
+                  typefilters[0] = '.foto';
+              }
+                $('#loopcontainer .post-artifact').each( function(){
+
+                    let mc = 0;
+                    let fcls = [];
+
+                    if( $(this).find('.matchweight').length == 0){
+                      $(this).prepend('<span class="matchweight">1</span>');
+                    }
+
+                    let classList = $(this).attr('class').split(/\s+/);
+                    classList.splice(0,3); // remove first 3
+                    $.each( classList, function( i , cls ){
+                        if( $.inArray( '.'+cls, typefilters) ){
+                          mc++;
+                          fcls[mc]='.'+cls;
+                        }
+                    });
+
+                    console.log( JSON.stringify(fcls) );
+                    $(this).find('.matchweight').text(mc);
+
+                });
+
+            }
+            */
 
   /* Example AJAX Function */
   let pullpage = 0; // starts onload
@@ -101,12 +148,11 @@ jQuery(function($) {
                       items.push(val.html);
                     });
                     $("#loopcontainer").append(items);
-                    setTypeMenu();
                     $('#loopcontainer').imagesLoaded( function( instance ) {
-                    setTypeMenu(); // set MEnu
+                      setTypeMenu(); // set MEnu
                       doneResizing(); // recall isotope
                     });
-                    console.log(JSON.stringify(response));
+                    //console.log(JSON.stringify(response));
                     if(response.length >= amount){
                       pullflag = true;
                     }
@@ -218,7 +264,8 @@ jQuery(function($) {
             }
 
             console.log(filters);
-            container.isotope({ filter: filters }).isotope( 'layout' );
+            //container.isotope({ filter: filters }).isotope( 'layout' );
+            setColumnWidth();
 
           });
 
@@ -247,7 +294,7 @@ jQuery(function($) {
                           if ( json.success ) {
                               var p = json.data.postdata;
                               var html = '<div class="popcontainer">'
-                              +'<div class="mediabox"><img src="'+p.image+'" class="wp-post-image" alt="" /></div>'
+                              +'<div class="mediabox '+p.orientation+'"><img src="'+p.image+'" class="wp-post-image" alt="" /></div>'
                               +'<div class="contentbox"><div class="column">'
                               +'<h2>'+p.title+'</h2>'
                               +'<div class="text">'+p.excerpt+'</div>'

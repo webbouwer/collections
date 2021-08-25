@@ -98,8 +98,10 @@ li#menubutton
 }
 #loopcontainer.grid-view .post-artifact img.wp-post-image
 {
+  display: block;
   width:100%;
   height:auto;
+  border:none;
 }
 
 #loopcontainer.grid-view .post-artifact .overlay
@@ -110,6 +112,7 @@ li#menubutton
   right: 0;
   bottom: 0;
   padding: 20px;
+
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -120,6 +123,7 @@ li#menubutton
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+
   background: rgba(0, 0, 0, .5);
   opacity: 0;
   text-align:center;
@@ -214,14 +218,35 @@ li#menubutton
   height:90px;
   float:left;
 }
+
+#loopcontainer.list-view .post-artifact.landscape img.wp-post-image
+{
+}
+
+
+
 #loopcontainer.list-view .post-artifact .overlay
 {
-  position: relative;
 }
 #loopcontainer.list-view .post-artifact .overlay .item-icons
 {
-  float:right;
 }
+#loopcontainer.list-view .post-artifact .overlay .item-excerpt
+{
+}
+
+#loopcontainer.list-view .item-icons ul
+{
+}
+#loopcontainer.list-view .item-icons ul li
+{
+}
+#loopcontainer.list-view .item-icons ul li:hover,
+#loopcontainer.list-view .item-icons ul li.selected
+{
+}
+
+
 
 /* --- overlay --- */
 #viewcontainer
@@ -239,12 +264,14 @@ li#menubutton
   left:0px;
   background: rgba(255, 255, 255, 1);
   min-height:100vh;
-  z-index:99;
+  z-index:10;
 }
 #overlaycontainer .outermargin
 {
-  max-width:960px;
+  max-width:100%;
   height:100%;
+  padding:0;
+  margin:0px auto;
 }
 #overlaycontainer.intro
 {

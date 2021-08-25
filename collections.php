@@ -96,8 +96,8 @@ function enqueue_ajax_script() {
 				      'post_type'       => $posttype,
 				      'status'          => 'published',
 				      'posts_per_page'  => $amount,
-				      'orderby'         => 'post_date',
-				      'order'           => 'DESC',
+				      //'orderby'         => 'slug',//'post_date',
+				      'order'           => 'ASC',
 				      'paged'           => $paged,
 				      'tax_query' => array(
 				        array(
@@ -146,7 +146,7 @@ function enqueue_ajax_script() {
 					      $classes = implode(" ", $type_classes);
 
 					      $thumb_orientation = 'portrait';
-					      $image = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), '');
+					      $image = wp_get_attachment_image_src( get_post_thumbnail_id($artID), '');
 					      $image_w = $image[1];
 					      $image_h = $image[2];
 
@@ -163,7 +163,7 @@ function enqueue_ajax_script() {
 					      $html = '<div class="post-artifact '.$thumb_orientation.' '.$classes.'" data-id="'.$artID .'"><div class="innerpadding">';
 
 					      if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
-					        $html .= '<img src="'.get_the_post_thumbnail_url().'" class="attachment-normal size-normal wp-post-image" alt="" loading="lazy" />';
+					        $html .= '<div class="artifact-image"><img src="'.get_the_post_thumbnail_url().'" class="attachment-normal size-normal wp-post-image" alt="" loading="lazy" />';
 					      }
 					      $html .= '<div class="overlay">';
 					      $html .= '<h2 class="entry-title" itemprop="headline"><a href="'.get_the_permalink().'" class="entry-title-link">'.get_the_title().'</a></h2>';
@@ -175,7 +175,8 @@ function enqueue_ajax_script() {
 					      endforeach;
 					      $html .= '</ul></div>';
 					      $html .= '<div class="item-excerpt">'.get_the_excerpt().'</div>';
-					      $html .=  '</div></div></div>';
+					      $html .= '</div></div>';
+								$html .= '</div>';
 
 								$artifacts[] = array(
 									'id' => $artID,
@@ -216,14 +217,32 @@ function enqueue_ajax_script() {
 					 	$id = $_REQUEST['id'];
 					 	$post = get_post( $id );
 						//$json['postdata'] = $post;
+						$image_orientation = 'portrait';
 						$image = wp_get_attachment_image_src( get_post_thumbnail_id($id), '');
+						$image_w = $image[1];
+						$image_h = $image[2];
+
+						if ($image_w > (2.3 * $image_h) ) {
+							$image_orientation = 'panorama';
+						}else if ($image_w > $image_h) {
+							$image_orientation = 'landscape';
+						}else if ($image_w == $image_h) {
+							$image_orientation = 'square';
+						}else {
+							$image_orientation = 'portrait';
+						}
+
 						$json['postdata'] = array(
 							'title'=>$post->post_title,
 							'excerpt'=>$post->post_excerpt,
 							'content'=>$post->post_content,
 							'image'=>$image[0],
+							'orientation'=>$image_orientation,
 							'link'=>$post->guid,
 						);
+
+
+
 						// list in array per type
 						$json['postmedia'] = array();
 						$media = get_attached_media( '', $id );
