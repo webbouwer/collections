@@ -25,6 +25,7 @@ function add_collection_taxonomy() {
         'show_in_nav_menus' => true,
         'show_tagcloud' => true,
         'query_var' => true,
+        'exclude_from_search' => false,
         'rewrite' => true,
         'show_in_rest' => true, // important for metabox display!
     );

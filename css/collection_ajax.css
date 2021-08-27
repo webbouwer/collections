@@ -1,0 +1,89 @@
+/**/
+#loopcontainer
+{
+  display: block;
+  position: relative;
+}
+
+
+
+#loopcontainer.grid-view .post-artifact {
+
+    /* max-width:403px; */
+
+    width: calc(28.57% - 30px); /* col 5 3x : 60%; */
+    margin:15px;
+    /*
+    -webkit-transition: all 0.2s ease-in-out;
+   -moz-transition: all 0.2s ease-in-out;
+   -o-transition: all 0.2s ease-in-out;
+   -ms-transition: all 0.2s ease-in-out;
+   transition: all 0.2s ease-in-out;
+   */
+
+}
+
+/* overview page - TODO check width for small screens .. */
+
+#loopcontainer.grid-view .post-artifact.panorama
+{
+  /* max-width:1096px; */
+  /*width: calc(71.42% - 30px);/* col 5 4x : 80%; */
+  width: calc(75% - 30px);
+}
+#loopcontainer.grid-view .post-artifact.landscape
+{
+  /* max-width:403px; */
+  width: calc(50% - 30px); /* col 5 3x : 60%; */
+
+}
+#loopcontainer.grid-view .post-artifact.portrait
+{
+  /* max-width:268px; */
+  width: calc(25% - 30px); /* col 5 1x : 20%; */
+
+}
+#loopcontainer.grid-view .post-artifact.square
+{
+  /* max-width:268px; */
+  width: calc(25% - 30px); /* col 5 2x : 40%; */
+
+}
+
+#loopcontainer.grid-view .post-artifact .innerpadding
+{
+  position:relative;
+  padding:0;
+}
+
+#loopcontainer.grid-view .post-artifact .overlay
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, .5);
+  opacity: 0;
+  text-align:center;
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+}
+
+#loopcontainer.grid-view .post-artifact:hover .overlay,
+#loopcontainer.grid-view .post-artifact.hovered .overlay {
+  opacity: 1;
+}

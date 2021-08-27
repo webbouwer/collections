@@ -26,7 +26,7 @@ class CollectionsSettings {
 
         <div class="wrap">
             <h2>Collections Settings</h2>
-            <p></p>
+            <p>Some basic collection options</p>
             <?php settings_errors(); ?>
 
             <form method="post" action="options.php">
@@ -55,7 +55,7 @@ class CollectionsSettings {
 
         add_settings_field(
             'dropdown_option_0', // id
-            'Dropdown Option', // title
+            'Select collection display', // title
             array( $this, 'dropdown_option_0_callback' ), // callback
             'dropdown-option-setting-admin', // page
             'dropdown_option_setting_setting_section' // section
@@ -67,7 +67,7 @@ class CollectionsSettings {
         if ( isset( $input['dropdown_option_0'] ) ) {
             $sanitary_values['dropdown_option_0'] = $input['dropdown_option_0'];
         }
-
+        // https://wordpress.stackexchange.com/questions/107546/add-settings-field-exclude-categories-reading-wp-category-checklist
         return $sanitary_values;
     }
 
@@ -77,12 +77,10 @@ class CollectionsSettings {
 
     public function dropdown_option_0_callback() {
         ?> <select name="dropdown_option_setting_option_name[dropdown_option_0]" id="dropdown_option_0">
-            <?php $selected = (isset( $this->dropdown_option_setting_options['dropdown_option_0'] ) && $this->dropdown_option_setting_options['dropdown_option_0'] === 'option-one') ? 'selected' : '' ; ?>
-            <option value="option-one" <?php echo $selected; ?>>Option One</option>
-            <?php $selected = (isset( $this->dropdown_option_setting_options['dropdown_option_0'] ) && $this->dropdown_option_setting_options['dropdown_option_0'] === 'option-two') ? 'selected' : '' ; ?>
-            <option value="option-two" <?php echo $selected; ?>>Option Two</option>
-            <?php $selected = (isset( $this->dropdown_option_setting_options['dropdown_option_0'] ) && $this->dropdown_option_setting_options['dropdown_option_0'] === 'option-three') ? 'selected' : '' ; ?>
-            <option value="option-three" <?php echo $selected; ?>>Option Three</option>
+            <?php $selected = (isset( $this->dropdown_option_setting_options['dropdown_option_0'] ) && $this->dropdown_option_setting_options['dropdown_option_0'] === 'basic') ? 'selected' : '' ; ?>
+            <option value="basic" <?php echo $selected; ?>>Basic list</option>
+            <?php $selected = (isset( $this->dropdown_option_setting_options['dropdown_option_0'] ) && $this->dropdown_option_setting_options['dropdown_option_0'] === 'grid') ? 'selected' : '' ; ?>
+            <option value="grid" <?php echo $selected; ?>>Ajax grid and list</option>
         </select> <?php
     }
 
