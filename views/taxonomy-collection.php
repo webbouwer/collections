@@ -1,14 +1,20 @@
 <?php
+/* Display collection artifacts */
+
+/* plugin display settings */
+$dropdown_option = get_option( 'dropdown_option_setting_option_name' ); // Array
+$dropdown_value =  $dropdown_option ['dropdown_option_0']; // Option value
 
 get_header(); // theme default header
 
 echo '<div id="loopcontainer">';
 
+
 $slug = get_query_var( 'term' );
 $taxname = get_query_var( 'taxonomy' );
 $term = get_term_by( 'slug', $slug, $taxname );
 
-if ($term->parent == 0) {
+if ($term->parent == 0) { // top collections
 
   echo '<div class="taxonomy-'.$slug.' category">';
   echo '<div class="innerpadding">';
@@ -16,7 +22,7 @@ if ($term->parent == 0) {
   echo '</div></div>';
 
 
-}// else{
+}// else{ // else (when category has parent)
 
 $get_post_args = array(
   'post_type' => 'artifact', // Your Post type Name that You Registered
@@ -63,7 +69,7 @@ wp_link_pages();
 
 wp_reset_query();
 
-//}
+//} //end else (when category has parent)
 
 echo '</div>'; // end loopcontainer
 
