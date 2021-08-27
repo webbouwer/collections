@@ -27,22 +27,29 @@ if ( have_posts() ) :
 						the_post_thumbnail( 'full' );
 				}
 
+        echo '<header class="entry-header">';
         echo '<h1><a href="'.get_the_permalink().'">'.get_the_title().'</a></h1>';
-
-
+        echo '</header>';
+        echo '<div class="entry-content">';
         echo apply_filters('the_content', get_the_content());
+        echo '</div>';
 
         if( is_single() && ( comments_open() || get_comments_number() ) ){
             comments_template( '/html/comments.php' );
         }
 
     }else{
-        if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
-            the_post_thumbnail( 'thumb' );
-        }
-        echo '<h3><a href="'.get_the_permalink().'">'.get_the_title().'</a></h3>';
-        echo apply_filters('the_excerpt', get_the_excerpt()); // the_excerpt_length( 32 );
 
+      if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
+          the_post_thumbnail( 'thumb' );
+      }
+
+      echo '<header class="entry-header">';
+      echo '<h3><a href="'.get_the_permalink().'">'.get_the_title().'</a></h3>';
+      echo '</header>';
+      echo '<div class="entry-excerpt">';
+      echo apply_filters('the_excerpt', get_the_excerpt()); // the_excerpt_length( 32 );
+      echo '</div>';
     }
 
     echo '</div></div>';
