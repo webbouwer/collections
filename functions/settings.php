@@ -2,6 +2,7 @@
 /* CollectionsSettings */
 
 // source https://stackoverflow.com/questions/45735437/how-to-save-a-select-option-dropdown-in-a-wordpress-plugin
+// maybe should just use http://wpsettingsapi.jeroensormani.com/ for settings page?
 class CollectionsSettings {
 
     private $dropdown_option_setting_options;
