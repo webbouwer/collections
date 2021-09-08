@@ -31,7 +31,8 @@ class CollectionsAjaxGrid{
 
     // when time to add scripts check taxonomy
     $term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
-    if ( get_query_var( 'taxonomy' ) == 'collection' ) {
+
+    //if ( get_query_var( 'taxonomy' ) == 'collection' ) {
 
       wp_enqueue_script( 'ajax-script', plugins_url( '../js/collection_ajax.js', __FILE__ ), array( 'jquery' ), null, true );
       wp_localize_script( 'ajax-script', 'ajax_data', array(
@@ -41,7 +42,7 @@ class CollectionsAjaxGrid{
   		wp_enqueue_script( 'isotope-package', plugins_url( '../lib/javascript/isotope.pkgd.min.js', __FILE__ ), false );
   		wp_enqueue_style( 'collection-page-style', plugins_url( '../css/collection_ajax.css', __FILE__ ) );
 
-    }
+    //}
   }
 
   public function getImageOrient( $media_id ){
@@ -107,6 +108,8 @@ class CollectionsAjaxGrid{
       while($collection_posts->have_posts()) : $collection_posts->the_post();
 
         $ID = get_the_ID();
+				$post = get_post($ID);
+				$slug = $post->post_name;
   			$media = get_attached_media( '', $ID );
   		  $type_classes = array();
   			$type_count = array();
@@ -131,7 +134,7 @@ class CollectionsAjaxGrid{
         $classes = implode(" ", $type_classes);
         $thumb_orientation = $this->getImageOrient( get_post_thumbnail_id($ID) );
 
-  			$html = '<div class="post-artifact post '.$thumb_orientation.' '.$classes.'" data-id="'.$ID .'"><div class="innerpadding">';
+  			$html = '<div id="post-'.$ID.'" class="post-artifact post '.$thumb_orientation.' '.$classes.'" data-id="'.$ID .'" data-slug="'.$slug.'"><div class="innerpadding">';
 
   			if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
   			     $html .= '<div class="artifact-image"><img src="'.get_the_post_thumbnail_url().'" class="attachment-normal size-normal wp-post-image" alt="" loading="lazy" /></div>';

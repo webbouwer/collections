@@ -2,6 +2,8 @@
 /* CollectionsSettings */
 
 // source https://stackoverflow.com/questions/45735437/how-to-save-a-select-option-dropdown-in-a-wordpress-plugin
+
+
 class CollectionsSettings {
 
     private $dropdown_option_setting_options;
@@ -22,12 +24,13 @@ class CollectionsSettings {
     }
 
     public function dropdown_option_setting_create_admin_page() {
+
         $this->dropdown_option_setting_options = get_option( 'dropdown_option_setting_option_name' ); ?>
 
         <div class="wrap">
             <h2>Collections Settings</h2>
             <p>Some basic collection options</p>
-            <?php settings_errors(); ?>
+            <?php //settings_errors(); ?>
 
             <form method="post" action="options.php">
                 <?php
@@ -36,6 +39,7 @@ class CollectionsSettings {
                     submit_button();
                 ?>
             </form>
+
         </div>
     <?php }
 
@@ -85,6 +89,165 @@ class CollectionsSettings {
     }
 
 }
+
+
+/*
+class CollectionsSettings {
+
+    private $dropdown_option_setting_options;
+
+    public function __construct() {
+      add_action( 'admin_menu', array( $this, 'collections_add_admin_menu') );
+      add_action( 'admin_init', array( $this, 'collections_settings_init') );
+    }
+
+
+
+  public function collections_add_admin_menu(  ) {
+
+  	add_options_page( 'Collections', 'Collections', 'manage_options', 'collections', 'collections_options_page' );
+
+  }
+
+
+  public function collections_settings_init(  ) {
+
+  	register_setting( 'pluginPage', 'collections_settings' );
+
+  	add_settings_section(
+  		'collections_pluginPage_section',
+  		__( 'Your section description', 'collections' ),
+  		'collections_settings_section_callback',
+  		'pluginPage'
+  	);
+
+  	add_settings_field(
+  		'collections_text_field_0',
+  		__( 'Settings field description', 'collections' ),
+  		'collections_text_field_0_render',
+  		'pluginPage',
+  		'collections_pluginPage_section'
+  	);
+
+  	add_settings_field(
+  		'collections_radio_field_1',
+  		__( 'Settings field description', 'collections' ),
+  		'collections_radio_field_1_render',
+  		'pluginPage',
+  		'collections_pluginPage_section'
+  	);
+
+  	add_settings_field(
+  		'collections_checkbox_field_2',
+  		__( 'Settings field description', 'collections' ),
+  		'collections_checkbox_field_2_render',
+  		'pluginPage',
+  		'collections_pluginPage_section'
+  	);
+
+  	add_settings_field(
+  		'collections_select_field_3',
+  		__( 'Settings field description', 'collections' ),
+  		'collections_select_field_3_render',
+  		'pluginPage',
+  		'collections_pluginPage_section'
+  	);
+
+  	add_settings_field(
+  		'collections_textarea_field_4',
+  		__( 'Settings field description', 'collections' ),
+  		'collections_textarea_field_4_render',
+  		'pluginPage',
+  		'collections_pluginPage_section'
+  	);
+
+
+  }
+
+
+  public function collections_text_field_0_render(  ) {
+
+  	$options = get_option( 'collections_settings' );
+  	?>
+  	<input type='text' name='collections_settings[collections_text_field_0]' value='<?php echo $options['collections_text_field_0']; ?>'>
+  	<?php
+
+  }
+
+
+  public function collections_radio_field_1_render(  ) {
+
+  	$options = get_option( 'collections_settings' );
+  	?>
+  	<input type='radio' name='collections_settings[collections_radio_field_1]' <?php checked( $options['collections_radio_field_1'], 1 ); ?> value='1'>
+  	<?php
+
+  }
+
+
+  public function collections_checkbox_field_2_render(  ) {
+
+  	$options = get_option( 'collections_settings' );
+  	?>
+  	<input type='checkbox' name='collections_settings[collections_checkbox_field_2]' <?php checked( $options['collections_checkbox_field_2'], 1 ); ?> value='1'>
+  	<?php
+
+  }
+
+
+  public function collections_select_field_3_render(  ) {
+
+  	$options = get_option( 'collections_settings' );
+
+  	?>
+  	<select name='collections_settings[collections_select_field_3]'>
+  		<option value='basic' <?php selected( $options['collections_select_field_3'], 1 ); ?>>Basic list</option>
+  		<option value='grid' <?php selected( $options['collections_select_field_3'], 2 ); ?>>Ajax grid</option>
+  	</select>
+  <?php
+
+  }
+
+
+  public function collections_textarea_field_4_render(  ) {
+
+  	$options = get_option( 'collections_settings' );
+  	?>
+  	<textarea cols='40' rows='5' name='collections_settings[collections_textarea_field_4]'>
+  		<?php echo $options['collections_textarea_field_4']; ?>
+   	</textarea>
+  	<?php
+
+  }
+
+
+  public function collections_settings_section_callback(  ) {
+
+  	echo __( 'This section description', 'collections' );
+
+  }
+
+
+  public function collections_options_page(  ) {
+
+  		?>
+  		<form action='options.php' method='post'>
+
+  			<h2>Collections</h2>
+
+  			<?php
+  			settings_fields( 'pluginPage' );
+  			do_settings_sections( 'pluginPage' );
+  			submit_button();
+  			?>
+
+  		</form>
+  		<?php
+
+  }
+
+}
+*/
 
 /*
 // source https://codex.wordpress.org/Creating_Options_Pages

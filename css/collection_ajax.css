@@ -1,4 +1,11 @@
 /**/
+
+#main
+{
+  position:relative;
+}
+
+
 #loopcontainer
 {
   display: block;
@@ -11,7 +18,7 @@
 
     /* max-width:403px; */
 
-    width: calc(28.57% - 30px); /* col 5 3x : 60%; */
+    width: calc(40% - 30px); /* col 5 3x : 60%; */
     margin:15px;
     /*
     -webkit-transition: all 0.2s ease-in-out;
@@ -29,24 +36,28 @@
 {
   /* max-width:1096px; */
   /*width: calc(71.42% - 30px);/* col 5 4x : 80%; */
-  width: calc(75% - 30px);
+  width: calc(70% - 30px);
+  min-width:580px;
 }
 #loopcontainer.grid-view .post-artifact.landscape
 {
   /* max-width:403px; */
-  width: calc(50% - 30px); /* col 5 3x : 60%; */
+  width: calc(40% - 30px); /* col 5 3x : 60%; */
+  min-width:460px;
 
 }
 #loopcontainer.grid-view .post-artifact.portrait
 {
   /* max-width:268px; */
-  width: calc(25% - 30px); /* col 5 1x : 20%; */
+  width: calc(30% - 30px); /* col 5 1x : 20%; */
+  min-width:240px;
 
 }
 #loopcontainer.grid-view .post-artifact.square
 {
   /* max-width:268px; */
-  width: calc(25% - 30px); /* col 5 2x : 40%; */
+  width: calc(30% - 30px); /* col 5 2x : 40%; */
+  min-width:240px;
 
 }
 
@@ -54,6 +65,14 @@
 {
   position:relative;
   padding:0;
+}
+
+#loopcontainer.grid-view .post-artifact img.wp-post-image
+{
+  display: block;
+  width:100%;
+  height:auto;
+  border:none;
 }
 
 #loopcontainer.grid-view .post-artifact .overlay
@@ -86,4 +105,16 @@
 #loopcontainer.grid-view .post-artifact:hover .overlay,
 #loopcontainer.grid-view .post-artifact.hovered .overlay {
   opacity: 1;
+}
+
+.closeoverlay,
+.closeinfobox
+{
+  position:absolute;
+  right:0px;
+  top:0px;
+  height:64px;
+  width:64px;
+  z-index:999;
+  background-color:blue;
 }
