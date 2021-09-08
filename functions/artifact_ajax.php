@@ -67,9 +67,8 @@ class ArtifactAjaxView{
 					 );
 				 }
 				 //$json['postmedia'] = json_encode( $media );
-
-
 				 wp_send_json_success( $json );
+
 			}
 	}
 

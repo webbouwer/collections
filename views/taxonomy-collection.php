@@ -40,7 +40,7 @@ echo '<div id="loopcontainer" class="grid-view isotope" data-posttype="'.$postty
 
   $allfilterclasses = '';
 
-  echo '<div id="typemenu"><div class="innerpadding"><ul>';
+  echo '<div id="typemenu"><div class="innerpadding"><ul class="collection-types">';
 
     foreach ( $type_names as $slug => $type ) :
 

@@ -1,23 +1,25 @@
 /**/
 
-#main
+#typemenu ul.collection-types li.available
 {
-  position:relative;
+  background-color:green;
+}
+#typemenu ul.artifact-types li.available{
+  background-color:blue;
 }
 
-
+#main,
 #loopcontainer
 {
   display: block;
   position: relative;
+  width:100%;
 }
 
 
 
 #loopcontainer.grid-view .post-artifact {
-
     /* max-width:403px; */
-
     width: calc(40% - 30px); /* col 5 3x : 60%; */
     margin:15px;
     /*
@@ -27,7 +29,6 @@
    -ms-transition: all 0.2s ease-in-out;
    transition: all 0.2s ease-in-out;
    */
-
 }
 
 /* overview page - TODO check width for small screens .. */
@@ -105,6 +106,36 @@
 #loopcontainer.grid-view .post-artifact:hover .overlay,
 #loopcontainer.grid-view .post-artifact.hovered .overlay {
   opacity: 1;
+}
+
+.mediabox
+{
+  display:flex;
+  justify-content: center;
+  min-height:360px;
+}
+
+.mediabox .cover
+{
+  position:relative;
+  display:block;
+}
+.mediabox .cover img
+{
+  max-width:100%;
+  height:auto;
+}
+.mediabox.display .cover
+{
+  position:absolute;
+  left:15px;
+  width:15%;
+  height:auto;
+}
+
+.artifact-media .mediacontainer
+{
+  display:none;
 }
 
 .closeoverlay,
