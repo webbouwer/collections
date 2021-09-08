@@ -15,6 +15,7 @@ $viewtype =  $display_option['dropdown_option_0']; // Option value
 get_header(); // theme default header
 
 
+
 if( $viewtype == 'grid'){
 
 

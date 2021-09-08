@@ -23,8 +23,6 @@ $term = get_term_by( 'slug', $slug, $taxname );
 get_header(); // theme default header
 
 
-
-
 echo '<div id="loopcontainer" class="grid-view isotope" data-posttype="'.$posttype.'"  data-taxname="'.$taxname.'" data-term="'.$slug.'" data-ppp="'.$ppp.'">';
 
 
