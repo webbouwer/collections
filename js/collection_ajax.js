@@ -11,6 +11,11 @@ jQuery(function($) {
     filters = '.' + defaultselect,
     filterlist = Array(filters);
 
+    // prepare item selection
+    var selected_id = '',
+    selected_slug = '',
+    selected_mediatype = defaultselect;
+
   container.isotope({
     itemSelector: '.post-artifact',
     animationEngine: 'best-available',
@@ -138,7 +143,7 @@ jQuery(function($) {
 
 
 
-  function activeOverlay(content) {
+  function activeOverlay(content,type = false) {
 
     if ($('#infoboxcontainer').length > 0) {
       $('#infoboxcontainer').fadeOut(100, function() {
@@ -146,19 +151,32 @@ jQuery(function($) {
       });
     }
     if ($('#overlaycontainer').length < 1) {
-      $('<div id="overlaycontainer"><div class="closeoverlay"></div><div class="outermargin"></div></div>').hide().appendTo($('#loopcontainer').parent());
+      $('<div id="overlaycontainer"></div>').hide().appendTo($('#loopcontainer').parent());
+      $('<div class="closeoverlay"></div><div class="outermargin"></div>').appendTo($('#overlaycontainer'));
     }
     $('#overlaycontainer .outermargin').html(content);
 
-    $('#overlaycontainer').fadeIn(200);
+
     $('#loopcontainer').fadeOut(200);
 
     $('#typemenu ul').removeClass("collection-types").addClass("artifact-types");
-    setTypeMenu();
+
+
+    $('#overlaycontainer').fadeIn(200, function() {
+      if(type){
+        // active filter type
+        setTypeMenu();
+        $('body').find('#typemenu ul.artifact-types li.but-'+type).trigger('click');
+      }
+    });
 
   }
 
   function closeOverlay() {
+
+    selected_id = '';
+    selected_slug = '';
+    selected_mediatype = defaultselect;
 
     $('#overlaycontainer').removeClass('intro');
     $('#overlaycontainer').fadeOut(200, function() {
@@ -177,6 +195,98 @@ jQuery(function($) {
 
     $('#loopcontainer').fadeIn(200, function() {
       setTimeout(doneResizing, 20); // // reposition items (if window resized)
+    });
+
+
+  }
+
+  function getArtifact(){
+
+    var data = {
+      action: 'artifact_view',
+      id: selected_id
+    };
+
+    $.getJSON(ajax_data.ajaxurl, data, function(json) {
+      if (json.success) {
+
+        var p = json.data.postdata;
+        var html = '<div class="popcontainer ' + p.slug + '">' +
+          '<div class="mediabox">'+
+          '<div class="cover '+ p.orientation +'"><img src="'+ p.image +'" class="wp-post-image" alt="" /></div>'+
+          '</div>' +
+          '<div class="contentbox"><div class="innerpadding"><div class="infotext">' +
+          '<div class="title"><h1>' + p.title + '<h1></div>' +
+          '<div class="text">' + p.excerpt + '</div>' +
+          '</div>';
+
+        var bundle = json.data.postmedia;
+
+        var artifactmedia = '';
+
+        $('#typemenu ul li:not(#menubutton)').each(function(c, el) {
+
+          var countmedia = 0;
+          var mediabox = '';
+
+          var option = '<div class="column">';
+          option += '<div class="media-icon but-' + $(el).data('type') + '" data-type="' + $(el).data('type') + '" >';
+          option += '<span>' + $(el).find('span').text();
+
+          mediabox += '<div class="mediacontainer '+$(el).data('type')+'">';
+
+          $.each(bundle, function(i, media) {
+            if (media.type_slug === $(el).data('type')) {
+              countmedia++;
+              var file = media.src;
+              var extension = file.substr( (file.lastIndexOf('.') +1) );
+
+              mediabox += '<div class="'+media.type_name+'">';
+              switch(extension) {
+                case 'jpg':
+                case 'png':
+                case 'gif':
+                  mediabox += '<img src="'+media.src+'" width="600" height="auto" />';
+                  break;
+                case 'mp4':
+                case 'mp3':
+                  mediabox += '<video src="'+media.src+'" width="600" height="350" controls></video>';
+                  break;
+                case 'pdf':
+                case 'doc':
+                case 'docx':
+                  //mediabox += '<iframe src="'+media.src+'" width="600" height="350"></iframe>';
+                  mediabox += '<a class="media-link" href="'+media.src+'">'+media.title+'</a>';
+                  break;
+                default:
+                  mediabox += '<a class="media-link" href="'+media.src+'">'+media.title+'</a>';
+              }
+              mediabox += '</div>';
+              // title,excerpt,src,type_parent,type_slug,type_name
+            }
+          });
+
+          option += '(' + countmedia + ')';
+          option += '</span></div></div>';
+
+          mediabox += '</div>';
+
+          if (countmedia > 0) { // also active in type menu
+            artifactmedia += mediabox;
+            html += option;
+          }
+
+        });
+        html += '</div></div><div class="artifact-media">'+artifactmedia+'</div>';
+
+        activeOverlay(html,selected_mediatype);
+
+        // alert( JSON.stringify(bundle) );
+
+      } else {
+        // error
+      }
+
     });
 
 
@@ -216,6 +326,10 @@ jQuery(function($) {
     setColumnWidth();
     //}
   }
+
+
+
+
 
 
 
@@ -289,9 +403,11 @@ jQuery(function($) {
   $(document).on('click', '.post-artifact .overlay, .entry-title a,.item-icons ul li', function(event) {
 
     event.preventDefault();
-    var pid = $(this).parent().closest('.post-artifact').data('id');
-    var mtype = 'foto';
 
+    selected_id = $(this).parent().closest('.post-artifact').data('id');
+    selected_slug = $(this).parent().closest('.post-artifact').data('slug');
+
+    selected_mediatype = 'foto';
     if ( $(this).data('type') ) { //  $(this).hasClass('icon-button')
       var type = $(this).data('type');
       filters = '.'+ type;
@@ -300,99 +416,10 @@ jQuery(function($) {
       $('#typemenu ul li').removeClass('selected');
       $('#typemenu ul li'+butname).addClass('selected');
     }
-    mtype = filters.replace('.', "");
+    selected_mediatype = filters.replace('.', "");
 
-
-    var data = {
-      action: 'artifact_view',
-      id: pid
-    };
-
-    $.getJSON(ajax_data.ajaxurl, data, function(json) {
-      if (json.success) {
-        var p = json.data.postdata;
-
-        window.location.hash = p.slug;
-
-        var html = '<div class="popcontainer ' + p.slug + '">' +
-          '<div class="mediabox">'+
-          '<div class="cover '+ p.orientation +'"><img src="'+ p.image +'" class="wp-post-image" alt="" /></div>'+
-          '</div>' +
-          '<div class="contentbox"><div class="innerpadding"><div class="infotext">' +
-          '<div class="title"><h1>' + p.title + '<h1></div>' +
-          '<div class="text">' + p.excerpt + '</div>' +
-          '</div>';
-
-        var bundle = json.data.postmedia;
-
-        var artifactmedia = '';
-
-        $('#typemenu ul li:not(#menubutton)').each(function(c, el) {
-
-          var countmedia = 0;
-          var mediabox = '';
-
-          var option = '<div class="column">';
-          option += '<div class="media-icon but-' + $(el).data('type') + '" data-type="' + $(el).data('type') + '" >';
-          option += '<span>' + $(el).find('span').text();
-
-          mediabox += '<div class="mediacontainer '+$(el).data('type')+'">';
-
-          $.each(bundle, function(i, media) {
-            if (media.type_slug === $(el).data('type')) {
-              countmedia++;
-              var file = media.src;
-              var extension = file.substr( (file.lastIndexOf('.') +1) );
-
-              mediabox += '<div class="'+media.type_name+'">';
-              switch(extension) {
-                case 'jpg':
-                case 'png':
-                case 'gif':
-                  mediabox += '<img src="'+media.src+'" width="600" height="auto" />';
-                  break;
-                case 'mp4':
-                case 'mp3':
-                  mediabox += '<video src="'+media.src+'" width="600" height="350" controls></video>';
-                  break;
-                case 'pdf':
-                case 'doc':
-              	case 'docx':
-                  //mediabox += '<iframe src="'+media.src+'" width="600" height="350"></iframe>';
-                  mediabox += '<a class="media-link" href="'+media.src+'">'+media.title+'</a>';
-                  break;
-                default:
-                  mediabox += '<a class="media-link" href="'+media.src+'">'+media.title+'</a>';
-              }
-              mediabox += '</div>';
-              // title,excerpt,src,type_parent,type_slug,type_name
-            }
-          });
-
-          option += '(' + countmedia + ')';
-          option += '</span></div></div>';
-
-          mediabox += '</div>';
-
-          if (countmedia > 0) { // also active in type menu
-            artifactmedia += mediabox;
-            html += option;
-          }
-
-        });
-        html += '</div></div><div class="artifact-media">'+artifactmedia+'</div>';
-
-        activeOverlay(html);
-
-        // active filter type
-        $('body').find('#typemenu ul li.but-'+mtype).trigger('click');
-        // alert( JSON.stringify(bundle) );
-
-      } else {
-        // error
-      }
-
-    });
+    window.location.hash = selected_slug;
+    //activeOverlay( ''+selected_id+' - '+selected_slug+'..');
 
   });
 
@@ -412,7 +439,7 @@ jQuery(function($) {
 
     var hash = window.location.hash.replace('#', '');
 
-    if (location.hash == '') {
+    if (hash == '') {
       // check popups to close
       if ($('#overlaycontainer').length) {
         closeOverlay();
@@ -423,6 +450,10 @@ jQuery(function($) {
 
     } else {
       console.log(hash);
+      if($("#loopcontainer").find("div[data-slug='" + hash + "']").length && selected_id == '' ) {
+        selected_id = $("#loopcontainer").find("div[data-slug='" + hash + "']").data('id');
+      }
+
       // check specific popups to close
       if ($('#overlaycontainer').length && $('#' + hash).length < 1) {
         closeOverlay();
@@ -430,9 +461,12 @@ jQuery(function($) {
       if ($('#infoboxcontainer').length && $('#' + hash).length < 1) {
         closeInfobox();
       }
-      if ($("#loopcontainer").find("div[data-slug='" + hash + "']").length) {
-        $("#loopcontainer").find("div[data-slug='" + hash + "'] .overlay").trigger('click');
-      }
+
+      getArtifact();
+      /*if ($("#loopcontainer").find("div[data-slug='" + hash + "']").length) {
+        //$("#loopcontainer").find("div[data-slug='" + hash + "'] .overlay").trigger('click');
+
+      }*/
 
     }
 
