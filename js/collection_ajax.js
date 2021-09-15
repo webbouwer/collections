@@ -159,12 +159,20 @@ jQuery(function($) {
   }
 
   function closeOverlay() {
+
     $('#overlaycontainer').removeClass('intro');
     $('#overlaycontainer').fadeOut(200, function() {
       $(this).remove();
     });
 
     $('#typemenu ul').removeClass("artifact-types").addClass("collection-types");
+    var butclass = filters;
+    var type = butclass.replace(".","");
+    var butname = '.but-' + type;
+
+    $('#typemenu ul li').removeClass('selected');
+    $('#typemenu ul li'+butname).addClass('selected');
+
     setTypeMenu();
 
     $('#loopcontainer').fadeIn(200, function() {
@@ -219,6 +227,12 @@ jQuery(function($) {
     var butclass = '.' + type;
     var butname = '.but-' + type;
 
+    $('#typemenu ul li').removeClass('selected');
+    $('#typemenu ul li'+butname).addClass('selected');
+
+    filters = butclass;
+
+    /* and / or selection
     if ($(this).data('type') != 'foto' && $.inArray(butclass, filterlist) < 0) { // remove default foto
       if ($.inArray('.foto', filterlist) >= 0) {
         filterlist.splice($.inArray('.foto', filterlist), 1);
@@ -233,7 +247,6 @@ jQuery(function($) {
       filterlist.push(butclass);
       $(this).addClass('selected');
     }
-
     if (filterlist.length < 1) {
 
       filters = '.' + defaultselect,
@@ -243,6 +256,7 @@ jQuery(function($) {
     } else {
       filters = filterlist.join(","); // = or/or .. and/and :: filterlist.join(",");
     }
+    */
     setColumnWidth();
 
   });
@@ -256,6 +270,13 @@ jQuery(function($) {
     container.html( $('.artifact-media .mediacontainer.'+ $(this).data('type') ).clone() );
     container.prepend(picturebox);
     container.addClass('display');
+
+    $('#typemenu ul.artifact-types li').removeClass('selected');
+    $('#typemenu ul.artifact-types li.but-'+$(this).data('type')).addClass('selected');
+
+    $('.media-icon').removeClass('selected');
+    $('.media-icon.but-'+$(this).data('type')).addClass('selected');
+
   });
 
 
@@ -271,9 +292,17 @@ jQuery(function($) {
     var pid = $(this).parent().closest('.post-artifact').data('id');
     var mtype = 'foto';
 
-    if ($(this).hasClass('icon-button')) {
-      mtype = $(this).data('type');
+    if ( $(this).data('type') ) { //  $(this).hasClass('icon-button')
+      var type = $(this).data('type');
+      filters = '.'+ type;
+      var butname = '.but-' + type;
+
+      $('#typemenu ul li').removeClass('selected');
+      $('#typemenu ul li'+butname).addClass('selected');
     }
+    mtype = filters.replace('.', "");
+
+
     var data = {
       action: 'artifact_view',
       id: pid
@@ -285,9 +314,12 @@ jQuery(function($) {
 
         window.location.hash = p.slug;
 
-        var html = '<div id="' + p.slug + '" class="popcontainer">' +
-          '<div class="mediabox"><div class="cover '+ p.orientation +'"><img src="'+ p.image +'" class="wp-post-image" alt="" /></div></div>' +
-          '<div class="contentbox"><div class="column">' +
+        var html = '<div class="popcontainer ' + p.slug + '">' +
+          '<div class="mediabox">'+
+          '<div class="cover '+ p.orientation +'"><img src="'+ p.image +'" class="wp-post-image" alt="" /></div>'+
+          '</div>' +
+          '<div class="contentbox"><div class="innerpadding"><div class="infotext">' +
+          '<div class="title"><h1>' + p.title + '<h1></div>' +
           '<div class="text">' + p.excerpt + '</div>' +
           '</div>';
 
@@ -348,9 +380,12 @@ jQuery(function($) {
           }
 
         });
-        html += '</div><div class="artifact-media">'+artifactmedia+'</div>';
+        html += '</div></div><div class="artifact-media">'+artifactmedia+'</div>';
 
         activeOverlay(html);
+
+        // active filter type
+        $('body').find('#typemenu ul li.but-'+mtype).trigger('click');
         // alert( JSON.stringify(bundle) );
 
       } else {
@@ -365,14 +400,11 @@ jQuery(function($) {
 
 
 
-
   $(document).on('click', '.closeoverlay', function(event) {
     event.preventDefault();
-    history.go(-1);
+    history.pushState("", document.title, window.location.pathname);
+    closeOverlay(); //history.go(-1);
   });
-
-
-
 
 
   // hash events

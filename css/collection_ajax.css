@@ -2,10 +2,10 @@
 
 #typemenu ul.collection-types li.available
 {
-  background-color:green;
+  /*background-color:green;*/
 }
 #typemenu ul.artifact-types li.available{
-  background-color:blue;
+  /* background-color:blue; */
 }
 
 #main,
