@@ -24,7 +24,7 @@ function add_artifact_post_type() {
         'label'               => __( 'artifacts', 'treasure' ),
         'description'         => __( 'Artifact info and media', 'treasure' ),
         'labels'              => $labels,
-        'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields','capabilities'),
+        'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', 'page-attributes','capabilities'),
         'taxonomies'          => array( 'collection', 'category', 'post_tag' ),
         'hierarchical'        => false,
         'public'              => true,

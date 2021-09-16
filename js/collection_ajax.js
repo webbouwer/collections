@@ -241,7 +241,7 @@ jQuery(function($) {
               var file = media.src;
               var extension = file.substr( (file.lastIndexOf('.') +1) );
 
-              mediabox += '<div class="'+media.type_name+'">';
+              mediabox += '<div class="mediaholder '+media.type_name+'">';
               switch(extension) {
                 case 'jpg':
                 case 'png':
@@ -253,6 +253,13 @@ jQuery(function($) {
                   mediabox += '<video src="'+media.src+'" width="600" height="350" controls></video>';
                   break;
                 case 'pdf':
+                  mediabox += '<iframe src="'+media.src+'#toolbar=0" width="100%" height="500px">';
+
+                  /*'<object width="100%" height="auto;" data="'+media.src+'" type="application/pdf">'+
+                  '<embed src="'+media.src+'" type="application/pdf" />'+ */
+                  '<p>It appears you do not have a PDF plugin for this browser.<a href="'+media.src+'">click here to download the PDF file.</a></p>'+
+                  '</iframe>';//'</object>';
+                  break;
                 case 'doc':
                 case 'docx':
                   //mediabox += '<iframe src="'+media.src+'" width="600" height="350"></iframe>';

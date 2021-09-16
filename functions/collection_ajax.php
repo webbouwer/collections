@@ -85,7 +85,7 @@ class CollectionsAjaxGrid{
   	   'post_type'       => $posttype,
   		 'status'          => 'published',
        'posts_per_page'  => $amount,
-       'orderby'         => 'post_date', // slug
+       'orderby'         => 'menu_order', // date // slug
   		 'order'           => 'ASC',
   		 'paged'           => $paged,
   		 'tax_query' => array(
