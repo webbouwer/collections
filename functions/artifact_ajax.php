@@ -18,27 +18,35 @@ class ArtifactAjaxView{
 
 	}
 
+
+
 	public function artifact_view_callback() {
+
+
+
 			$json = array();
 
 			if ( isset( $_REQUEST['id'] ) ) {
 				 $id = $_REQUEST['id'];
 				 $post = get_post( $id );
 				 //$json['postdata'] = $post;
-				 $image_orientation = 'portrait';
-				 $image = wp_get_attachment_image_src( get_post_thumbnail_id($id), '');
-				 $image_w = $image[1];
-				 $image_h = $image[2];
 
-				 if ($image_w > (2.3 * $image_h) ) {
-					 $image_orientation = 'panorama';
-				 }else if ($image_w > $image_h) {
-					 $image_orientation = 'landscape';
-				 }else if ($image_w == $image_h) {
-					 $image_orientation = 'square';
-				 }else {
-					 $image_orientation = 'portrait';
-				 }
+				 $image = wp_get_attachment_image_src( get_post_thumbnail_id($id), '');
+
+				 $image_orientation = 'portrait';
+
+		 			$image_w = $image[1];
+		 			$image_h = $image[2];
+
+		 			if ($image_w > (2.3 * $image_h) ) {
+		 				$image_orientation = 'panorama';
+		 			}else if ($image_w > $image_h) {
+		 				$image_orientation = 'landscape';
+		 			}else if ($image_w == $image_h) {
+		 				$image_orientation = 'square';
+		 			}else {
+		 				$image_orientation = 'portrait';
+		 			}
 
 				 $json['postdata'] = array(
 					 'title'=>$post->post_title,
@@ -55,7 +63,9 @@ class ArtifactAjaxView{
 				 // list in array per type
 				 $json['postmedia'] = array();
 				 $media = get_attached_media( '', $id );
+
 				 foreach($media as $element) {
+
 					 $terms = wp_get_post_terms( $element->ID, array( 'types' ) );
 					 $json['postmedia'][$element->ID] = array(
 						 'title'=>$element->post_title,

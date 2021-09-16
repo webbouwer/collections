@@ -149,3 +149,10 @@
   z-index:999;
   background-color:blue;
 }
+
+/* sliderbox */
+.mediabox .slider div.mediaholder
+{
+  position:absolute !important;
+  display:none;
+}

@@ -200,23 +200,93 @@ jQuery(function($) {
 
   }
 
+  function setMediaboxSlider(){
+
+    if( $('.mediabox .mediacontainer').length > 0 ){
+
+      var slidebox = $('.mediabox .mediacontainer');
+       if( slidebox.children().length > 1){
+          // set slider box ..
+          // http://jsbin.com/nalewayume/1/edit?html,js,console,output
+        slidebox.addClass('slider');
+        slidebox.children().css({ "position":"relative","display":"none" });
+        $('#nextmedia,#prevmedia').show();
+
+        var $slider = slidebox,
+        $prev = $('#prevmedia'),
+        $next = $('#nextmedia'),
+        $slide = $slider.find('div');
+
+        var currentSlide = 0,
+            allSlides = $slider.find('div').length - 1; // index start from 0
+
+
+        $slider.find('div').eq(0).show();
+
+        function nextSlide() {
+
+          if(currentSlide < allSlides) {
+
+              $slide.eq(currentSlide).fadeOut(200);
+              $slide.eq(currentSlide + 1).fadeIn(200);
+
+              currentSlide+=1;
+          }
+
+        }
+
+        function prevSlide() {
+
+          if(currentSlide > 0) {
+
+              $slide.eq(currentSlide).fadeOut(200);
+              $slide.eq(currentSlide - 1).fadeIn(200);
+
+              currentSlide-=1;
+          }
+        }
+
+        $next.on('click', nextSlide);
+        $prev.on('click', prevSlide);
+
+
+       }else{
+         $('#nextmedia,#prevmedia').hide();
+       }
+
+
+    }
+
+  }
+
   function getArtifact(){
 
     var data = {
+      nonce: ajax.nonce,
       action: 'artifact_view',
+      dataType: 'json', // Choosing a JSON datatype
       id: selected_id
     };
 
-    $.getJSON(ajax_data.ajaxurl, data, function(json) {
-      if (json.success) {
+    //jQuery.getJSON(ajax_data.ajaxurl, data, function(json) {
+
+    jQuery.ajax({
+      type: "GET",
+      url: ajax.url,
+      data: data,
+      success: function(json) {
+
+      //if (json.success) {
 
         var p = json.data.postdata;
         var html = '<div class="popcontainer ' + p.slug + '">' +
+        '<button id="prevmedia">Prev</button><button id="nextmedia">Next</button>'+
           '<div class="mediabox">'+
           '<div class="cover '+ p.orientation +'"><img src="'+ p.image +'" class="wp-post-image" alt="" /></div>'+
           '</div>' +
-          '<div class="contentbox"><div class="innerpadding"><div class="infotext">' +
-          '<div class="title"><h1>' + p.title + '<h1></div>' +
+          '<div class="contentbox"><div class="title"><h1>' + p.title + '<h1></div>' +
+          '<div class="innerpadding">' +
+          '<div class="infotext">'+
           '<div class="text">' + p.excerpt + '</div>' +
           '</div>';
 
@@ -253,10 +323,7 @@ jQuery(function($) {
                   mediabox += '<video src="'+media.src+'" width="600" height="350" controls></video>';
                   break;
                 case 'pdf':
-                  mediabox += '<iframe src="'+media.src+'#toolbar=0" width="100%" height="500px">';
-
-                  /*'<object width="100%" height="auto;" data="'+media.src+'" type="application/pdf">'+
-                  '<embed src="'+media.src+'" type="application/pdf" />'+ */
+                  mediabox += '<iframe src="'+media.src+'#toolbar=0" width="100%" height="500px">'+
                   '<p>It appears you do not have a PDF plugin for this browser.<a href="'+media.src+'">click here to download the PDF file.</a></p>'+
                   '</iframe>';//'</object>';
                   break;
@@ -287,14 +354,21 @@ jQuery(function($) {
         html += '</div></div><div class="artifact-media">'+artifactmedia+'</div>';
 
         activeOverlay(html,selected_mediatype);
-
         // alert( JSON.stringify(bundle) );
 
-      } else {
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        //Error
+      },
+      timeout: 60000
+
+      //} else {
         // error
-      }
+      //}
+
 
     });
+    return false;
 
 
   }
@@ -392,6 +466,8 @@ jQuery(function($) {
     container.prepend(picturebox);
     container.addClass('display');
 
+    setMediaboxSlider();
+
     $('#typemenu ul.artifact-types li').removeClass('selected');
     $('#typemenu ul.artifact-types li.but-'+$(this).data('type')).addClass('selected');
 
@@ -444,7 +520,9 @@ jQuery(function($) {
   // hash events
   $(window).bind('hashchange', function(e) {
 
-    var hash = window.location.hash.replace('#', '');
+
+    var pagehash = window.location.hash;
+    var hash = pagehash.replace('#', '');
 
     if (hash == '') {
       // check popups to close
@@ -456,11 +534,8 @@ jQuery(function($) {
       }
 
     } else {
-      console.log(hash);
-      if($("#loopcontainer").find("div[data-slug='" + hash + "']").length && selected_id == '' ) {
-        selected_id = $("#loopcontainer").find("div[data-slug='" + hash + "']").data('id');
-      }
 
+      console.log(hash);
       // check specific popups to close
       if ($('#overlaycontainer').length && $('#' + hash).length < 1) {
         closeOverlay();
@@ -469,13 +544,15 @@ jQuery(function($) {
         closeInfobox();
       }
 
-      getArtifact();
-      /*if ($("#loopcontainer").find("div[data-slug='" + hash + "']").length) {
-        //$("#loopcontainer").find("div[data-slug='" + hash + "'] .overlay").trigger('click');
-
-      }*/
+      if($("#loopcontainer").find("div[data-slug='" + hash + "']").length && selected_id == '' ) {
+        selected_id = $("#loopcontainer").find("div[data-slug='" + hash + "']").data('id');
+      }
+      if( selected_id != '' ){
+        getArtifact();
+      }
 
     }
+
 
   });
 
