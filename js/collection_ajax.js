@@ -224,31 +224,31 @@ jQuery(function($) {
         $slider.find('div').eq(0).show();
 
         function nextSlide() {
-
           if(currentSlide < allSlides) {
-
               $slide.eq(currentSlide).fadeOut(200);
               $slide.eq(currentSlide + 1).fadeIn(200);
-
               currentSlide+=1;
+          }else{
+            $slide.eq(currentSlide).fadeOut(200);
+            $slide.eq(0).fadeIn(200);
+            currentSlide=0;
           }
-
         }
 
         function prevSlide() {
-
           if(currentSlide > 0) {
-
               $slide.eq(currentSlide).fadeOut(200);
               $slide.eq(currentSlide - 1).fadeIn(200);
-
               currentSlide-=1;
+          }else{
+            $slide.eq(currentSlide).fadeOut(200);
+            $slide.eq(allSlides).fadeIn(200);
+            currentSlide=allSlides;
           }
         }
 
         $next.on('click', nextSlide);
         $prev.on('click', prevSlide);
-
 
        }else{
          $('#nextmedia,#prevmedia').hide();
@@ -280,7 +280,7 @@ jQuery(function($) {
 
         var p = json.data.postdata;
         var html = '<div class="popcontainer ' + p.slug + '">' +
-        '<button id="prevmedia">Prev</button><button id="nextmedia">Next</button>'+
+        '<div id="prevmedia"><span>Prev</span></div><div id="nextmedia"><span>Next</span></div>'+
           '<div class="mediabox">'+
           '<div class="cover '+ p.orientation +'"><img src="'+ p.image +'" class="wp-post-image" alt="" /></div>'+
           '</div>' +
@@ -323,7 +323,7 @@ jQuery(function($) {
                   mediabox += '<video src="'+media.src+'" width="600" height="350" controls></video>';
                   break;
                 case 'pdf':
-                  mediabox += '<iframe src="'+media.src+'#toolbar=0" width="100%" height="500px">'+
+                  mediabox += '<iframe src="'+media.src+'#toolbar=0" width="100%" height="640px">'+
                   '<p>It appears you do not have a PDF plugin for this browser.<a href="'+media.src+'">click here to download the PDF file.</a></p>'+
                   '</iframe>';//'</object>';
                   break;
@@ -506,14 +506,21 @@ jQuery(function($) {
 
   });
 
-
-
-
-
   $(document).on('click', '.closeoverlay', function(event) {
     event.preventDefault();
     history.pushState("", document.title, window.location.pathname);
     closeOverlay(); //history.go(-1);
+  });
+
+  $(document).on('click', '.popcontainer .contentbox .title', function(event) {
+    var box = $(document).find('.popcontainer .contentbox .innerpadding');
+    if( box.hasClass('closed') ){
+      box.slideDown().removeClass('closed');
+      $(this).removeClass('closed');
+    }else{
+      box.slideUp().addClass('closed');
+      $(this).addClass('closed');
+    }
   });
 
 
