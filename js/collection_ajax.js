@@ -31,7 +31,10 @@ jQuery(function($) {
   let pullpage = 0; // starts onload
   let pullflag = true;
 
+
   function getCollectionData() {
+
+      console.log('more?');
 
     if ($('#loopcontainer.isotope').length) {
 
@@ -42,6 +45,9 @@ jQuery(function($) {
         let tax = $('#loopcontainer').data('taxname');
         let term = $('#loopcontainer').data('term'); // cat or sub cat
         let amount = $('#loopcontainer').data('ppp');
+
+        let orderby = $('#loopcontainer').attr('data-orderby');
+        let order = $('#loopcontainer').attr('data-order');
 
         jQuery.ajax({
           type: "POST",
@@ -54,11 +60,14 @@ jQuery(function($) {
               posttype: type,
               taxname: tax,
               slug: term,
+              orderby: orderby,
+              order: order,
               ppp: amount,
               page: pullpage
             },
           },
           success: function(response) {
+
             var items = [];
             $.each(response, function(key, val) {
               items.push(val.html);
@@ -113,7 +122,7 @@ jQuery(function($) {
           $(this).addClass('notavailable');
         }
       });
-      console.log('set artifact types menu');
+      //console.log('set artifact types menu');
     }
   }
 
@@ -280,7 +289,7 @@ jQuery(function($) {
 
         var p = json.data.postdata;
         var html = '<div class="popcontainer ' + p.slug + '">' +
-        '<div id="prevmedia"><span>Prev</span></div><div id="nextmedia"><span>Next</span></div>'+
+          '<div class="prevnextnav"><div id="prevmedia"><span>Prev</span></div><div id="nextmedia"><span>Next</span></div></div>'+
           '<div class="mediabox">'+
           '<div class="cover '+ p.orientation +'"><img src="'+ p.image +'" class="wp-post-image" alt="" /></div>'+
           '</div>' +
@@ -390,9 +399,29 @@ jQuery(function($) {
   $(document).on('scroll', function() {
     var scrollHeight = $(document).height();
     var scrollPosition = $(window).height() + $(window).scrollTop();
+
+
+
+    //console.log( $(window).scrollTop() );
+
     if ((scrollHeight - scrollPosition) / scrollHeight === 0) {
       getCollectionData();
     }
+
+    if( $(document).find('.popcontainer').length ){
+
+      var box = $(document).find('.popcontainer .contentbox .innerpadding');
+
+      // control minimalizing info elements
+      if( $(window).scrollTop() > 0 && !box.hasClass('closed')){
+          $('body').find('.popcontainer .contentbox .title').trigger('click');
+      }
+      if( $(window).scrollTop() === 0 && box.hasClass('closed')){
+          $('body').find('.popcontainer .contentbox .title').trigger('click');
+      }
+
+    }
+
   });
 
   // on resize
@@ -410,7 +439,45 @@ jQuery(function($) {
 
 
 
+  // girsd / list toggle
+  $(document).on('click touch tap', '#display-toggle a', function(e){
+    e.preventDefault();
+    if($('#loopcontainer.grid-view').length){
+      $('#loopcontainer').removeClass('grid-view');
+      $('#loopcontainer').addClass('list-view');
+      doneResizing();
+    }else{
+      $('#loopcontainer').removeClass('list-view');
+      $('#loopcontainer').addClass('grid-view');
+      doneResizing();
+    }
+  });
 
+  // orderby select
+  $(document).on('click touch tap', '#display-options ul.orderby li', function(e){
+    $('#loopcontainer').attr('data-orderby', $(this).data('orderby') );
+    if( $(this).data('orderby') == 'menu_order' ){
+      $('#loopcontainer').attr('data-order', 'asc' );
+      $('#display-options ul.order li').removeClass('selected');
+      $('#display-options ul.order li.asc').addClass('selected');
+    }
+    $('#display-options ul.orderby li').removeClass('selected');
+    $(this).addClass('selected');
+    pullpage = 0; // starts onload
+    pullflag = true;
+    $('#loopcontainer .post-artifact').remove();
+    getCollectionData();
+  });
+  // order select
+  $(document).on('click touch tap', '#display-options ul.order li', function(e){
+    $('#loopcontainer').attr('data-order', $(this).data('order') );
+    $('#display-options ul.order li').removeClass('selected');
+    $(this).addClass('selected');
+    pullpage = 0; // starts onload
+    pullflag = true;
+    $('#loopcontainer .post-artifact').remove();
+    getCollectionData();
+  });
 
 
 
@@ -542,7 +609,7 @@ jQuery(function($) {
 
     } else {
 
-      console.log(hash);
+      // console.log(hash);
       // check specific popups to close
       if ($('#overlaycontainer').length && $('#' + hash).length < 1) {
         closeOverlay();

@@ -78,6 +78,8 @@ class CollectionsAjaxGrid{
     $posttype  = $_POST['data']['posttype'];
   	$taxname = $_POST['data']['taxname'];
   	$term  = $_POST['data']['slug'];
+  	$orderby  = $_POST['data']['orderby'];
+  	$order = $_POST['data']['order'];
     $amount  = $_POST['data']['ppp'];
     $paged = (isset($paged) || !(empty($paged))) ? $paged : 1;
 
@@ -85,8 +87,9 @@ class CollectionsAjaxGrid{
   	   'post_type'       => $posttype,
   		 'status'          => 'published',
        'posts_per_page'  => $amount,
-       'orderby'         => 'menu_order', // date // slug
-  		 'order'           => 'ASC',
+       'orderby'         => $orderby, // 'menu_order', // date // menu_order slug
+  		 'order'           => $order, //'ASC', // desc
+			 'suppress_filters' => true, // remove plugin ordenings
   		 'paged'           => $paged,
   		 'tax_query' => array(
   		     array(

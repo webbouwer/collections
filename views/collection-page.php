@@ -12,8 +12,9 @@ $ppp = get_option( 'posts_per_page' ); // default
 */
 
 $values = get_post_custom( get_the_ID() );
-
 $slug = isset( $values['page_collection_selectbox'] ) ? $values['page_collection_selectbox'][0] : 'Uncategorized';
+$orderby = 'menu_order';
+$order = 'ASC';
 $ppp = isset( $values['page_collection_loadamount'] ) ? $values['page_collection_loadamount'][0] : 12;
 
 $term = get_term_by( 'slug', $slug, $taxname );
@@ -23,7 +24,14 @@ $term = get_term_by( 'slug', $slug, $taxname );
 get_header(); // theme default header
 
 
-echo '<div id="loopcontainer" class="grid-view isotope" data-posttype="'.$posttype.'"  data-taxname="'.$taxname.'" data-term="'.$slug.'" data-ppp="'.$ppp.'">';
+echo '<div id="loopcontainer" class="grid-view isotope" data-posttype="'.$posttype.'"  data-taxname="'.$taxname.'" data-term="'.$slug.'" data-orderby="'.$orderby.'" data-order="'.$order.'"  data-ppp="'.$ppp.'">';
+
+echo '<div id="display-toggle"><a class="list"><span>list</span></a><a class="grid"><span>grid</span></a></div>';
+echo '<div id="display-options"><ul class="orderby">';
+echo '<li class="default selected" data-orderby="menu_order">Op volgorde</li><li class="title" data-orderby="title">titel</li><li class="date" data-orderby="date">datum</li>';
+echo '</ul><ul class="order">';
+echo '<li class="asc selected" data-order="asc">aflopend</li><li class="desc" data-order="desc">oplopend</li>';
+echo '</ul></div>';
 
 
   if ($term->parent == 0) { // (top collection

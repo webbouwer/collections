@@ -17,6 +17,35 @@
 }
 
 
+#display-toggle
+{
+  position:absolute;
+  top:5px;
+  right:5px;
+  z-index:99;
+}
+#display-toggle a
+{
+}
+
+.grid-view .grid
+{
+  display:none;
+}
+.list-view .list
+{
+  display:none;
+}
+
+
+
+
+
+
+
+
+
+
 
 #loopcontainer.grid-view .post-artifact {
     /* max-width:403px; */
@@ -107,6 +136,62 @@
 #loopcontainer.grid-view .post-artifact.hovered .overlay {
   opacity: 1;
 }
+
+
+
+
+ 
+
+#loopcontainer.list-view .post-artifact
+{
+  position: relative;
+  width:100%;
+}
+#loopcontainer.list-view .post-artifact .innerpadding
+{
+  position:relative;
+  padding:0px;
+}
+#loopcontainer.list-view .post-artifact
+{
+  clear:both;
+}
+#loopcontainer.list-view .post-artifact img.wp-post-image
+{
+  width:auto;
+  height:90px;
+  float:left;
+}
+#loopcontainer.list-view .post-artifact.landscape img.wp-post-image
+{
+}
+#loopcontainer.list-view .post-artifact .overlay
+{
+}
+#loopcontainer.list-view .post-artifact .overlay .item-icons
+{
+}
+#loopcontainer.list-view .post-artifact .overlay .item-excerpt
+{
+}
+
+#loopcontainer.list-view .item-icons ul
+{
+}
+#loopcontainer.list-view .item-icons ul li
+{
+}
+#loopcontainer.list-view .item-icons ul li:hover,
+#loopcontainer.list-view .item-icons ul li.selected
+{
+}
+
+
+
+
+
+
+
 
 .mediabox
 {
