@@ -34,7 +34,7 @@ jQuery(function($) {
 
   function getCollectionData() {
 
-      console.log('more?');
+      //console.log('more?');
 
     if ($('#loopcontainer.isotope').length) {
 
@@ -461,6 +461,15 @@ jQuery(function($) {
       $('#display-options ul.order li').removeClass('selected');
       $('#display-options ul.order li.asc').addClass('selected');
     }
+    if( $(this).data('orderby') == 'menu_order' ){
+      $('#display-options ul.order').html('<li class="asc selected" data-order="asc">Oplopend</li><li class="desc" data-order="desc">Aflopend</li>');
+    }
+    if( $(this).data('orderby') == 'title' ){
+      $('#display-options ul.order').html('<li class="asc selected" data-order="asc">A t/m Z</li><li class="desc" data-order="desc">Z t/m A</li>');
+    }
+    if( $(this).data('orderby') == 'date' ){
+      $('#display-options ul.order').html('<li class="asc selected" data-order="asc">Later</li><li class="desc" data-order="desc">Eerder</li>');
+    }
     $('#display-options ul.orderby li').removeClass('selected');
     $(this).addClass('selected');
     pullpage = 0; // starts onload
@@ -603,9 +612,9 @@ jQuery(function($) {
       if ($('#overlaycontainer').length) {
         closeOverlay();
       }
-      if ($('#infoboxcontainer').length) {
-        closeInfobox();
-      }
+      //if ($('#infoboxcontainer').length) {
+        //closeInfobox();
+      //}
 
     } else {
 
@@ -627,14 +636,126 @@ jQuery(function($) {
 
     }
 
-
   });
+
+
 
   $(window).load(function() {
 
+
+    if( $('body.home').length ){
+
+      setTimeout( function(){
+        $('html, body').stop().animate({
+                'scrollTop': $('#content').offset().top
+            }, 800, 'swing', function () {
+
+
+          var content = '<video controls autoplay><source type="video/mp4" src="wp-content/uploads/2021/09/Intro_Chateau_du_Lac.mp4" width="640" height="480"></video>';
+          content += '';
+          activeInfobox( content, 'intro');
+
+          });
+      },300);
+    }
+
   });
 
-  /*
+  function activeInfobox(content, popclass) {
+
+      if ($('#overlaycontainer').length > 0) {
+        $('#overlaycontainer').fadeOut(100, function() {
+          $(this).remove();
+        });
+      }
+      if ($('#infoboxcontainer').length < 1) {
+        $('<div id="infoboxcontainer" class="'+popclass+'"><div class="closeinfobox"></div><div class="outermargin"></div></div>').hide().appendTo($('#loopcontainer').parent());
+      }
+      //content = infoboxTemplate( content );
+      $('#infoboxcontainer .outermargin').html(content);
+
+      $('#infoboxcontainer').fadeIn(200);
+      //$('#loopcontainer').fadeOut(200);
+  }
+
+/*
+  function infoboxTemplate( content ){
+
+    var menu = $('body').find('#menu-mainmenu').html();
+        //console.log(menu);
+        var html = '<div class="topbox">'+content+'</div><ul class="navbox">'+menu+'</ul>';
+    return html;
+  }
+  */
+
+
+    function closeInfobox(){
+
+
+
+      if( $('#infoboxcontainer').hasClass('collection') ){
+
+        $('html, body').stop().animate({
+              'scrollTop': $('body').offset().top
+          }, 800, 'swing' );
+
+      }
+
+
+      $('#infoboxcontainer').fadeOut(200, function() {
+        $(this).remove();
+      });
+
+    }
+
+    $(document).on('click', '.closeinfobox', function(event) {
+
+        event.preventDefault();
+        if( $(this).parent().hasClass('intro') ){
+          collectionInfobox();
+        }else{
+          closeInfobox();
+        }
+
+    });
+
+
+    $(document).on('click', '#infoboxcontainer.intro', function(event) {
+
+          if(!$(event.target).is('#infoboxcontainer .outermargin, #infoboxcontainer .outermargin li a')){
+            event.preventDefault();
+            collectionInfobox();
+          }
+    });
+
+    $(document).on('click', '#infoboxcontainer.collection', function(event) {
+
+          if(!$(event.target).is('#infoboxcontainer .outermargin, #infoboxcontainer .outermargin li a')){
+            event.preventDefault();
+            closeInfobox();
+          }
+    });
+
+    function collectionInfobox(){
+      $('#infoboxcontainer').fadeOut(200, function() {
+        $(this).remove();
+
+        var content = '<video controls autoplay><source type="video/mp4" src="wp-content/uploads/2021/09/Intro_Chateau_du_Lac.mp4" width="640" height="480"></video>';
+        content += '';
+        activeInfobox(content, 'collection');
+      });
+    }
+
+
+
+
+
+
+
+
+
+
+/*
   $(document).on('click', '#menubutton', function(event) {
       event.preventDefault();
       var menu = $('#mainmenu').clone();
@@ -642,7 +763,17 @@ jQuery(function($) {
       $(this).addClass('selected');
   });
 
+
+    $(window).load(function() {
+
+          console.log('intro info');
+        activeInfobox('Info intro');
+
+    });
+
   function activeInfobox(content) {
+
+
       if ($('#overlaycontainer').length > 0) {
         $('#overlaycontainer').fadeOut(100, function() {
           $(this).remove();
@@ -673,7 +804,7 @@ jQuery(function($) {
         event.preventDefault();
         closeInfobox();
   });
-  */
+
 
   /* click outside
   $('html').click(function(e) {
