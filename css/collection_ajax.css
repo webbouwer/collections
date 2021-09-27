@@ -43,10 +43,6 @@
 
 
 
-
-
-
-
 #loopcontainer.grid-view .post-artifact {
     /* max-width:403px; */
     width: calc(40% - 30px); /* col 5 3x : 60%; */
@@ -140,7 +136,7 @@
 
 
 
- 
+
 
 #loopcontainer.list-view .post-artifact
 {

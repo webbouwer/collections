@@ -67,6 +67,7 @@ class ArtifactAjaxView{
 				 foreach($media as $element) {
 
 					 $terms = wp_get_post_terms( $element->ID, array( 'types' ) );
+					 
 					 $json['postmedia'][$element->ID] = array(
 						 'title'=>$element->post_title,
 						 'excerpt'=>$element->post_excerpt,

@@ -19,7 +19,8 @@ $ppp = isset( $values['page_collection_loadamount'] ) ? $values['page_collection
 
 $term = get_term_by( 'slug', $slug, $taxname );
 
-
+$collection_title = get_term($term->term_id)->name;
+$collection_desc = get_term($term->term_id)->description;
 
 get_header(); // theme default header
 
@@ -42,6 +43,8 @@ echo '</ul></div>';
     echo '</div></div>';
 
   }
+
+  echo '<div id="collection-info"><h1>'.$collection_title.'</h1>'.$collection_desc.'</div>';
 
   // type menu
   $typeparent =get_terms( 'types', array('hide_empty' => 0, 'parent' => 4 ));

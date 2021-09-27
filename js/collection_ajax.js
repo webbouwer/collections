@@ -1,5 +1,38 @@
 jQuery(function($) {
 
+
+  function setCookie() {
+      var now = new Date();
+      var minutes = 30;
+      now.setTime(now.getTime() + (minutes * 60 * 1000));
+      cookievalue = 'check';
+      document.cookie="firsttime=" + cookievalue;
+      document.cookie = "expires=" + now.toUTCString() + ";"
+  }
+  function getCookie(cname) {
+  let name = cname + "=";
+  let ca = document.cookie.split(';');
+  for(let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+  function checkCookie() {
+    var chk = getCookie("firsttime");
+    if (chk != ""){
+      // second time
+    }else{
+      setCookie(); // firsttime
+    }
+  }
+
+
   // prepare html container
   var container = $('#loopcontainer.isotope'),
     gutterWidth = 0,
@@ -92,6 +125,8 @@ jQuery(function($) {
     }
   }
 
+
+
   // type menu
   function setTypeMenu() {
 
@@ -165,15 +200,17 @@ jQuery(function($) {
     }
     $('#overlaycontainer .outermargin').html(content);
 
+    setImagesOrient();
 
     $('#loopcontainer').fadeOut(200);
 
-    $('#typemenu ul').removeClass("collection-types").addClass("artifact-types");
 
+    $('#typemenu ul').removeClass("collection-types").addClass("artifact-types");
 
     $('#overlaycontainer').fadeIn(200, function() {
       if(type){
         // active filter type
+        $('body').find('.popcontainer').addClass(type);
         setTypeMenu();
         $('body').find('#typemenu ul.artifact-types li.but-'+type).trigger('click');
       }
@@ -209,16 +246,27 @@ jQuery(function($) {
 
   }
 
-  function setMediaboxSlider(){
+  function setMediaboxSlider( type = false ){
+
+
 
     if( $('.mediabox .mediacontainer').length > 0 ){
 
       var slidebox = $('.mediabox .mediacontainer');
+
+      if(type == 'foto'){
+        $('.cover img').hide();
+      }else{
+        $('.cover img').fadeIn();
+      }
+
        if( slidebox.children().length > 1){
           // set slider box ..
           // http://jsbin.com/nalewayume/1/edit?html,js,console,output
         slidebox.addClass('slider');
         slidebox.children().css({ "position":"relative","display":"none" });
+
+
         $('#nextmedia,#prevmedia').show();
 
         var $slider = slidebox,
@@ -230,30 +278,33 @@ jQuery(function($) {
             allSlides = $slider.find('div').length - 1; // index start from 0
 
 
-        $slider.find('div').eq(0).show();
+        $slider.find('div').eq(0).addClass('active').show();
+        posPrevNext();
 
         function nextSlide() {
           if(currentSlide < allSlides) {
               $slide.eq(currentSlide).fadeOut(200);
-              $slide.eq(currentSlide + 1).fadeIn(200);
+              $slide.eq(currentSlide + 1).addClass('active').fadeIn(200);
               currentSlide+=1;
           }else{
             $slide.eq(currentSlide).fadeOut(200);
-            $slide.eq(0).fadeIn(200);
+            $slide.eq(0).addClass('active').fadeIn(200);
             currentSlide=0;
           }
+          posPrevNext();
         }
 
         function prevSlide() {
           if(currentSlide > 0) {
               $slide.eq(currentSlide).fadeOut(200);
-              $slide.eq(currentSlide - 1).fadeIn(200);
+              $slide.eq(currentSlide - 1).addClass('active').fadeIn(200);
               currentSlide-=1;
           }else{
             $slide.eq(currentSlide).fadeOut(200);
-            $slide.eq(allSlides).fadeIn(200);
+            $slide.eq(allSlides).addClass('active').fadeIn(200);
             currentSlide=allSlides;
           }
+          posPrevNext();
         }
 
         $next.on('click', nextSlide);
@@ -267,6 +318,13 @@ jQuery(function($) {
     }
 
   }
+
+function posPrevNext(){
+  setTimeout(function(){
+    $('.prevnextnav').width( $('body').find('.mediaholder.active,.mediaholder.active .embed').width() );
+  },300);
+}
+
 
   function getArtifact(){
 
@@ -291,13 +349,10 @@ jQuery(function($) {
         var html = '<div class="popcontainer ' + p.slug + '">' +
           '<div class="prevnextnav"><div id="prevmedia"><span>Prev</span></div><div id="nextmedia"><span>Next</span></div></div>'+
           '<div class="mediabox">'+
-          '<div class="cover '+ p.orientation +'"><img src="'+ p.image +'" class="wp-post-image" alt="" /></div>'+
-          '</div>' +
-          '<div class="contentbox"><div class="title"><h1>' + p.title + '<h1></div>' +
-          '<div class="innerpadding">' +
-          '<div class="infotext">'+
-          '<div class="text">' + p.excerpt + '</div>' +
+          '<div class="cover '+ p.orientation +'"><img src="'+ p.image +'" class="wp-post-image" alt="" />'+
+          '<div class="title"><h1>' + p.title + '<h1></div><div class="text">' + p.excerpt + '</div></div>'+
           '</div>';
+
 
         var bundle = json.data.postmedia;
 
@@ -308,9 +363,9 @@ jQuery(function($) {
           var countmedia = 0;
           var mediabox = '';
 
-          var option = '<div class="column">';
-          option += '<div class="media-icon but-' + $(el).data('type') + '" data-type="' + $(el).data('type') + '" >';
-          option += '<span>' + $(el).find('span').text();
+          //var option = '<div class="column">';
+          //option += '<div class="media-icon but-' + $(el).data('type') + '" data-type="' + $(el).data('type') + '" >';
+          //option += '<span>' + $(el).find('span').text();
 
           mediabox += '<div class="mediacontainer '+$(el).data('type')+'">';
 
@@ -325,14 +380,14 @@ jQuery(function($) {
                 case 'jpg':
                 case 'png':
                 case 'gif':
-                  mediabox += '<img src="'+media.src+'" width="600" height="auto" />';
+                  mediabox += '<img class="embed zoom" src="'+media.src+'" width="600" height="auto" />';
                   break;
                 case 'mp4':
                 case 'mp3':
-                  mediabox += '<video src="'+media.src+'" width="600" height="350" controls></video>';
+                  mediabox += '<video class="embed" src="'+media.src+'" width="600" height="350" controls></video>';
                   break;
                 case 'pdf':
-                  mediabox += '<iframe src="'+media.src+'#toolbar=0" width="100%" height="640px">'+
+                  mediabox += '<iframe class="embed" src="'+media.src+'#toolbar=0" width="100%" height="640px">'+
                   '<p>It appears you do not have a PDF plugin for this browser.<a href="'+media.src+'">click here to download the PDF file.</a></p>'+
                   '</iframe>';//'</object>';
                   break;
@@ -348,39 +403,34 @@ jQuery(function($) {
               // title,excerpt,src,type_parent,type_slug,type_name
             }
           });
-
-          option += '(' + countmedia + ')';
-          option += '</span></div></div>';
-
           mediabox += '</div>';
 
           if (countmedia > 0) { // also active in type menu
             artifactmedia += mediabox;
-            html += option;
           }
 
         });
-        html += '</div></div><div class="artifact-media">'+artifactmedia+'</div>';
+
+        html += '<div class="artifact-media">'+artifactmedia+'</div>';
 
         activeOverlay(html,selected_mediatype);
-        // alert( JSON.stringify(bundle) );
 
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
         //Error
       },
       timeout: 60000
-
-      //} else {
-        // error
-      //}
-
-
     });
+
     return false;
 
 
   }
+
+
+
+
+
 
 
 
@@ -393,6 +443,7 @@ jQuery(function($) {
       $('#primarymenubox').before($('#categorymenu'));
     }
     setTypeMenu();
+
   });
 
   // onscroll load more
@@ -400,26 +451,10 @@ jQuery(function($) {
     var scrollHeight = $(document).height();
     var scrollPosition = $(window).height() + $(window).scrollTop();
 
-
-
-    //console.log( $(window).scrollTop() );
-
     if ((scrollHeight - scrollPosition) / scrollHeight === 0) {
-      getCollectionData();
-    }
-
-    if( $(document).find('.popcontainer').length ){
-
-      var box = $(document).find('.popcontainer .contentbox .innerpadding');
-
-      // control minimalizing info elements
-      if( $(window).scrollTop() > 0 && !box.hasClass('closed')){
-          $('body').find('.popcontainer .contentbox .title').trigger('click');
+      if( !$('body').find('#infoboxcontainer,#overlaycontainer').length ){
+        getCollectionData();
       }
-      if( $(window).scrollTop() === 0 && box.hasClass('closed')){
-          $('body').find('.popcontainer .contentbox .title').trigger('click');
-      }
-
     }
 
   });
@@ -440,7 +475,7 @@ jQuery(function($) {
 
 
   // girsd / list toggle
-  $(document).on('click touch tap', '#display-toggle a', function(e){
+  $(document).on('click touchstart', '#display-toggle a', function(e){
     e.preventDefault();
     if($('#loopcontainer.grid-view').length){
       $('#loopcontainer').removeClass('grid-view');
@@ -454,7 +489,7 @@ jQuery(function($) {
   });
 
   // orderby select
-  $(document).on('click touch tap', '#display-options ul.orderby li', function(e){
+  $(document).on('click touchend', '#display-options ul.orderby li', function(e){
     $('#loopcontainer').attr('data-orderby', $(this).data('orderby') );
     if( $(this).data('orderby') == 'menu_order' ){
       $('#loopcontainer').attr('data-order', 'asc' );
@@ -477,8 +512,9 @@ jQuery(function($) {
     $('#loopcontainer .post-artifact').remove();
     getCollectionData();
   });
+
   // order select
-  $(document).on('click touch tap', '#display-options ul.order li', function(e){
+  $(document).on('click touchend', '#display-options ul.order li', function(e){
     $('#loopcontainer').attr('data-order', $(this).data('order') );
     $('#display-options ul.order li').removeClass('selected');
     $(this).addClass('selected');
@@ -492,7 +528,7 @@ jQuery(function($) {
 
 
   // action type taxonomy menu
-  $('#typemenu').on('click', 'ul.collection-types li.available', function() {
+  $('#typemenu').on('click touchend', 'ul.collection-types li.available', function() {
 
     var type = $(this).data('type');
     var butclass = '.' + type;
@@ -503,37 +539,13 @@ jQuery(function($) {
 
     filters = butclass;
 
-    /* and / or selection
-    if ($(this).data('type') != 'foto' && $.inArray(butclass, filterlist) < 0) { // remove default foto
-      if ($.inArray('.foto', filterlist) >= 0) {
-        filterlist.splice($.inArray('.foto', filterlist), 1);
-        $('#typemenu ul li.but-foto').removeClass('selected');
-      }
-    }
-
-    if ($.inArray(butclass, filterlist) >= 0) {
-      filterlist.splice($.inArray(butclass, filterlist), 1);
-      $(this).removeClass('selected');
-    } else {
-      filterlist.push(butclass);
-      $(this).addClass('selected');
-    }
-    if (filterlist.length < 1) {
-
-      filters = '.' + defaultselect,
-        filterlist = Array(filters);
-      $('#typemenu ul li.but-' + defaultselect).addClass('selected');
-
-    } else {
-      filters = filterlist.join(","); // = or/or .. and/and :: filterlist.join(",");
-    }
-    */
     setColumnWidth();
+
 
   });
 
   // action type post menu
-  $('body').on('click', '#typemenu ul.artifact-types li.available, .contentbox .column div.media-icon', function() {
+  $('body').on('click touchend', '#typemenu ul.artifact-types li.available', function() {
     //alert( $(this).data('type') );
     var picturebox = $( '.popcontainer .mediabox .cover');
     var container = $('.popcontainer .mediabox');
@@ -542,10 +554,12 @@ jQuery(function($) {
     container.prepend(picturebox);
     container.addClass('display');
 
-    setMediaboxSlider();
+    setMediaboxSlider( $(this).data('type') );
 
     $('#typemenu ul.artifact-types li').removeClass('selected');
     $('#typemenu ul.artifact-types li.but-'+$(this).data('type')).addClass('selected');
+
+    $('body').find('.popcontainer').addClass($(this).data('type'));
 
     $('.media-icon').removeClass('selected');
     $('.media-icon.but-'+$(this).data('type')).addClass('selected');
@@ -553,13 +567,8 @@ jQuery(function($) {
   });
 
 
-
-
-
-
-
   // popup overlay artifact
-  $(document).on('click', '.post-artifact .overlay, .entry-title a,.item-icons ul li', function(event) {
+  $(document).on('click touchend', '.post-artifact .overlay, .entry-title a,.item-icons ul li', function(event) {
 
     event.preventDefault();
 
@@ -575,6 +584,7 @@ jQuery(function($) {
       $('#typemenu ul li').removeClass('selected');
       $('#typemenu ul li'+butname).addClass('selected');
     }
+
     selected_mediatype = filters.replace('.', "");
 
     window.location.hash = selected_slug;
@@ -582,23 +592,11 @@ jQuery(function($) {
 
   });
 
-  $(document).on('click', '.closeoverlay', function(event) {
+  $(document).on('click touchstart', '.closeoverlay', function(event) {
     event.preventDefault();
     history.pushState("", document.title, window.location.pathname);
     closeOverlay(); //history.go(-1);
   });
-
-  $(document).on('click', '.popcontainer .contentbox .title', function(event) {
-    var box = $(document).find('.popcontainer .contentbox .innerpadding');
-    if( box.hasClass('closed') ){
-      box.slideDown().removeClass('closed');
-      $(this).removeClass('closed');
-    }else{
-      box.slideUp().addClass('closed');
-      $(this).addClass('closed');
-    }
-  });
-
 
   // hash events
   $(window).bind('hashchange', function(e) {
@@ -642,8 +640,23 @@ jQuery(function($) {
 
   $(window).load(function() {
 
-
     if( $('body.home').length ){
+      // check cookie
+      var chk = getCookie("firsttime");
+      if (chk != ""){
+        // allready visited
+        setTimeout( function(){
+          $('html, body').stop().animate({
+                  'scrollTop': $('#content').offset().top
+              }, 800, 'swing', function () {
+                var content = '<div class="innerpadding">'+$('#collection-info').html()+'</div>'; //'Introtekst Chateau du Lac';
+                activeInfobox(content, 'collection');
+              });
+          },300);
+
+      }else{
+
+      setCookie(); // firsttime
 
       setTimeout( function(){
         $('html, body').stop().animate({
@@ -651,15 +664,44 @@ jQuery(function($) {
             }, 800, 'swing', function () {
 
 
-          var content = '<video controls autoplay><source type="video/mp4" src="wp-content/uploads/2021/09/Intro_Chateau_du_Lac.mp4" width="640" height="480"></video>';
+          var content = '<video controls autoplay width="640" height="480"><source type="video/mp4" src="wp-content/uploads/2021/09/Intro_Hoekse_Schatkist_Chateau_du_lac.mp4"></video>';
           content += '';
           activeInfobox( content, 'intro');
 
           });
-      },300);
+        },300);
+      }
+
+      console.log(document.cookie);
+
     }
 
   });
+
+
+      //
+      function setImagesOrient(){
+          var pics = $('body').find("img");
+          for (i = 0; i < pics.length; i++) {
+            pics[i].addEventListener("load", function() {
+                if (this.naturalHeight > this.naturalWidth) {
+                    this.classList.add("portrait")
+                } else {
+                    this.classList.add("landscape")
+                }
+             })
+             if (pics[i].complete) {
+                 if (pics[i].naturalHeight > pics[i].naturalWidth) {
+                     pics[i].classList.add("portrait")
+                 } else if (pics[i].naturalHeight < pics[i].naturalWidth) {
+                     pics[i].classList.add("landscape")
+                 } else{
+                     pics[i].classList.add("square")
+                 }
+             }
+          }
+        }
+
 
   function activeInfobox(content, popclass) {
 
@@ -678,20 +720,7 @@ jQuery(function($) {
       //$('#loopcontainer').fadeOut(200);
   }
 
-/*
-  function infoboxTemplate( content ){
-
-    var menu = $('body').find('#menu-mainmenu').html();
-        //console.log(menu);
-        var html = '<div class="topbox">'+content+'</div><ul class="navbox">'+menu+'</ul>';
-    return html;
-  }
-  */
-
-
     function closeInfobox(){
-
-
 
       if( $('#infoboxcontainer').hasClass('collection') ){
 
@@ -708,7 +737,7 @@ jQuery(function($) {
 
     }
 
-    $(document).on('click', '.closeinfobox', function(event) {
+    $(document).on('click touchstart', '.closeinfobox', function(event) {
 
         event.preventDefault();
         if( $(this).parent().hasClass('intro') ){
@@ -720,17 +749,17 @@ jQuery(function($) {
     });
 
 
-    $(document).on('click', '#infoboxcontainer.intro', function(event) {
+    $(document).on('click touchend', '#infoboxcontainer.intro', function(event) {
 
-          if(!$(event.target).is('#infoboxcontainer .outermargin, #infoboxcontainer .outermargin li a')){
+          if(!$(event.target).is('#infoboxcontainer .outermargin, #infoboxcontainer .outermargin li a, video, video source, #infoboxcontainer .outermargin a')){
             event.preventDefault();
             collectionInfobox();
           }
     });
 
-    $(document).on('click', '#infoboxcontainer.collection', function(event) {
+    $(document).on('click touchend', '#infoboxcontainer.collection', function(event) {
 
-          if(!$(event.target).is('#infoboxcontainer .outermargin, #infoboxcontainer .outermargin li a')){
+          if(!$(event.target).is('#infoboxcontainer .outermargin, #infoboxcontainer .outermargin li a, video, video sourc, #infoboxcontainer .outermargin a')){
             event.preventDefault();
             closeInfobox();
           }
@@ -740,85 +769,10 @@ jQuery(function($) {
       $('#infoboxcontainer').fadeOut(200, function() {
         $(this).remove();
 
-        var content = '<video controls autoplay><source type="video/mp4" src="wp-content/uploads/2021/09/Intro_Chateau_du_Lac.mp4" width="640" height="480"></video>';
-        content += '';
+        var content = '<div class="innerpadding">'+$('#collection-info').html()+'</div>'; //'Introtekst Chateau du Lac';
         activeInfobox(content, 'collection');
       });
     }
-
-
-
-
-
-
-
-
-
-
-/*
-  $(document).on('click', '#menubutton', function(event) {
-      event.preventDefault();
-      var menu = $('#mainmenu').clone();
-      activeInfobox(menu);
-      $(this).addClass('selected');
-  });
-
-
-    $(window).load(function() {
-
-          console.log('intro info');
-        activeInfobox('Info intro');
-
-    });
-
-  function activeInfobox(content) {
-
-
-      if ($('#overlaycontainer').length > 0) {
-        $('#overlaycontainer').fadeOut(100, function() {
-          $(this).remove();
-        });
-      }
-      if ($('#infoboxcontainer').length < 1) {
-        $('<div id="infoboxcontainer"><div class="closeinfobox"></div><div class="outermargin"></div></div>').hide().appendTo($('#loopcontainer').parent());
-      }
-      $('#infoboxcontainer .outermargin').html(content);
-
-      $('#infoboxcontainer').fadeIn(200);
-      $('#loopcontainer').fadeOut(200);
-  }
-
-  function closeInfobox(){
-      var container = $("#overlaycontainer .outermargin");
-      if ($('#menubutton').hasClass('selected')) {
-        $('#menubutton').removeClass('selected');
-      }
-
-      $('#infoboxcontainer').fadeOut(200, function() {
-        $(this).remove();
-      });
-      $('#loopcontainer').fadeIn(200);
-  }
-
-  $(document).on('click', '.closeinfobox,#menubutton.selected', function(event) {
-        event.preventDefault();
-        closeInfobox();
-  });
-
-
-  /* click outside
-  $('html').click(function(e) {
-    //if clicked element is not your element and parents aren't your div
-    if (e.target.id != 'overlaycontainer' && $(e.target).parents('#overlaycontainer').length == 0) {
-      closeOverlay();
-      history.replaceState(null, document.title, location.pathname);
-    }
-    if (e.target.id != 'infoboxcontainer' && $(e.target).parents('#infoboxcontainer').length == 0) {
-      closeInfobox();
-      history.replaceState(null, document.title, location.pathname);
-    }
-  });
-  */
 
 
 
