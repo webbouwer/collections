@@ -177,6 +177,7 @@ jQuery(function($) {
       }).isotope({
         filter: filters
       }).isotope('layout');
+
     // route
     $(window).trigger('hashchange');
 
@@ -248,8 +249,6 @@ jQuery(function($) {
 
   function setMediaboxSlider( type = false ){
 
-
-
     if( $('.mediabox .mediacontainer').length > 0 ){
 
       var slidebox = $('.mediabox .mediacontainer');
@@ -260,14 +259,11 @@ jQuery(function($) {
         $('.cover img').fadeIn();
       }
 
-       if( slidebox.children().length > 1){
-          // set slider box ..
-          // http://jsbin.com/nalewayume/1/edit?html,js,console,output
-        slidebox.addClass('slider');
-        slidebox.children().css({ "position":"relative","display":"none" });
-
-
-        $('#nextmedia,#prevmedia').show();
+      if( slidebox.children().length > 1){
+      // set slider box ..
+      // http://jsbin.com/nalewayume/1/edit?html,js,console,output
+      slidebox.addClass('slider');
+      slidebox.children().css({ "position":"relative","display":"none" });
 
         var $slider = slidebox,
         $prev = $('#prevmedia'),
@@ -275,11 +271,7 @@ jQuery(function($) {
         $slide = $slider.find('div');
 
         var currentSlide = 0,
-            allSlides = $slider.find('div').length - 1; // index start from 0
-
-
-        $slider.find('div').eq(0).addClass('active').show();
-        posPrevNext();
+        allSlides = $slider.find('div').length - 1; // index start from 0
 
         function nextSlide() {
           if(currentSlide < allSlides) {
@@ -291,7 +283,7 @@ jQuery(function($) {
             $slide.eq(0).addClass('active').fadeIn(200);
             currentSlide=0;
           }
-          posPrevNext();
+          //posPrevNext();
         }
 
         function prevSlide() {
@@ -304,26 +296,33 @@ jQuery(function($) {
             $slide.eq(allSlides).addClass('active').fadeIn(200);
             currentSlide=allSlides;
           }
-          posPrevNext();
+          //posPrevNext();
         }
 
         $next.on('click', nextSlide);
         $prev.on('click', prevSlide);
 
+        $('#nextmedia,#prevmedia').show();
+        $slider.find('div').eq(0).addClass('active').show();
+        posPrevNext();
+
        }else{
+
          $('#nextmedia,#prevmedia').hide();
+
        }
-
-
     }
-
   }
 
-function posPrevNext(){
-  setTimeout(function(){
-    $('.prevnextnav').width( $('body').find('.mediaholder.active,.mediaholder.active .embed').width() );
-  },300);
-}
+
+  $('body').find('.mediaholder.active .embed')
+
+
+  function posPrevNext(){
+    setTimeout(function(){
+      $('.prevnextnav').width( $('body').find('.mediaholder.active .embed').width() );
+    },300);
+  }
 
 
   function getArtifact(){
@@ -437,13 +436,13 @@ function posPrevNext(){
   // on start get data and set taxonomy menu
   $(window).ready(function() {
 
+
     getCollectionData();
     $('#primarymenubox').before($('#typemenu'));
     if ($('#categorymenu').length) {
       $('#primarymenubox').before($('#categorymenu'));
     }
     setTypeMenu();
-
   });
 
   // onscroll load more
@@ -468,8 +467,9 @@ function posPrevNext(){
 
   function doneResizing() {
     //if($('#loopcontainer').is(':visible')) {
-    setColumnWidth();
-    //}
+    if( $('#infoboxcontainer').length < 1 && $('#overlaycontainer').length < 1){
+      setColumnWidth();
+    }
   }
 
 
@@ -610,9 +610,9 @@ function posPrevNext(){
       if ($('#overlaycontainer').length) {
         closeOverlay();
       }
-      //if ($('#infoboxcontainer').length) {
+      if ($('#infoboxcontainer').length) {
         //closeInfobox();
-      //}
+      }
 
     } else {
 
@@ -641,6 +641,7 @@ function posPrevNext(){
   $(window).load(function() {
 
     if( $('body.home').length ){
+
       // check cookie
       var chk = getCookie("firsttime");
       if (chk != ""){
@@ -656,29 +657,21 @@ function posPrevNext(){
 
       }else{
 
-      setCookie(); // firsttime
+      // firsttime
+      setCookie();
 
       setTimeout( function(){
         $('html, body').stop().animate({
                 'scrollTop': $('#content').offset().top
-            }, 800, 'swing', function () {
-
-
+          }, 800, 'swing', function () {
           var content = '<video controls autoplay width="640" height="480"><source type="video/mp4" src="wp-content/uploads/2021/09/Intro_Hoekse_Schatkist_Chateau_du_lac.mp4"></video>';
-          content += '';
           activeInfobox( content, 'intro');
-
           });
         },300);
-      }
-
-      console.log(document.cookie);
-
+      } //console.log(document.cookie);
     }
 
   });
-
-
       //
       function setImagesOrient(){
           var pics = $('body').find("img");
@@ -729,8 +722,6 @@ function posPrevNext(){
           }, 800, 'swing' );
 
       }
-
-
       $('#infoboxcontainer').fadeOut(200, function() {
         $(this).remove();
       });
