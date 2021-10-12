@@ -175,7 +175,7 @@ jQuery(function($) {
           gutter: gutterWidth,
         }
       }).isotope({
-        filter: filters
+        filter: filters +', .featured'
       }).isotope('layout');
 
     // route
@@ -656,6 +656,8 @@ jQuery(function($) {
       // check cookie
       var chk = getCookie("firsttime");
       if (chk != "" ){
+
+        /* second screen
         // allready visited
         if( hash == '' ){ // not requesting an artifact
         setTimeout( function(){
@@ -667,6 +669,7 @@ jQuery(function($) {
               });
           },300);
         }
+        */
       }else{
 
       // firsttime
@@ -760,10 +763,13 @@ jQuery(function($) {
 
           if(!$(event.target).is('#infoboxcontainer .outermargin, #infoboxcontainer .outermargin li a, video, video source, #infoboxcontainer .outermargin a')){
             event.preventDefault();
-            collectionInfobox();
+            //collectionInfobox();
+            closeInfobox();
           }
+
     });
 
+    /*
     $(document).on('click touchend', '#infoboxcontainer.collection', function(event) {
 
           if(!$(event.target).is('#infoboxcontainer .outermargin, #infoboxcontainer .outermargin li a, video, video sourc, #infoboxcontainer .outermargin a')){
@@ -780,6 +786,7 @@ jQuery(function($) {
         activeInfobox(content, 'collection');
       });
     }
+    */
 
 
 

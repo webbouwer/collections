@@ -137,7 +137,15 @@ class CollectionsAjaxGrid{
         $classes = implode(" ", $type_classes);
         $thumb_orientation = $this->getImageOrient( get_post_thumbnail_id($ID) );
 
-  			$html = '<div id="post-'.$ID.'" class="post-artifact post '.$thumb_orientation.' '.$classes.'" data-id="'.$ID .'" data-slug="'.$slug.'"><div class="innerpadding">';
+				// featured
+				$featured = '';
+				if( $ID == 30 ){
+					$featured = 'featured '; 
+				}
+
+				$baseclasses = esc_attr( implode( ' ', get_post_class( '', $ID ) ) );
+
+  			$html = '<div id="post-'.$ID.'" class="post-artifact post '.get_post_class().' '.$featured.''.$thumb_orientation.' '.$classes.' '.$baseclasses.'" data-id="'.$ID .'" data-slug="'.$slug.'"><div class="innerpadding">';
 
   			if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
   			     $html .= '<div class="artifact-image"><img src="'.get_the_post_thumbnail_url().'" class="attachment-normal size-normal wp-post-image" alt="" loading="lazy" /></div>';
