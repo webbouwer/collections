@@ -66,11 +66,16 @@ class ArtifactAjaxView{
 
 				 foreach($media as $element) {
 
+					 $attachment = get_post( $element->ID );
+
 					 $terms = wp_get_post_terms( $element->ID, array( 'types' ) );
-					 
+
 					 $json['postmedia'][$element->ID] = array(
 						 'title'=>$element->post_title,
 						 'excerpt'=>$element->post_excerpt,
+						 'alt' => get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ),
+						 'caption' => $attachment->post_excerpt,
+						 'desc' => $attachment->post_content,
 						 'src'=>$element->guid,
 						 'type_parent'=> $terms[0]->parent,
 						 'type_slug'=> $terms[0]->slug,

@@ -55,37 +55,75 @@
    transition: all 0.2s ease-in-out;
    */
 }
+.small #loopcontainer.grid-view .post-artifact,
+.medium #loopcontainer.grid-view .post-artifact {
+    /* max-width:403px; */
+    width: calc(40% - 12px); /* col 5 3x : 60%; */
+    margin:6px;
+   */
+}
 
 /* overview page - TODO check width for small screens .. */
-
 #loopcontainer.grid-view .post-artifact.panorama
 {
-  /* max-width:1096px; */
-  /*width: calc(71.42% - 30px);/* col 5 4x : 80%; */
   width: calc(70% - 30px);
-  min-width:580px;
+
 }
 #loopcontainer.grid-view .post-artifact.landscape
 {
-  /* max-width:403px; */
   width: calc(40% - 30px); /* col 5 3x : 60%; */
-  min-width:460px;
-
 }
 #loopcontainer.grid-view .post-artifact.portrait
 {
-  /* max-width:268px; */
   width: calc(30% - 30px); /* col 5 1x : 20%; */
-  min-width:240px;
-
 }
 #loopcontainer.grid-view .post-artifact.square
 {
-  /* max-width:268px; */
   width: calc(30% - 30px); /* col 5 2x : 40%; */
-  min-width:240px;
-
 }
+
+
+.small #loopcontainer.grid-view .post-artifact.panorama,
+.medium #loopcontainer.grid-view .post-artifact.panorama
+{
+  width: calc(70% - 12px);
+}
+.small #loopcontainer.grid-view .post-artifact.landscape,
+.medium #loopcontainer.grid-view .post-artifact.landscape
+{
+  width: calc(40% - 12px); /* col 5 3x : 60%; */
+}
+.small #loopcontainer.grid-view .post-artifact.portrait,
+.medium #loopcontainer.grid-view .post-artifact.portrait
+{
+  width: calc(30% - 12px); /* col 5 1x : 20%; */
+}
+.small #loopcontainer.grid-view .post-artifact.square,
+.medium #loopcontainer.grid-view .post-artifact.square
+{
+  width: calc(30% - 12px); /* col 5 2x : 40%; */
+}
+
+
+
+.large #loopcontainer.grid-view .post-artifact.panorama
+{
+  min-width:580px;
+}
+.large #loopcontainer.grid-view .post-artifact.landscape
+{
+  min-width:460px;
+}
+.large #loopcontainer.grid-view .post-artifact.portrait
+{
+  min-width:240px;
+}
+.large #loopcontainer.grid-view .post-artifact.square
+{
+  min-width:240px;
+}
+
+
 
 #loopcontainer.grid-view .post-artifact .innerpadding
 {

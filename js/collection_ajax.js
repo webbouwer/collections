@@ -183,11 +183,6 @@ jQuery(function($) {
 
   }
 
-
-
-
-
-
   function activeOverlay(content,type = false) {
 
     if ($('#infoboxcontainer').length > 0) {
@@ -241,7 +236,7 @@ jQuery(function($) {
     setTypeMenu();
 
     $('#loopcontainer').fadeIn(200, function() {
-      setTimeout(doneResizing, 20); // // reposition items (if window resized)
+      setTimeout(doneResizing, 50); // // reposition items (if window resized)
     });
 
 
@@ -259,19 +254,20 @@ jQuery(function($) {
         $('.cover img').fadeIn();
       }
 
-      if( slidebox.children().length > 1){
+      if( slidebox.find('.mediaholder').length > 1){
+      //if( slidebox.find('div:not(.tooltip, .tooltip *)'); ){
       // set slider box ..
       // http://jsbin.com/nalewayume/1/edit?html,js,console,output
       slidebox.addClass('slider');
-      slidebox.children().css({ "position":"relative","display":"none" });
+      slidebox.find('.mediaholder').css({ "position":"relative","display":"none" });
 
         var $slider = slidebox,
         $prev = $('#prevmedia'),
         $next = $('#nextmedia'),
-        $slide = $slider.find('div');
+        $slide = $slider.find('div.mediaholder');
 
         var currentSlide = 0,
-        allSlides = $slider.find('div').length - 1; // index start from 0
+        allSlides = $slider.find('div.mediaholder').length - 1; // index start from 0
 
         function nextSlide() {
           if(currentSlide < allSlides) {
@@ -304,7 +300,7 @@ jQuery(function($) {
 
         $('#nextmedia,#prevmedia').show();
         $slider.find('div').eq(0).addClass('active').show();
-        posPrevNext();
+        //posPrevNext();
 
        }else{
 
@@ -319,9 +315,13 @@ jQuery(function($) {
 
 
   function posPrevNext(){
+
+    $('.prevnextnav').hide();
     setTimeout(function(){
-      $('.prevnextnav').width( $('body').find('.mediaholder.active .embed').width() );
+      $('.prevnextnav').width( $('body').find('.mediaholder.active').outerWidth() );
+      $('.prevnextnav').fadeIn();
     },300);
+
   }
 
 
@@ -377,27 +377,29 @@ jQuery(function($) {
               mediabox += '<div class="mediaholder '+media.type_name+'">';
               switch(extension) {
                 case 'jpg':
+                case 'jpeg':
                 case 'png':
                 case 'gif':
-                  mediabox += '<img class="embed zoom" src="'+media.src+'" width="600" height="auto" />';
+                  mediabox += '<img class="embed zoom" src="'+media.src+'" alt="'+media.alt+'" data-desc="'+media.desc+'" data-caption="'+media.caption+'" width="600" height="auto" />';
                   break;
                 case 'mp4':
                 case 'mp3':
-                  mediabox += '<video class="embed" src="'+media.src+'" width="600" height="350" controls></video>';
+                  mediabox += '<video class="embed" src="'+media.src+'" data-desc="'+media.desc+'" data-caption="'+media.caption+'" width="600" height="350" controls></video>';
                   break;
                 case 'pdf':
-                  mediabox += '<iframe class="embed" src="'+media.src+'#toolbar=0" width="100%" height="640px">'+
+                  mediabox += '<iframe class="embed" src="'+media.src+'#toolbar=0" data-desc="'+media.desc+'" data-caption="'+media.caption+'" width="100%" height="640px">'+
                   '<p>It appears you do not have a PDF plugin for this browser.<a href="'+media.src+'">click here to download the PDF file.</a></p>'+
                   '</iframe>';//'</object>';
                   break;
                 case 'doc':
                 case 'docx':
                   //mediabox += '<iframe src="'+media.src+'" width="600" height="350"></iframe>';
-                  mediabox += '<a class="media-link" href="'+media.src+'">'+media.title+'</a>';
+                  mediabox += '<a class="media-link" href="'+media.src+'" title="'+media.title+'" data-desc="'+media.desc+'" data-caption="'+media.caption+'">'+media.title+'</a>';
                   break;
                 default:
-                  mediabox += '<a class="media-link" href="'+media.src+'">'+media.title+'</a>';
+                  mediabox += '<a class="media-link" href="'+media.src+'" title="'+media.title+'" data-desc="'+media.desc+'" data-caption="'+media.caption+'">'+media.title+'</a>';
               }
+              mediabox += '<div class="caption">'+media.caption+'</div>';
               mediabox += '</div>';
               // title,excerpt,src,type_parent,type_slug,type_name
             }
@@ -436,12 +438,13 @@ jQuery(function($) {
   // on start get data and set taxonomy menu
   $(window).ready(function() {
 
-
     getCollectionData();
+
     $('#primarymenubox').before($('#typemenu'));
     if ($('#categorymenu').length) {
       $('#primarymenubox').before($('#categorymenu'));
     }
+
     setTypeMenu();
   });
 
@@ -467,9 +470,9 @@ jQuery(function($) {
 
   function doneResizing() {
     //if($('#loopcontainer').is(':visible')) {
-    if( $('#infoboxcontainer').length < 1 && $('#overlaycontainer').length < 1){
+    //if( $('#infoboxcontainer').length < 1 && $('#overlaycontainer').length < 1){
       setColumnWidth();
-    }
+    //}
   }
 
 
@@ -638,14 +641,23 @@ jQuery(function($) {
 
 
 
+
+
+
+
   $(window).load(function() {
 
-    if( $('body.home').length ){
+    var pagehash = window.location.hash;
+    var hash = pagehash.replace('#', '');
+
+
+    if( $('body.home').length ){ // must be homepage
 
       // check cookie
       var chk = getCookie("firsttime");
-      if (chk != ""){
+      if (chk != "" ){
         // allready visited
+        if( hash == '' ){ // not requesting an artifact
         setTimeout( function(){
           $('html, body').stop().animate({
                   'scrollTop': $('#content').offset().top
@@ -654,7 +666,7 @@ jQuery(function($) {
                 activeInfobox(content, 'collection');
               });
           },300);
-
+        }
       }else{
 
       // firsttime
@@ -664,7 +676,7 @@ jQuery(function($) {
         $('html, body').stop().animate({
                 'scrollTop': $('#content').offset().top
           }, 800, 'swing', function () {
-          var content = '<video controls autoplay width="640" height="480"><source type="video/mp4" src="wp-content/uploads/2021/09/Intro_Hoekse_Schatkist_Chateau_du_lac.mp4"></video>';
+          var content = '<video controls autoplay width="640" height="480"><source type="video/mp4" src="wp-content/uploads/2021/10/intro_de_hoekse_schatkist.mp4"></video>';
           activeInfobox( content, 'intro');
           });
         },300);
@@ -672,6 +684,10 @@ jQuery(function($) {
     }
 
   });
+
+
+
+
       //
       function setImagesOrient(){
           var pics = $('body').find("img");
