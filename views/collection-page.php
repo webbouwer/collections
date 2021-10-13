@@ -66,7 +66,7 @@ echo '</ul></div>';
 
     endforeach;
 
-  echo '</ul></div></div>';
+  echo '</ul><div class="reset"><span>Alle objecten</span></div></div></div>'; 
 
   echo '</div>'; // end loopcontainer.isotope
 

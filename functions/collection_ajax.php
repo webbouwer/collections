@@ -140,7 +140,7 @@ class CollectionsAjaxGrid{
 				// featured
 				$featured = '';
 				if( $ID == 30 ){
-					$featured = 'featured '; 
+					$featured = 'featured ';
 				}
 
 				$baseclasses = esc_attr( implode( ' ', get_post_class( '', $ID ) ) );

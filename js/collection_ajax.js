@@ -200,8 +200,8 @@ jQuery(function($) {
 
     $('#loopcontainer').fadeOut(200);
 
-
     $('#typemenu ul').removeClass("collection-types").addClass("artifact-types");
+    $('#typemenu .reset').fadeOut();
 
     $('#overlaycontainer').fadeIn(200, function() {
       if(type){
@@ -233,6 +233,13 @@ jQuery(function($) {
     $('#typemenu ul li').removeClass('selected');
     $('#typemenu ul li'+butname).addClass('selected');
 
+
+        if( type == defaultselect ){
+          $('#typemenu .reset').fadeOut();
+        }else{
+          $('#typemenu .reset').fadeIn();
+        }
+
     setTypeMenu();
 
     $('#loopcontainer').fadeIn(200, function() {
@@ -248,7 +255,7 @@ jQuery(function($) {
 
       var slidebox = $('.mediabox .mediacontainer');
 
-      if(type == 'foto'){
+      if(type == 'foto' || $('body').hasClass('medium') || $('body').hasClass('small') ){
         $('.cover img').hide();
       }else{
         $('.cover img').fadeIn();
@@ -444,8 +451,10 @@ jQuery(function($) {
     if ($('#categorymenu').length) {
       $('#primarymenubox').before($('#categorymenu'));
     }
+    $('#typemenu .reset').hide();
 
     setTypeMenu();
+
   });
 
   // onscroll load more
@@ -460,6 +469,7 @@ jQuery(function($) {
     }
 
   });
+
 
   // on resize
   var resizeId;
@@ -478,7 +488,7 @@ jQuery(function($) {
 
 
   // girsd / list toggle
-  $(document).on('click touchstart', '#display-toggle a', function(e){
+  $(document).on('click touchend', '#display-toggle a', function(e){
     e.preventDefault();
     if($('#loopcontainer.grid-view').length){
       $('#loopcontainer').removeClass('grid-view');
@@ -491,8 +501,13 @@ jQuery(function($) {
     }
   });
 
+  $(document).on('click touchend', '#typemenu .reset', function(e){
+      e.preventDefault();
+      $('body').find('#typemenu ul.collection-types li.but-foto').trigger('click');
+  });
+
   // orderby select
-  $(document).on('click touchend', '#display-options ul.orderby li', function(e){
+  $(document).on('click touchstart', '#display-options ul.orderby li', function(e){
     $('#loopcontainer').attr('data-orderby', $(this).data('orderby') );
     if( $(this).data('orderby') == 'menu_order' ){
       $('#loopcontainer').attr('data-order', 'asc' );
@@ -542,6 +557,11 @@ jQuery(function($) {
 
     filters = butclass;
 
+    if( type == defaultselect ){
+      $('#typemenu .reset').fadeOut();
+    }else{
+      $('#typemenu .reset').fadeIn();
+    }
     setColumnWidth();
 
 
@@ -595,7 +615,7 @@ jQuery(function($) {
 
   });
 
-  $(document).on('click touchstart', '.closeoverlay', function(event) {
+  $(document).on('click touchstart', '.closeoverlay,.skippintro', function(event) {
     event.preventDefault();
     history.pushState("", document.title, window.location.pathname);
     closeOverlay(); //history.go(-1);
@@ -648,16 +668,17 @@ jQuery(function($) {
   $(window).load(function() {
 
     var pagehash = window.location.hash;
-    var hash = pagehash.replace('#', '');
+    var hash = pagehash.rep
 
 
     if( $('body.home').length ){ // must be homepage
 
+      /*
       // check cookie
       var chk = getCookie("firsttime");
       if (chk != "" ){
 
-        /* second screen
+        //second screen
         // allready visited
         if( hash == '' ){ // not requesting an artifact
         setTimeout( function(){
@@ -669,21 +690,32 @@ jQuery(function($) {
               });
           },300);
         }
-        */
+
       }else{
 
       // firsttime
       setCookie();
+      */
 
+
+      /*
+      * INTRODUCTION
+      */
+      /*
       setTimeout( function(){
         $('html, body').stop().animate({
                 'scrollTop': $('#content').offset().top
           }, 800, 'swing', function () {
-          var content = '<video controls autoplay width="640" height="480"><source type="video/mp4" src="wp-content/uploads/2021/10/intro_de_hoekse_schatkist.mp4"></video>';
+          var content = '<video controls autoplay width="640" height="480"><source type="video/mp4" src="wp-content/uploads/2021/10/intro_de_hoekse_schatkist.mp4"></video><div class="skippintro"><span>Introductie overslaan</span></div>';
           activeInfobox( content, 'intro');
           });
-        },300);
-      } //console.log(document.cookie);
+
+      },300);
+      */
+
+
+
+      //} //console.log(document.cookie);
     }
 
   });
@@ -750,11 +782,11 @@ jQuery(function($) {
     $(document).on('click touchstart', '.closeinfobox', function(event) {
 
         event.preventDefault();
-        if( $(this).parent().hasClass('intro') ){
-          collectionInfobox();
-        }else{
+        //if( $(this).parent().hasClass('intro') ){
+          //collectionInfobox();
+        //}else{
           closeInfobox();
-        }
+        //}
 
     });
 
