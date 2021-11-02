@@ -64,6 +64,8 @@ class ArtifactAjaxView{
 				 $json['postmedia'] = array();
 				 $media = get_attached_media( '', $id );
 
+				 if( count($media) > 0){
+
 				 foreach($media as $element) {
 
 					 $attachment = get_post( $element->ID );
@@ -82,6 +84,8 @@ class ArtifactAjaxView{
 						 'type_name'=> $terms[0]->name,
 					 );
 				 }
+
+			 	 }
 				 //$json['postmedia'] = json_encode( $media );
 				 wp_send_json_success( $json );
 

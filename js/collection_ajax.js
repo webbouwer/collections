@@ -102,9 +102,14 @@ jQuery(function($) {
           success: function(response) {
 
             var items = [];
+            for (var i = 0; i < response.length; ++i) {
+              items.push(response[i].html);
+            }
+              /*
             $.each(response, function(key, val) {
               items.push(val.html);
-            });
+            });*/
+
             $("#loopcontainer").append(items);
             $('#loopcontainer').imagesLoaded(function(instance) {
               setTypeMenu();
@@ -276,6 +281,20 @@ jQuery(function($) {
         var currentSlide = 0,
         allSlides = $slider.find('div.mediaholder').length - 1; // index start from 0
 
+        function setPrevNext(){
+
+          if(currentSlide == allSlides-1){
+            $next.hide();
+          }else{
+            $next.show();
+          }
+          if(currentSlide == 0){
+            $prev.hide();
+          }else{
+            $prev.show();
+          }
+        }
+
         function nextSlide() {
           if(currentSlide < allSlides) {
               $slide.eq(currentSlide).fadeOut(200);
@@ -286,10 +305,11 @@ jQuery(function($) {
             $slide.eq(0).addClass('active').fadeIn(200);
             currentSlide=0;
           }
-          //posPrevNext();
+          setPrevNext();
         }
 
         function prevSlide() {
+
           if(currentSlide > 0) {
               $slide.eq(currentSlide).fadeOut(200);
               $slide.eq(currentSlide - 1).addClass('active').fadeIn(200);
@@ -299,7 +319,7 @@ jQuery(function($) {
             $slide.eq(allSlides).addClass('active').fadeIn(200);
             currentSlide=allSlides;
           }
-          //posPrevNext();
+          setPrevNext();
         }
 
         $next.on('click', nextSlide);
@@ -307,7 +327,8 @@ jQuery(function($) {
 
         $('#nextmedia,#prevmedia').show();
         $slider.find('div').eq(0).addClass('active').show();
-        //posPrevNext();
+
+        $prev.hide();
 
        }else{
 
@@ -342,8 +363,8 @@ jQuery(function($) {
     };
 
     //jQuery.getJSON(ajax_data.ajaxurl, data, function(json) {
-
     jQuery.ajax({
+
       type: "GET",
       url: ajax.url,
       data: data,
@@ -356,7 +377,7 @@ jQuery(function($) {
           '<div class="prevnextnav"><div id="prevmedia"><span>Prev</span></div><div id="nextmedia"><span>Next</span></div></div>'+
           '<div class="mediabox">'+
           '<div class="cover '+ p.orientation +'"><img src="'+ p.image +'" class="wp-post-image" alt="" />'+
-          '<div class="title"><h1>' + p.title + '<h1></div><div class="text">' + p.excerpt + '</div></div>'+
+          '<div class="title"><h1>' + p.title + '<h1></div><div class="text">' + p.content + '</div></div>'+
           '</div>';
 
 
@@ -372,7 +393,6 @@ jQuery(function($) {
           //var option = '<div class="column">';
           //option += '<div class="media-icon but-' + $(el).data('type') + '" data-type="' + $(el).data('type') + '" >';
           //option += '<span>' + $(el).find('span').text();
-
           mediabox += '<div class="mediacontainer '+$(el).data('type')+'">';
 
           $.each(bundle, function(i, media) {
@@ -404,12 +424,15 @@ jQuery(function($) {
                   mediabox += '<a class="media-link" href="'+media.src+'" title="'+media.title+'" data-desc="'+media.desc+'" data-caption="'+media.caption+'">'+media.title+'</a>';
                   break;
                 default:
-                  mediabox += '<a class="media-link" href="'+media.src+'" title="'+media.title+'" data-desc="'+media.desc+'" data-caption="'+media.caption+'">'+media.title+'</a>';
+                mediabox += '<a class="media-link" href="'+media.src+'" title="'+media.title+'" data-desc="'+media.desc+'" data-caption="'+media.caption+'">'+media.title+'</a>';
+
               }
               mediabox += '<div class="caption">'+media.caption+'</div>';
               mediabox += '</div>';
               // title,excerpt,src,type_parent,type_slug,type_name
+
             }
+
           });
           mediabox += '</div>';
 
@@ -420,7 +443,6 @@ jQuery(function($) {
         });
 
         html += '<div class="artifact-media">'+artifactmedia+'</div>';
-
         activeOverlay(html,selected_mediatype);
 
       },
@@ -428,18 +450,11 @@ jQuery(function($) {
         //Error
       },
       timeout: 60000
-    });
 
+    });
     return false;
 
-
   }
-
-
-
-
-
-
 
 
   // on start get data and set taxonomy menu
@@ -487,7 +502,7 @@ jQuery(function($) {
 
 
 
-  // girsd / list toggle
+  // grid / list toggle
   $(document).on('click touchend', '#display-toggle a', function(e){
     e.preventDefault();
     if($('#loopcontainer.grid-view').length){
@@ -624,7 +639,6 @@ jQuery(function($) {
   // hash events
   $(window).bind('hashchange', function(e) {
 
-
     var pagehash = window.location.hash;
     var hash = pagehash.replace('#', '');
 
@@ -668,10 +682,9 @@ jQuery(function($) {
   $(window).load(function() {
 
     var pagehash = window.location.hash;
-    var hash = pagehash.rep
+    var hash = pagehash.replace('#','');
 
-
-    if( $('body.home').length ){ // must be homepage
+    if( $('body.home').length && hash == '' ){ // must be homepage
 
       /*
       // check cookie
@@ -701,18 +714,17 @@ jQuery(function($) {
       /*
       * INTRODUCTION
       */
-      /*
-      setTimeout( function(){
-        $('html, body').stop().animate({
-                'scrollTop': $('#content').offset().top
-          }, 800, 'swing', function () {
-          var content = '<video controls autoplay width="640" height="480"><source type="video/mp4" src="wp-content/uploads/2021/10/intro_de_hoekse_schatkist.mp4"></video><div class="skippintro"><span>Introductie overslaan</span></div>';
-          activeInfobox( content, 'intro');
-          });
 
-      },300);
-      */
+        setTimeout( function(){
+          $('html, body').stop().animate({
+                  'scrollTop': $('#content').offset().top
+            }, 800, 'swing',
+            function () {
+              var content = '<video controls autoplay width="640" height="480"><source type="video/mp4" src="wp-content/uploads/2021/10/intro_de_hoekse_schatkist.mp4"></video><div class="skippintro"><span>Introductie overslaan</span></div>';
+              activeInfobox( content, 'intro');
+            });
 
+        }, 300);
 
 
       //} //console.log(document.cookie);
@@ -766,13 +778,13 @@ jQuery(function($) {
 
     function closeInfobox(){
 
-      if( $('#infoboxcontainer').hasClass('collection') ){
+      //if( $('#infoboxcontainer').hasClass('collection') ){
 
         $('html, body').stop().animate({
               'scrollTop': $('body').offset().top
           }, 800, 'swing' );
 
-      }
+      //}
       $('#infoboxcontainer').fadeOut(200, function() {
         $(this).remove();
       });

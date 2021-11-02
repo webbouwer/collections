@@ -27,9 +27,10 @@ get_header(); // theme default header
 
 echo '<div id="loopcontainer" class="grid-view isotope" data-posttype="'.$posttype.'"  data-taxname="'.$taxname.'" data-term="'.$slug.'" data-orderby="'.$orderby.'" data-order="'.$order.'"  data-ppp="'.$ppp.'">';
 
-echo '<div id="display-toggle"><a class="list"><span>list</span></a><a class="grid"><span>grid</span></a></div>';
+echo '<div id="display-toggle"><a class="list"><span>lijst</span></a><a class="grid"><span>tegels</span></a></div>';
 echo '<div id="display-options"><span>Sorteer:</span><ul class="orderby">';
-echo '<li class="default selected" data-orderby="menu_order">Selectie</li><li class="title" data-orderby="title">Titel</li><li class="date" data-orderby="date">Datum</li>';
+echo '<li class="default selected" data-orderby="menu_order">Selectie</li><li class="title" data-orderby="title">Titel</li>';
+//echo '<li class="date" data-orderby="date">Datum</li>';
 echo '</ul><ul class="order">';
 echo '<li class="asc selected" data-order="asc">Oplopend</li><li class="desc" data-order="desc">Aflopend</li>';
 echo '</ul></div>';
@@ -66,7 +67,7 @@ echo '</ul></div>';
 
     endforeach;
 
-  echo '</ul><div class="reset"><span>Alle objecten</span></div></div></div>'; 
+  echo '</ul><div class="reset"><span>Bekijk alle objecten</span></div></div></div>';
 
   echo '</div>'; // end loopcontainer.isotope
 
