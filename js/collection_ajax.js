@@ -33,6 +33,64 @@ jQuery(function($) {
   }
 
 
+// introtour
+var tourdata = { // dom/css identifier string
+  0: { id: '#typemenu .collection-types .but-video', title: '0 Media selectie', text: 'Selecteer objecten op media: video', x:0, y:-50 },
+  1: { id: '#post-30', title: '1 Object bekijken', text: 'Klik of tab op de foto om het object te bekijken', x:0, y:-50 },
+  2: { id: '#typemenu .collection-types .but-foto', title: '2 Object media', text: 'Selecteer media: foto', x:0, y:-50 },
+  3: { id: '#overlaycontainer .closeoverlay', title: '3 Terug naar overzicht', text: '3 Klik of tab terug naar het overzicht', x:0, y:-50 },
+}
+
+var activetour = 0;
+var nr = 0;
+
+
+function setTourboxes(){
+
+  if(activetour == 1){
+
+    for (const key in tourdata) {
+      if( !$('#tourbox-'+key).length ){
+        var el = $('<div id="tourbox-'+key+'" data-nr="'+key+'" class="tourinfobox"><h3>'+tourdata[key].title+'</h3>'+'<div>'+tourdata[key].text+'</div></div>');
+        $(tourdata[key].id).append(el);
+      }
+    }
+
+    var items = $('.tourinfobox');
+    $.each( items, function(i,item){
+
+
+        $(item).parent().on('click', function(){
+
+          nr = $(item).data('nr');
+  				$(item).fadeOut(300);
+          if (nr === 3) {
+            //$('#tourbox-0').fadeIn(600);
+            activetour = 0;
+            $('.tourinfobox').remove();
+            console.log('end');
+          }else{
+            $('#tourbox-'+(nr+1)).fadeIn(900);
+            console.log('next '+(nr+1));
+          }
+  			});
+
+        $(item).on('click', function(e){
+          e.preventDefault();
+          e.stopPropagation();
+  			});
+
+    });
+
+  }
+
+}
+
+
+
+
+
+
   // prepare html container
   var container = $('#loopcontainer.isotope'),
     gutterWidth = 0,
@@ -115,6 +173,7 @@ jQuery(function($) {
               setTypeMenu();
               container.isotope('reloadItems');
               doneResizing(); // recall isotope
+              $(window).trigger('hashchange'); // check hash
             });
             if (response.length >= amount) {
               pullflag = true;
@@ -184,7 +243,7 @@ jQuery(function($) {
       }).isotope('layout');
 
     // route
-    $(window).trigger('hashchange');
+    //$(window).trigger('hashchange');
 
   }
 
@@ -215,6 +274,7 @@ jQuery(function($) {
         setTypeMenu();
         $('body').find('#typemenu ul.artifact-types li.but-'+type).trigger('click');
       }
+      setTourboxes();
     });
 
   }
@@ -283,12 +343,12 @@ jQuery(function($) {
 
         function setPrevNext(){
 
-          if(currentSlide == allSlides-1){
+          if(currentSlide == allSlides ){
             $next.hide();
           }else{
             $next.show();
           }
-          if(currentSlide == 0){
+          if(currentSlide < 1){
             $prev.hide();
           }else{
             $prev.show();
@@ -497,6 +557,10 @@ jQuery(function($) {
     //if($('#loopcontainer').is(':visible')) {
     //if( $('#infoboxcontainer').length < 1 && $('#overlaycontainer').length < 1){
       setColumnWidth();
+      if(activetour === 1) {
+        setTourboxes();
+        $('#tourbox-0').fadeIn(900);
+      }
     //}
   }
 
@@ -686,13 +750,14 @@ jQuery(function($) {
 
     if( $('body.home').length && hash == '' ){ // must be homepage
 
-      /*
+
       // check cookie
       var chk = getCookie("firsttime");
       if (chk != "" ){
 
         //second screen
         // allready visited
+        /*
         if( hash == '' ){ // not requesting an artifact
         setTimeout( function(){
           $('html, body').stop().animate({
@@ -702,19 +767,16 @@ jQuery(function($) {
                 activeInfobox(content, 'collection');
               });
           },300);
-        }
+        }*/
 
       }else{
 
       // firsttime
       setCookie();
-      */
-
-
       /*
       * INTRODUCTION
       */
-
+      activetour = 1;
         setTimeout( function(){
           $('html, body').stop().animate({
                   'scrollTop': $('#content').offset().top
@@ -727,7 +789,8 @@ jQuery(function($) {
         }, 300);
 
 
-      //} //console.log(document.cookie);
+
+       } //console.log(document.cookie);
     }
 
   });
@@ -788,6 +851,11 @@ jQuery(function($) {
       $('#infoboxcontainer').fadeOut(200, function() {
         $(this).remove();
       });
+
+      if(activetour === 1) {
+        setTourboxes();
+        $('#tourbox-0').fadeIn(900);
+      }
 
     }
 

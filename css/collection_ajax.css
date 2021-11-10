@@ -12,6 +12,63 @@
 {
 }
 
+.tourinfobox
+{
+  position:absolute;
+  padding:8px;
+  background-color: #EEEFF1;
+  font-family: "Verdana", arial, serif;
+  font-size:11px;
+  width:240px;
+  left:50%;
+  display:none;
+  z-index:999;
+  border: solid 2px #ADB4BE;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+#tourbox-0
+{
+  /* display: block; */
+  margin-left:-120px;
+  bottom:-85px;
+}
+#tourbox-0:before{
+    content: "";
+    position: absolute;
+    top: -20px;
+    left:110px;
+    z-index: 1;
+    border: solid 10px transparent;
+    border-bottom-color: #ADB4BE;
+}
+#tourbox-1
+{
+  margin-left:120px;
+  top:-30px;
+}
+#tourbox-2
+{
+  margin-left:-120px;
+  bottom:-85px;
+}
+#tourbox-2:before{
+    content: "";
+    position: absolute;
+    top: -20px;
+    left:110px;
+    z-index: 1;
+    border: solid 10px transparent;
+    border-bottom-color: #ADB4BE;
+}
+#tourbox-3
+{
+  margin-left:-210px;
+  bottom:-75px;
+}
+
 #main,
 #loopcontainer
 {
