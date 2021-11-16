@@ -753,7 +753,7 @@ function setTourboxes(){
 
       // check cookie
       var chk = getCookie("firsttime");
-      if (chk != "" ){
+    // if (chk != "" ){
 
         //second screen
         // allready visited
@@ -769,13 +769,12 @@ function setTourboxes(){
           },300);
         }*/
 
-      }else{
+    //  }else
 
       // firsttime
       setCookie();
-      /*
-      * INTRODUCTION
-      */
+
+
       activetour = 1;
         setTimeout( function(){
           $('html, body').stop().animate({
@@ -791,7 +790,7 @@ function setTourboxes(){
 
 
        } //console.log(document.cookie);
-    }
+    //}
 
   });
 
