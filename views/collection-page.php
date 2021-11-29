@@ -27,6 +27,8 @@ get_header(); // theme default header
 
 echo '<div id="loopcontainer" class="grid-view isotope" data-posttype="'.$posttype.'"  data-taxname="'.$taxname.'" data-term="'.$slug.'" data-orderby="'.$orderby.'" data-order="'.$order.'"  data-ppp="'.$ppp.'">';
 
+echo '<div id="show-recent">Bekijk laatst toegevoegde objecten</div>';
+
 echo '<div id="display-toggle"><a class="list"><span>lijst</span></a><a class="grid"><span>tegels</span></a></div>';
 echo '<div id="display-options"><span>Sorteer:</span><ul class="orderby">';
 echo '<li class="default selected" data-orderby="menu_order">Selectie</li><li class="title" data-orderby="title">Titel</li>';
@@ -53,21 +55,22 @@ echo '</ul></div>';
   foreach ($typeparent as $child) {
     $types[$child->slug] = $child->slug;
     $type_names[$child->slug] = $child->name;
+    $type_desc[$child->slug] = $child->description;
   }
 
   $allfilterclasses = '';
 
-  echo '<div id="typemenu"><div class="innerpadding"><ul class="collection-types">';
+  echo '<div id="typemenu"><div id="helpinfo">Help</div><div class="innerpadding"><ul class="collection-types">';
 
     foreach ( $type_names as $slug => $type ) :
 
-      echo '<li data-type="'.$slug.'" class="icon-button but-'.$slug.'"><span>'.$type.'</span></li>';
+      echo '<li data-type="'.$slug.'" data-desc="'.$type_desc[$slug].'" class="icon-button but-'.$slug.'"><span>'.$type.'</span></li>';
 
       $allfilterclasses .= $slug.' ';
 
     endforeach;
 
-  echo '</ul><div class="reset"><span>Bekijk alle objecten</span></div></div></div>';
+  echo '</ul><div class="menuinfo"></div></div></div>';
 
   echo '</div>'; // end loopcontainer.isotope
 

@@ -33,59 +33,6 @@ jQuery(function($) {
   }
 
 
-// introtour
-var tourdata = { // dom/css identifier string
-  0: { id: '#typemenu .collection-types .but-video', title: '0 Media selectie', text: 'Selecteer objecten op media: video', x:0, y:-50 },
-  1: { id: '#post-30', title: '1 Object bekijken', text: 'Klik of tab op de foto om het object te bekijken', x:0, y:-50 },
-  2: { id: '#typemenu .collection-types .but-foto', title: '2 Object media', text: 'Selecteer media: foto', x:0, y:-50 },
-  3: { id: '#overlaycontainer .closeoverlay', title: '3 Terug naar overzicht', text: '3 Klik of tab terug naar het overzicht', x:0, y:-50 },
-}
-
-var activetour = 0;
-var nr = 0;
-
-
-function setTourboxes(){
-
-  if(activetour == 1){
-
-    for (const key in tourdata) {
-      if( !$('#tourbox-'+key).length ){
-        var el = $('<div id="tourbox-'+key+'" data-nr="'+key+'" class="tourinfobox"><h3>'+tourdata[key].title+'</h3>'+'<div>'+tourdata[key].text+'</div></div>');
-        $(tourdata[key].id).append(el);
-      }
-    }
-
-    var items = $('.tourinfobox');
-    $.each( items, function(i,item){
-
-
-        $(item).parent().on('click', function(){
-
-          nr = $(item).data('nr');
-  				$(item).fadeOut(300);
-          if (nr === 3) {
-            //$('#tourbox-0').fadeIn(600);
-            activetour = 0;
-            $('.tourinfobox').remove();
-            console.log('end');
-          }else{
-            $('#tourbox-'+(nr+1)).fadeIn(900);
-            console.log('next '+(nr+1));
-          }
-  			});
-
-        $(item).on('click', function(e){
-          e.preventDefault();
-          e.stopPropagation();
-  			});
-
-    });
-
-  }
-
-}
-
 
 
 
@@ -223,6 +170,20 @@ function setTourboxes(){
       });
       //console.log('set artifact types menu');
     }
+
+    $('#typemenu ul.collection-types li').hover(
+
+               function () {
+                 if( $(this).hasClass('notavailable') ){
+                 }else{
+                  $('.menuinfo').html( '<span>'+ $(this).data('desc') +'<span>');
+                 }
+               },
+
+               function () {
+                  $('.menuinfo').html('');
+               }
+            );
   }
 
 
@@ -265,7 +226,7 @@ function setTourboxes(){
     $('#loopcontainer').fadeOut(200);
 
     $('#typemenu ul').removeClass("collection-types").addClass("artifact-types");
-    $('#typemenu .reset').fadeOut();
+    //$('#typemenu .reset').fadeOut();
 
     $('#overlaycontainer').fadeIn(200, function() {
       if(type){
@@ -274,7 +235,7 @@ function setTourboxes(){
         setTypeMenu();
         $('body').find('#typemenu ul.artifact-types li.but-'+type).trigger('click');
       }
-      setTourboxes();
+
     });
 
   }
@@ -298,13 +259,13 @@ function setTourboxes(){
     $('#typemenu ul li').removeClass('selected');
     $('#typemenu ul li'+butname).addClass('selected');
 
-
+    /*
         if( type == defaultselect ){
           $('#typemenu .reset').fadeOut();
         }else{
           $('#typemenu .reset').fadeIn();
         }
-
+        */
     setTypeMenu();
 
     $('#loopcontainer').fadeIn(200, function() {
@@ -526,7 +487,7 @@ function setTourboxes(){
     if ($('#categorymenu').length) {
       $('#primarymenubox').before($('#categorymenu'));
     }
-    $('#typemenu .reset').hide();
+    //$('#typemenu .reset').hide();
 
     setTypeMenu();
 
@@ -554,14 +515,7 @@ function setTourboxes(){
   });
 
   function doneResizing() {
-    //if($('#loopcontainer').is(':visible')) {
-    //if( $('#infoboxcontainer').length < 1 && $('#overlaycontainer').length < 1){
       setColumnWidth();
-      if(activetour === 1) {
-        setTourboxes();
-        $('#tourbox-0').fadeIn(900);
-      }
-    //}
   }
 
 
@@ -579,12 +533,12 @@ function setTourboxes(){
       doneResizing();
     }
   });
-
+  /*
   $(document).on('click touchend', '#typemenu .reset', function(e){
       e.preventDefault();
       $('body').find('#typemenu ul.collection-types li.but-foto').trigger('click');
   });
-
+*/
   // orderby select
   $(document).on('click touchstart', '#display-options ul.orderby li', function(e){
     $('#loopcontainer').attr('data-orderby', $(this).data('orderby') );
@@ -621,6 +575,14 @@ function setTourboxes(){
     getCollectionData();
   });
 
+  $(document).on('click touchend', '#show-recent', function(e){
+    $('#loopcontainer').attr('data-order', 'date' );
+    pullpage = 0; // starts onload
+    pullflag = true;
+    $('#loopcontainer .post-artifact').remove();
+    getCollectionData();
+  });
+
 
 
 
@@ -635,12 +597,12 @@ function setTourboxes(){
     $('#typemenu ul li'+butname).addClass('selected');
 
     filters = butclass;
-
+    /*
     if( type == defaultselect ){
       $('#typemenu .reset').fadeOut();
     }else{
       $('#typemenu .reset').fadeIn();
-    }
+    }*/
     setColumnWidth();
 
 
@@ -694,10 +656,15 @@ function setTourboxes(){
 
   });
 
-  $(document).on('click touchstart', '.closeoverlay,.skippintro', function(event) {
+  $(document).on('click touchstart', '#infoboxcontainer.helpbox,.closeoverlay,.skippintro', function(event) {
     event.preventDefault();
     history.pushState("", document.title, window.location.pathname);
     closeOverlay(); //history.go(-1);
+  });
+
+  $(document).on('click touchstart', '#helpinfo', function(event) {
+    var helpcontent = '<div id="helpcontent"><h3>Help</h3><p>Beweeg met je muis over een foto.<br/>Klik vervolgens op een van de iconen.</p><p>Wilt u terug naar het hoofdmenu? Klik op Home.</p></div>';
+    activeInfobox( helpcontent , 'helpbox')
   });
 
   // hash events
@@ -740,9 +707,6 @@ function setTourboxes(){
 
 
 
-
-
-
   $(window).load(function() {
 
     var pagehash = window.location.hash;
@@ -753,29 +717,9 @@ function setTourboxes(){
 
       // check cookie
       var chk = getCookie("firsttime");
-    // if (chk != "" ){
-
-        //second screen
-        // allready visited
-        /*
-        if( hash == '' ){ // not requesting an artifact
-        setTimeout( function(){
-          $('html, body').stop().animate({
-                  'scrollTop': $('#content').offset().top
-              }, 800, 'swing', function () {
-                var content = '<div class="innerpadding">'+$('#collection-info').html()+'</div>'; //'Introtekst Chateau du Lac';
-                activeInfobox(content, 'collection');
-              });
-          },300);
-        }*/
-
-    //  }else
-
+      if (chk == "" ){
       // firsttime
       setCookie();
-
-
-      activetour = 1;
         setTimeout( function(){
           $('html, body').stop().animate({
                   'scrollTop': $('#content').offset().top
@@ -786,11 +730,8 @@ function setTourboxes(){
             });
 
         }, 300);
-
-
-
-       } //console.log(document.cookie);
-    //}
+      } //console.log(document.cookie);
+    }
 
   });
 
@@ -833,10 +774,12 @@ function setTourboxes(){
       }
       //content = infoboxTemplate( content );
       $('#infoboxcontainer .outermargin').html(content);
+      $('.closeinfobox').prependTo( $('#infoboxcontainer .outermargin') );
 
       $('#infoboxcontainer').fadeIn(200);
       //$('#loopcontainer').fadeOut(200);
   }
+
 
     function closeInfobox(){
 
@@ -850,11 +793,6 @@ function setTourboxes(){
       $('#infoboxcontainer').fadeOut(200, function() {
         $(this).remove();
       });
-
-      if(activetour === 1) {
-        setTourboxes();
-        $('#tourbox-0').fadeIn(900);
-      }
 
     }
 
@@ -871,34 +809,11 @@ function setTourboxes(){
 
 
     $(document).on('click touchend', '#infoboxcontainer.intro', function(event) {
-
           if(!$(event.target).is('#infoboxcontainer .outermargin, #infoboxcontainer .outermargin li a, video, video source, #infoboxcontainer .outermargin a')){
             event.preventDefault();
             //collectionInfobox();
             closeInfobox();
           }
-
     });
-
-    /*
-    $(document).on('click touchend', '#infoboxcontainer.collection', function(event) {
-
-          if(!$(event.target).is('#infoboxcontainer .outermargin, #infoboxcontainer .outermargin li a, video, video sourc, #infoboxcontainer .outermargin a')){
-            event.preventDefault();
-            closeInfobox();
-          }
-    });
-
-    function collectionInfobox(){
-      $('#infoboxcontainer').fadeOut(200, function() {
-        $(this).remove();
-
-        var content = '<div class="innerpadding">'+$('#collection-info').html()+'</div>'; //'Introtekst Chateau du Lac';
-        activeInfobox(content, 'collection');
-      });
-    }
-    */
-
-
 
 });
