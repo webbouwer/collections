@@ -576,7 +576,8 @@ jQuery(function($) {
   });
 
   $(document).on('click touchend', '#show-recent', function(e){
-    $('#loopcontainer').attr('data-order', 'date' );
+    $('#loopcontainer').attr('data-orderby', 'date' );
+    $('#loopcontainer').attr('data-order', 'DESC' );
     pullpage = 0; // starts onload
     pullflag = true;
     $('#loopcontainer .post-artifact').remove();
