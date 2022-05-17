@@ -1,0 +1,338 @@
+/**/
+
+#typemenu ul.collection-types li.available
+{
+  /*background-color:green;*/
+}
+#typemenu ul.artifact-types li.available{
+  /* background-color:blue; */
+}
+
+#typemenu .reset
+{
+}
+
+.tourinfobox
+{
+  position:absolute;
+  padding:8px;
+  background-color: #EEEFF1;
+  font-family: "Verdana", arial, serif;
+  font-size:11px;
+  width:240px;
+  left:50%;
+  display:none;
+  z-index:999;
+  border: solid 2px #ADB4BE;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+#tourbox-0
+{
+  /* display: block; */
+  margin-left:-120px;
+  bottom:-85px;
+}
+#tourbox-0:before{
+    content: "";
+    position: absolute;
+    top: -20px;
+    left:110px;
+    z-index: 1;
+    border: solid 10px transparent;
+    border-bottom-color: #ADB4BE;
+}
+#tourbox-1
+{
+  margin-left:120px;
+  top:-30px;
+}
+#tourbox-2
+{
+  margin-left:-120px;
+  bottom:-85px;
+}
+#tourbox-2:before{
+    content: "";
+    position: absolute;
+    top: -20px;
+    left:110px;
+    z-index: 1;
+    border: solid 10px transparent;
+    border-bottom-color: #ADB4BE;
+}
+#tourbox-3
+{
+  margin-left:-210px;
+  bottom:-75px;
+}
+
+#main,
+#loopcontainer
+{
+  display: block;
+  position: relative;
+  width:100%;
+}
+
+
+#display-toggle
+{
+  position:absolute;
+  top:5px;
+  right:5px;
+  z-index:99;
+}
+#display-toggle a
+{
+}
+
+.grid-view .grid
+{
+  display:none;
+}
+.list-view .list
+{
+  display:none;
+}
+
+
+
+
+
+
+
+#loopcontainer.grid-view .post-artifact {
+    /* max-width:403px; */
+    width: calc(40% - 30px); /* col 5 3x : 60%; */
+    margin:15px;
+    /*
+    -webkit-transition: all 0.2s ease-in-out;
+   -moz-transition: all 0.2s ease-in-out;
+   -o-transition: all 0.2s ease-in-out;
+   -ms-transition: all 0.2s ease-in-out;
+   transition: all 0.2s ease-in-out;
+   */
+}
+.small #loopcontainer.grid-view .post-artifact,
+.medium #loopcontainer.grid-view .post-artifact {
+    /* max-width:403px; */
+    width: calc(40% - 12px); /* col 5 3x : 60%; */
+    margin:6px;
+   */
+}
+
+/* overview page - TODO check width for small screens .. */
+#loopcontainer.grid-view .post-artifact.panorama
+{
+  width: calc(70% - 30px);
+
+}
+#loopcontainer.grid-view .post-artifact.landscape
+{
+  width: calc(40% - 30px); /* col 5 3x : 60%; */
+}
+#loopcontainer.grid-view .post-artifact.portrait
+{
+  width: calc(30% - 30px); /* col 5 1x : 20%; */
+}
+#loopcontainer.grid-view .post-artifact.square
+{
+  width: calc(30% - 30px); /* col 5 2x : 40%; */
+}
+
+
+.small #loopcontainer.grid-view .post-artifact.panorama,
+.medium #loopcontainer.grid-view .post-artifact.panorama
+{
+  width: calc(70% - 12px);
+}
+.small #loopcontainer.grid-view .post-artifact.landscape,
+.medium #loopcontainer.grid-view .post-artifact.landscape
+{
+  width: calc(40% - 12px); /* col 5 3x : 60%; */
+}
+.small #loopcontainer.grid-view .post-artifact.portrait,
+.medium #loopcontainer.grid-view .post-artifact.portrait
+{
+  width: calc(30% - 12px); /* col 5 1x : 20%; */
+}
+.small #loopcontainer.grid-view .post-artifact.square,
+.medium #loopcontainer.grid-view .post-artifact.square
+{
+  width: calc(30% - 12px); /* col 5 2x : 40%; */
+}
+
+
+
+.large #loopcontainer.grid-view .post-artifact.panorama
+{
+  min-width:580px;
+}
+.large #loopcontainer.grid-view .post-artifact.landscape
+{
+  min-width:460px;
+}
+.large #loopcontainer.grid-view .post-artifact.portrait
+{
+  min-width:240px;
+}
+.large #loopcontainer.grid-view .post-artifact.square
+{
+  min-width:240px;
+}
+
+
+
+#loopcontainer.grid-view .post-artifact .innerpadding
+{
+  position:relative;
+  padding:0;
+}
+
+#loopcontainer.grid-view .post-artifact img.wp-post-image
+{
+  display: block;
+  width:100%;
+  height:auto;
+  border:none;
+}
+
+#loopcontainer.grid-view .post-artifact .overlay
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, .5);
+  opacity: 0;
+  text-align:center;
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+}
+
+#loopcontainer.grid-view .post-artifact:hover .overlay,
+#loopcontainer.grid-view .post-artifact.hovered .overlay {
+  opacity: 1;
+}
+
+
+
+
+
+
+#loopcontainer.list-view .post-artifact
+{
+  position: relative;
+  width:100%;
+}
+#loopcontainer.list-view .post-artifact .innerpadding
+{
+  position:relative;
+  padding:0px;
+}
+#loopcontainer.list-view .post-artifact
+{
+  clear:both;
+}
+#loopcontainer.list-view .post-artifact img.wp-post-image
+{
+  width:auto;
+  height:90px;
+  float:left;
+}
+#loopcontainer.list-view .post-artifact.landscape img.wp-post-image
+{
+}
+#loopcontainer.list-view .post-artifact .overlay
+{
+}
+#loopcontainer.list-view .post-artifact .overlay .item-icons
+{
+}
+#loopcontainer.list-view .post-artifact .overlay .item-excerpt
+{
+}
+
+#loopcontainer.list-view .item-icons ul
+{
+}
+#loopcontainer.list-view .item-icons ul li
+{
+}
+#loopcontainer.list-view .item-icons ul li:hover,
+#loopcontainer.list-view .item-icons ul li.selected
+{
+}
+
+
+
+
+
+
+
+
+.mediabox
+{
+  display:flex;
+  justify-content: center;
+  min-height:360px;
+}
+
+.mediabox .cover
+{
+  position:relative;
+  display:block;
+}
+.mediabox .cover img
+{
+  max-width:100%;
+  height:auto;
+}
+.mediabox.display .cover
+{
+  position:absolute;
+  left:15px;
+  width:15%;
+  height:auto;
+}
+
+.artifact-media .mediacontainer
+{
+  display:none;
+}
+
+.closeoverlay,
+.closeinfobox
+{
+  position:absolute;
+  right:0px;
+  top:0px;
+  height:64px;
+  width:64px;
+  z-index:999;
+  background-color:blue;
+}
+
+/* sliderbox */
+.mediabox .slider div.mediaholder
+{
+  position:absolute !important;
+  display:none;
+}
