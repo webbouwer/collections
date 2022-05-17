@@ -64,6 +64,18 @@ class ArtifactAjaxView{
 				 $json['postmedia'] = array();
 				 $media = get_attached_media( '', $id );
 
+				 /*
+				 $media = get_posts(array(
+				     'post_parent' => $id,
+				     'post_type' => 'attachment',
+				     //'post_mime_type' => 'image',
+				     'orderby' => 'order',
+				     'order' => 'ASC',
+						 //'suppress_filters' => false,
+				 ));
+				 */
+
+
 				 if( count($media) > 0){
 
 				 foreach($media as $element) {
@@ -78,6 +90,7 @@ class ArtifactAjaxView{
 						 'alt' => get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ),
 						 'caption' => $attachment->post_excerpt,
 						 'desc' => $attachment->post_content,
+						 'order'=> $attachment->menu_order,
 						 'src'=>$element->guid,
 						 'type_parent'=> $terms[0]->parent,
 						 'type_slug'=> $terms[0]->slug,

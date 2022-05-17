@@ -113,7 +113,9 @@ class CollectionsAjaxGrid{
         $ID = get_the_ID();
 				$post = get_post($ID);
 				$slug = $post->post_name;
+
   			$media = get_attached_media( '', $ID );
+				
   		  $type_classes = array();
   			$type_count = array();
   			$classes = '';

@@ -221,7 +221,14 @@ jQuery(function($) {
     }
     $('#overlaycontainer .outermargin').html(content);
 
+
+
     setImagesOrient();
+
+    $('#overlaycontainer .outermargin .mediacontainer.'+type+' div.mediaholder').sort(function(a,b) {
+      return $(a).data('order') < $(b).data('order');
+    }).appendTo('#overlaycontainer .outermargin .mediacontainer.'+type);
+
 
     $('#loopcontainer').fadeOut(200);
 
@@ -403,7 +410,6 @@ jQuery(function($) {
 
 
         var bundle = json.data.postmedia;
-
         var artifactmedia = '';
 
         $('#typemenu ul li:not(#menubutton)').each(function(c, el) {
@@ -422,7 +428,7 @@ jQuery(function($) {
               var file = media.src;
               var extension = file.substr( (file.lastIndexOf('.') +1) );
 
-              mediabox += '<div class="mediaholder '+media.type_name+'">';
+              mediabox += '<div class="mediaholder '+media.type_name+'" data-order="'+media.order+'">';
               switch(extension) {
                 case 'jpg':
                 case 'jpeg':
@@ -461,10 +467,12 @@ jQuery(function($) {
             artifactmedia += mediabox;
           }
 
+
         });
 
         html += '<div class="artifact-media">'+artifactmedia+'</div>';
         activeOverlay(html,selected_mediatype);
+
 
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
