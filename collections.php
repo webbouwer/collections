@@ -9,13 +9,75 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+require_once(plugin_dir_path(__FILE__) . 'core/taxonomy_collection.php');
 require_once(plugin_dir_path(__FILE__) . 'core/taxonomy_types.php');
-require_once(plugin_dir_path(__FILE__) . 'core/taxonomy_collection.php');
+require_once(plugin_dir_path(__FILE__) . 'core/wp_dropdown_posts.php');
 require_once(plugin_dir_path(__FILE__) . 'core/posttype_artifact.php');
 
 require_once(plugin_dir_path(__FILE__) . 'functions/page_templates.php');
 require_once(plugin_dir_path(__FILE__) . 'functions/page_options.php');
-
+
+
+// https://wordpress.stackexchange.com/questions/204779/how-can-i-add-an-author-filter-to-the-media-library
+/*
+function media_add_author_dropdown()
+{
+    $scr = get_current_screen();
+    if ( $scr->base !== 'upload' ) return;
+
+    $author   = filter_input(INPUT_GET, 'author', FILTER_SANITIZE_STRING );
+    $selected = (int)$author > 0 ? $author : '-1';
+    $args = array(
+        'show_option_none'   => 'All Authors',
+        'name'               => 'author',
+        'selected'           => $selected
+    );
+    wp_dropdown_users( $args );
+}
+add_action('restrict_manage_posts', 'media_add_author_dropdown');
+
+
+function author_filter($query) {
+    if ( is_admin() && $query->is_main_query() ) {
+        if (isset($_GET['author']) && $_GET['author'] == -1) {
+            $query->set('author', '');
+        }
+    }
+}
+add_action('pre_get_posts','author_filter');
+*/
+
+
+
+function media_belongs_to_post_dropdown()
+{
+    $scr = get_current_screen();
+    if ( $scr->base !== 'upload' ) return;
+
+    $post_parent   = filter_input(INPUT_GET, 'post_parent', FILTER_SANITIZE_STRING );
+    $selected = (int)$post_parent > 0 ? $post_parent : '-1';
+    $args = array(
+        'show_option_all'   => 'All Artifacts',
+				'echo' 							=> 1,
+        'select_name'       => 'post_parent',
+        'selected'          => $selected
+    );
+
+    wp_dropdown_posts( $args );
+}
+add_action('restrict_manage_posts', 'media_belongs_to_post_dropdown');
+
+
+function parent_filter($query) {
+    if ( is_admin() && $query->is_main_query() ) {
+        if (isset($_GET['post_parent']) && $_GET['post_parent'] == -1) {
+            $query->set('post_parent', '');
+        }
+    }
+}
+add_action('pre_get_posts','parent_filter');
+
+
 function pluginconstruct() {
 	return new collectionsMain();
 }
