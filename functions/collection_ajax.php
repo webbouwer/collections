@@ -113,7 +113,9 @@ class CollectionsAjaxGrid{
         $ID = get_the_ID();
 				$post = get_post($ID);
 				$slug = $post->post_name;
+
   			$media = get_attached_media( '', $ID );
+
   		  $type_classes = array();
   			$type_count = array();
   			$classes = '';
@@ -155,8 +157,10 @@ class CollectionsAjaxGrid{
   			$html .= '<div class="item-icons"><ul>';
   			foreach ( $types_used as $slug => $type ) :
   			     if( $type_count[$slug] != '' ){
-  					        $html .= '<li data-type="'.$slug.'" class="icon-button but-'.$slug.'"><span>'.$type.'('.$type_count[$slug].')</span></li>';
-  					 }
+  					        //$html .= '<li data-type="'.$slug.'" class="icon-button but-'.$slug.'"><span>'.$type.'('.$type_count[$slug].')</span></li>';
+										$html .= '<li data-type="'.$slug.'" class="icon-button but-'.$slug.'"><a href="'.get_the_permalink().'?type='.$slug.'" class="entry-title-link"><span>'.$type.'('.$type_count[$slug].')</span></a></li>';
+
+			 			}
   			endforeach;
   			$html .= '</ul></div>';
   			$html .= '<div class="item-excerpt">'.get_the_excerpt().'</div>';

@@ -10,7 +10,7 @@ class CollectionsSettings {
     public function __construct() {
         add_action( 'admin_menu', array( $this, 'dropdown_option_setting_add_plugin_page' ) );
         add_action( 'admin_init', array( $this, 'dropdown_option_setting_page_init' ) );
-    }
+    } 
 
     public function dropdown_option_setting_add_plugin_page() {
         add_options_page(

@@ -27,6 +27,8 @@ get_header(); // theme default header
 
 echo '<div id="loopcontainer" class="grid-view isotope" data-posttype="'.$posttype.'"  data-taxname="'.$taxname.'" data-term="'.$slug.'" data-orderby="'.$orderby.'" data-order="'.$order.'"  data-ppp="'.$ppp.'">';
 
+echo '</div>'; // end loopcontainer.isotope
+
 echo '<div id="show-recent">Bekijk laatst toegevoegde objecten</div>';
 
 echo '<div id="display-toggle"><a class="list"><span>lijst</span></a><a class="grid"><span>tegels</span></a></div>';
@@ -71,8 +73,6 @@ echo '</ul></div>';
     endforeach;
 
   echo '</ul><div class="menuinfo"></div></div></div>';
-
-  echo '</div>'; // end loopcontainer.isotope
 
 
 

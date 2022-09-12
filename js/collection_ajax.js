@@ -221,7 +221,14 @@ jQuery(function($) {
     }
     $('#overlaycontainer .outermargin').html(content);
 
+
+
     setImagesOrient();
+
+    $('#overlaycontainer .outermargin .mediacontainer.'+type+' div.mediaholder').sort(function(a,b) {
+      return $(a).data('order') < $(b).data('order');
+    }).appendTo('#overlaycontainer .outermargin .mediacontainer.'+type);
+
 
     $('#loopcontainer').fadeOut(200);
 
@@ -403,7 +410,6 @@ jQuery(function($) {
 
 
         var bundle = json.data.postmedia;
-
         var artifactmedia = '';
 
         $('#typemenu ul li:not(#menubutton)').each(function(c, el) {
@@ -422,7 +428,7 @@ jQuery(function($) {
               var file = media.src;
               var extension = file.substr( (file.lastIndexOf('.') +1) );
 
-              mediabox += '<div class="mediaholder '+media.type_name+'">';
+              mediabox += '<div class="mediaholder '+media.type_name+'" data-order="'+media.order+'">';
               switch(extension) {
                 case 'jpg':
                 case 'jpeg':
@@ -461,10 +467,12 @@ jQuery(function($) {
             artifactmedia += mediabox;
           }
 
+
         });
 
         html += '<div class="artifact-media">'+artifactmedia+'</div>';
         activeOverlay(html,selected_mediatype);
+
 
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -633,6 +641,7 @@ jQuery(function($) {
 
 
   // popup overlay artifact
+  /*
   $(document).on('click touchend', '.post-artifact .overlay, .entry-title a,.item-icons ul li', function(event) {
 
     event.preventDefault();
@@ -656,6 +665,7 @@ jQuery(function($) {
     //activeOverlay( ''+selected_id+' - '+selected_slug+'..');
 
   });
+  */
 
   $(document).on('click touchstart', '#infoboxcontainer.helpbox,.closeoverlay,.skippintro', function(event) {
     event.preventDefault();
@@ -704,8 +714,6 @@ jQuery(function($) {
     }
 
   });
-
-
 
 
   $(window).load(function() {
@@ -807,7 +815,6 @@ jQuery(function($) {
         //}
 
     });
-
 
     $(document).on('click touchend', '#infoboxcontainer.intro', function(event) {
           if(!$(event.target).is('#infoboxcontainer .outermargin, #infoboxcontainer .outermargin li a, video, video source, #infoboxcontainer .outermargin a')){

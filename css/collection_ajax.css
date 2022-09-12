@@ -1,11 +1,212 @@
-/**/
+/*
+
+rood roze : #FF004D
+
+grijs standaard : #ADB4BE
+
+licht grijs   :#C8CCD2
+
+Donker grijs   :#5E6877
+
+blauw : #00A3E8;
+
+*/
+
+#typemenu ul li.notavailable
+
+{
+
+  opacity:0.2;
+
+}
+
+#typemenu ul li.available
+
+{
+
+  cursor:pointer;
+
+}
+
+
+#prevmedia span,
+#nextmedia span
+{
+  display:none;
+}
+#prevmedia
+{
+  left:-50px;
+  background:url('../icons/arrow_icon_left_grey.png');
+}
+#nextmedia
+{
+  right:-50px;
+  background:url('../icons/arrow_icon_right_grey.png');
+}
+
+/* base icon buttons */
+.but-foto
+{
+  background-image:url('../icons/menu_icon_grey_foto.png');
+}
+.but-audio
+{
+  background-image:url('../icons/menu_icon_grey_audio.png');
+}
+.but-gedicht
+{
+  background-image:url('../icons/menu_icon_grey_gedicht.png');
+}
+.but-sculptuur
+{
+  background-image:url('../icons/menu_icon_grey_sculptuur.png');
+}
+.but-video
+{
+  background-image:url('../icons/menu_icon_grey_video.png');
+}
+.but-schilderij
+{
+  background-image:url('../icons/menu_icon_grey_schilderij.png');
+}
+.but-verhaal
+{
+  background-image:url('../icons/menu_icon_grey_geschrift.png');
+}
+.but-pers
+{
+  background-image:url('../icons/menu_icon_grey_newspaper.png');
+}
+.but-overige
+{
+  background-image:url('../icons/menu_icon_grey_overig.png');
+}
+
+/* typemenu icon buttons */
+#typemenu .icon-button.available:hover{
+  background-color:#ADB4BE;
+}
+
+#typemenu .icon-button.available.selected,
+#typemenu .icon-button.available.selected:hover,
+.column .media-icon:hover,
+.column .media-icon.selected {
+  background-color:#FF004D;
+}
+
+
+
+#typemenu .but-foto.available:hover,
+#typemenu .but-foto.available.selected,
+#loopcontainer.grid-view .post-artifact .item-icons .but-foto,
+.column .media-icon.but-foto
+{
+  background-image:url('../icons/menu_icon_white_foto.png');
+}
+#typemenu .but-audio.available:hover,
+#typemenu .but-audio.available.selected,
+#loopcontainer.grid-view .post-artifact .item-icons .but-audio,
+.column .media-icon.but-audio
+{
+  background-image:url('../icons/menu_icon_white_audio.png');
+}
+#typemenu .but-gedicht.available:hover,
+#typemenu .but-gedicht.available.selected,
+#loopcontainer.grid-view .post-artifact .item-icons .but-gedicht,
+.column .media-icon.but-gedicht
+{
+  background-image:url('../icons/menu_icon_white_gedicht.png');
+}
+#typemenu .but-sculptuur.available:hover,
+#typemenu .but-sculptuur.available.selected,
+#loopcontainer.grid-view .post-artifact .item-icons .but-sculptuur,
+.column .media-icon.but-sculptuur
+{
+  background-image:url('../icons/menu_icon_white_sculptuur.png');
+}
+#typemenu .but-video.available:hover,
+#typemenu .but-video.available.selected,
+#loopcontainer.grid-view .post-artifact .item-icons .but-video,
+.column .media-icon.but-video
+{
+  background-image:url('../icons/menu_icon_white_video.png');
+}
+#typemenu .but-schilderij.available:hover,
+#typemenu .but-schilderij.available.selected,
+#loopcontainer.grid-view .post-artifact .item-icons .but-schilderij,
+.column .media-icon.but-schilderij
+{
+  background-image:url('../icons/menu_icon_white_schilderij.png');
+}
+#typemenu .but-verhaal.available:hover,
+#typemenu .but-verhaal.available.selected,
+#loopcontainer.grid-view .post-artifact .item-icons .but-verhaal,
+.column .media-icon.but-verhaal
+{
+  background-image:url('../icons/menu_icon_white_geschrift.png');
+}
+#typemenu .but-pers.available:hover,
+#typemenu .but-pers.available.selected,
+#loopcontainer.grid-view .post-artifact .item-icons .but-pers,
+.column .media-icon.but-pers
+{
+  background-image:url('../icons/menu_icon_white_newspaper.png');
+}
+#typemenu .but-overige.available:hover,
+#typemenu .but-overige.available.selected,
+#loopcontainer.grid-view .post-artifact .item-icons .but-overige,
+.column .media-icon.but-overige
+{
+  background-image:url('../icons/menu_icon_white_overig.png');
+}
+
+
+#loopcontainer .post-artifact .item-icons .but-foto
+{
+  order: 1;
+}
+#loopcontainer .post-artifact .item-icons .but-audio
+{
+  order: 2;
+}
+#loopcontainer .post-artifact .item-icons .but-gedicht
+{
+  order: 3;
+}
+#loopcontainer .post-artifact .item-icons .but-sculptuur
+{
+  order: 4;
+}
+#loopcontainer .post-artifact .item-icons .but-video
+{
+  order: 5;
+}
+#loopcontainer .post-artifact .item-icons .but-schilderij
+{
+  order: 6;
+}
+#loopcontainer .post-artifact .item-icons .but-verhaal
+{
+  order: 7;
+}
+#loopcontainer .post-artifact .item-icons .but-pers
+{
+  order: 8;
+}
+#loopcontainer .post-artifact .item-icons .but-overige
+{
+  order: 9;
+}
+
+
+/*
 
 #typemenu ul.collection-types li.available
 {
-  /*background-color:green;*/
 }
 #typemenu ul.artifact-types li.available{
-  /* background-color:blue; */
+
 }
 
 #typemenu .reset
@@ -31,7 +232,6 @@
 
 #tourbox-0
 {
-  /* display: block; */
   margin-left:-120px;
   bottom:-85px;
 }
@@ -105,26 +305,25 @@
 
 
 #loopcontainer.grid-view .post-artifact {
-    /* max-width:403px; */
-    width: calc(40% - 30px); /* col 5 3x : 60%; */
+
+    width: calc(40% - 30px);
     margin:15px;
-    /*
+
     -webkit-transition: all 0.2s ease-in-out;
    -moz-transition: all 0.2s ease-in-out;
    -o-transition: all 0.2s ease-in-out;
    -ms-transition: all 0.2s ease-in-out;
    transition: all 0.2s ease-in-out;
-   */
+
 }
 .small #loopcontainer.grid-view .post-artifact,
 .medium #loopcontainer.grid-view .post-artifact {
-    /* max-width:403px; */
-    width: calc(40% - 12px); /* col 5 3x : 60%; */
+
+    width: calc(40% - 12px);
     margin:6px;
-   */
+
 }
 
-/* overview page - TODO check width for small screens .. */
 #loopcontainer.grid-view .post-artifact.panorama
 {
   width: calc(70% - 30px);
@@ -132,15 +331,15 @@
 }
 #loopcontainer.grid-view .post-artifact.landscape
 {
-  width: calc(40% - 30px); /* col 5 3x : 60%; */
+  width: calc(40% - 30px);
 }
 #loopcontainer.grid-view .post-artifact.portrait
 {
-  width: calc(30% - 30px); /* col 5 1x : 20%; */
+  width: calc(30% - 30px);
 }
 #loopcontainer.grid-view .post-artifact.square
 {
-  width: calc(30% - 30px); /* col 5 2x : 40%; */
+  width: calc(30% - 30px);
 }
 
 
@@ -152,17 +351,17 @@
 .small #loopcontainer.grid-view .post-artifact.landscape,
 .medium #loopcontainer.grid-view .post-artifact.landscape
 {
-  width: calc(40% - 12px); /* col 5 3x : 60%; */
+  width: calc(40% - 12px);
 }
 .small #loopcontainer.grid-view .post-artifact.portrait,
 .medium #loopcontainer.grid-view .post-artifact.portrait
 {
-  width: calc(30% - 12px); /* col 5 1x : 20%; */
+  width: calc(30% - 12px);
 }
 .small #loopcontainer.grid-view .post-artifact.square,
 .medium #loopcontainer.grid-view .post-artifact.square
 {
-  width: calc(30% - 12px); /* col 5 2x : 40%; */
+  width: calc(30% - 12px);
 }
 
 
@@ -330,9 +529,10 @@
   background-color:blue;
 }
 
-/* sliderbox */
+
 .mediabox .slider div.mediaholder
 {
   position:absolute !important;
   display:none;
 }
+*/
