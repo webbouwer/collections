@@ -130,7 +130,7 @@ class collectionsMain {
 			//global $post;
 			//if ( is_page_template('collection-page.php') ) {
 				include(plugin_dir_path(__FILE__) . 'functions/collection_ajax.php');
-				include(plugin_dir_path(__FILE__) . 'functions/object_ajax.php');
+				//include(plugin_dir_path(__FILE__) . 'functions/object_ajax.php');
 			//}
 			/*
 			global $post;
