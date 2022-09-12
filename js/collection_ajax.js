@@ -55,7 +55,7 @@ jQuery(function($) {
     selected_mediatype = defaultselect;
 
   container.isotope({
-    itemSelector: '.post-artifact',
+    itemSelector: '.post-object',
     animationEngine: 'best-available',
     transitionDuration: '0.9s',
     masonry: {
@@ -155,8 +155,8 @@ jQuery(function($) {
         }
       });
     }
-    // artifact type menu
-    if ($('#typemenu ul').hasClass('artifact-types')) {
+    // object type menu
+    if ($('#typemenu ul').hasClass('object-types')) {
       $('#typemenu ul li:not(#menubutton)').each(function() {
         var chk = '.' + $(this).data('type');
         if ($('.popcontainer ' + chk).length > 0) {
@@ -168,7 +168,7 @@ jQuery(function($) {
           $(this).addClass('notavailable');
         }
       });
-      //console.log('set artifact types menu');
+      //console.log('set object types menu');
     }
 
     $('#typemenu ul.collection-types li').hover(
@@ -232,7 +232,7 @@ jQuery(function($) {
 
     $('#loopcontainer').fadeOut(200);
 
-    $('#typemenu ul').removeClass("collection-types").addClass("artifact-types");
+    $('#typemenu ul').removeClass("collection-types").addClass("object-types");
     //$('#typemenu .reset').fadeOut();
 
     $('#overlaycontainer').fadeIn(200, function() {
@@ -240,7 +240,7 @@ jQuery(function($) {
         // active filter type
         $('body').find('.popcontainer').addClass(type);
         setTypeMenu();
-        $('body').find('#typemenu ul.artifact-types li.but-'+type).trigger('click');
+        $('body').find('#typemenu ul.object-types li.but-'+type).trigger('click');
       }
 
     });
@@ -258,7 +258,7 @@ jQuery(function($) {
       $(this).remove();
     });
 
-    $('#typemenu ul').removeClass("artifact-types").addClass("collection-types");
+    $('#typemenu ul').removeClass("object-types").addClass("collection-types");
     var butclass = filters;
     var type = butclass.replace(".","");
     var butname = '.but-' + type;
@@ -381,11 +381,11 @@ jQuery(function($) {
   }
 
 
-  function getArtifact(){
+  function getobject(){
 
     var data = {
       nonce: ajax.nonce,
-      action: 'artifact_view',
+      action: 'object_view',
       dataType: 'json', // Choosing a JSON datatype
       id: selected_id
     };
@@ -410,7 +410,7 @@ jQuery(function($) {
 
 
         var bundle = json.data.postmedia;
-        var artifactmedia = '';
+        var objectmedia = '';
 
         $('#typemenu ul li:not(#menubutton)').each(function(c, el) {
 
@@ -464,13 +464,13 @@ jQuery(function($) {
           mediabox += '</div>';
 
           if (countmedia > 0) { // also active in type menu
-            artifactmedia += mediabox;
+            objectmedia += mediabox;
           }
 
 
         });
 
-        html += '<div class="artifact-media">'+artifactmedia+'</div>';
+        html += '<div class="object-media">'+objectmedia+'</div>';
         activeOverlay(html,selected_mediatype);
 
 
@@ -568,7 +568,7 @@ jQuery(function($) {
     $(this).addClass('selected');
     pullpage = 0; // starts onload
     pullflag = true;
-    $('#loopcontainer .post-artifact').remove();
+    $('#loopcontainer .post-object').remove();
     getCollectionData();
   });
 
@@ -579,7 +579,7 @@ jQuery(function($) {
     $(this).addClass('selected');
     pullpage = 0; // starts onload
     pullflag = true;
-    $('#loopcontainer .post-artifact').remove();
+    $('#loopcontainer .post-object').remove();
     getCollectionData();
   });
 
@@ -588,7 +588,7 @@ jQuery(function($) {
     $('#loopcontainer').attr('data-order', 'DESC' );
     pullpage = 0; // starts onload
     pullflag = true;
-    $('#loopcontainer .post-artifact').remove();
+    $('#loopcontainer .post-object').remove();
     getCollectionData();
   });
 
@@ -618,19 +618,19 @@ jQuery(function($) {
   });
 
   // action type post menu
-  $('body').on('click touchend', '#typemenu ul.artifact-types li.available', function() {
+  $('body').on('click touchend', '#typemenu ul.object-types li.available', function() {
     //alert( $(this).data('type') );
     var picturebox = $( '.popcontainer .mediabox .cover');
     var container = $('.popcontainer .mediabox');
 
-    container.html( $('.artifact-media .mediacontainer.'+ $(this).data('type') ).clone() );
+    container.html( $('.object-media .mediacontainer.'+ $(this).data('type') ).clone() );
     container.prepend(picturebox);
     container.addClass('display');
 
     setMediaboxSlider( $(this).data('type') );
 
-    $('#typemenu ul.artifact-types li').removeClass('selected');
-    $('#typemenu ul.artifact-types li.but-'+$(this).data('type')).addClass('selected');
+    $('#typemenu ul.object-types li').removeClass('selected');
+    $('#typemenu ul.object-types li.but-'+$(this).data('type')).addClass('selected');
 
     $('body').find('.popcontainer').addClass($(this).data('type'));
 
@@ -640,14 +640,14 @@ jQuery(function($) {
   });
 
 
-  // popup overlay artifact
+  // popup overlay object
   /*
-  $(document).on('click touchend', '.post-artifact .overlay, .entry-title a,.item-icons ul li', function(event) {
+  $(document).on('click touchend', '.post-object .overlay, .entry-title a,.item-icons ul li', function(event) {
 
     event.preventDefault();
 
-    selected_id = $(this).parent().closest('.post-artifact').data('id');
-    selected_slug = $(this).parent().closest('.post-artifact').data('slug');
+    selected_id = $(this).parent().closest('.post-object').data('id');
+    selected_slug = $(this).parent().closest('.post-object').data('slug');
 
     selected_mediatype = 'foto';
     if ( $(this).data('type') ) { //  $(this).hasClass('icon-button')
@@ -708,7 +708,7 @@ jQuery(function($) {
         selected_id = $("#loopcontainer").find("div[data-slug='" + hash + "']").data('id');
       }
       if( selected_id != '' ){
-        getArtifact();
+        getobject();
       }
 
     }

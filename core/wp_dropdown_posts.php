@@ -67,7 +67,7 @@ if( ! function_exists( 'wp_dropdown_posts' ) ) {
 		$defaults = array(
 			'selected'              => FALSE,
 			'pagination'            => FALSE,
-      'post_type'             => 'artifact',
+      'post_type'             => 'object',
 			'posts_per_page'        => - 1,
 			'post_status'           => 'publish',
 			'cache_results'         => TRUE,
@@ -78,7 +78,7 @@ if( ! function_exists( 'wp_dropdown_posts' ) ) {
 			'class'                 => '',
 			'show'                  => 'post_title',
 			'show_callback'         => NULL,
-			'show_option_all'       => 'All artifacts',
+			'show_option_all'       => 'All objects',
 			'show_option_none'      => NULL,
 			'option_none_value'     => '',
 			'multi'                 => FALSE,

@@ -2,7 +2,7 @@
 /*
 Plugin Name: Collections Plugin
 Plugin URI: https://webbouwer.org
-Description:  Wordpress plugin for artifact collections
+Description:  Wordpress plugin for object collections
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once(plugin_dir_path(__FILE__) . 'core/taxonomy_collection.php');
 require_once(plugin_dir_path(__FILE__) . 'core/taxonomy_types.php');
 require_once(plugin_dir_path(__FILE__) . 'core/wp_dropdown_posts.php');
-require_once(plugin_dir_path(__FILE__) . 'core/posttype_artifact.php');
+require_once(plugin_dir_path(__FILE__) . 'core/posttype_object.php');
 
 require_once(plugin_dir_path(__FILE__) . 'functions/page_templates.php');
 require_once(plugin_dir_path(__FILE__) . 'functions/page_options.php');
@@ -57,7 +57,7 @@ function media_belongs_to_post_dropdown()
     $post_parent   = filter_input(INPUT_GET, 'post_parent', FILTER_SANITIZE_STRING );
     $selected = (int)$post_parent > 0 ? $post_parent : '-1';
     $args = array(
-        'show_option_all'   => 'All Artifacts',
+        'show_option_all'   => 'All objects',
 				'echo' 							=> 1,
         'select_name'       => 'post_parent',
         'selected'          => $selected
@@ -100,7 +100,7 @@ class collectionsMain {
 		add_filter( 'template_include', array( $this, 'taxonomy_template' ) );
 		add_filter( 'single_template', array( $this, 'single_post_template' ) );
 
-    add_action( 'wp_enqueue_scripts', array( $this, 'artifact_ajax_script' ) );
+    add_action( 'wp_enqueue_scripts', array( $this, 'object_ajax_script' ) );
 
 		include(plugin_dir_path(__FILE__) . 'functions/settings.php');
 
@@ -118,8 +118,8 @@ class collectionsMain {
 
 	public function single_post_template($single_template) {
 		global $post;
-		if ( $post->post_type == 'artifact' ) {
-			$single_template = dirname( __FILE__ ) . '/views/posttype-artifact.php';
+		if ( $post->post_type == 'object' ) {
+			$single_template = dirname( __FILE__ ) . '/views/posttype-object.php';
 		}
 		return $single_template;
 	}
@@ -130,7 +130,7 @@ class collectionsMain {
 			//global $post;
 			//if ( is_page_template('collection-page.php') ) {
 				include(plugin_dir_path(__FILE__) . 'functions/collection_ajax.php');
-				include(plugin_dir_path(__FILE__) . 'functions/artifact_ajax.php');
+				include(plugin_dir_path(__FILE__) . 'functions/object_ajax.php');
 			//}
 			/*
 			global $post;
@@ -142,7 +142,7 @@ class collectionsMain {
 
 			if( $viewtype == 'grid' || $template == '../views/collection-page.php' ){
 				include(plugin_dir_path(__FILE__) . 'functions/collection_ajax.php');
-				include(plugin_dir_path(__FILE__) . 'functions/artifact_ajax.php');
+				include(plugin_dir_path(__FILE__) . 'functions/object_ajax.php');
 
 			//}*/
 	}

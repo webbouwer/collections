@@ -10,7 +10,7 @@ function property_gallery_add_metabox(){
 		'post_custom_gallery',
 		'Gallery',
 		'property_gallery_metabox_callback',
-		'artifact', // Change post type name
+		'object', // Change post type name
 		'normal',
 		'core'
 	);
@@ -19,9 +19,9 @@ add_action( 'admin_init', 'property_gallery_add_metabox' );
 
 function property_gallery_styles_scripts(){
     global $post;
-    if( 'artifact' != $post->post_type )
+    if( 'object' != $post->post_type )
         return;
-    ?>  
+    ?>
     <style type="text/css">
 	.gallery_area {
 		float:right;
@@ -111,8 +111,8 @@ function property_gallery_styles_scripts(){
 		var media_uploader = null;
 		function open_media_uploader_image(obj){
 			media_uploader = wp.media({
-				frame:    "post", 
-				state:    "insert", 
+				frame:    "post",
+				state:    "insert",
 				multiple: false
 			});
 			media_uploader.on("insert", function(){
@@ -127,8 +127,8 @@ function property_gallery_styles_scripts(){
 		}
 		function open_media_uploader_image_this(obj){
 			media_uploader = wp.media({
-				frame:    "post", 
-				state:    "insert", 
+				frame:    "post",
+				state:    "insert",
 				multiple: false
 			});
 			media_uploader.on("insert", function(){
@@ -143,9 +143,9 @@ function property_gallery_styles_scripts(){
 
 		function open_media_uploader_image_plus(){
 			media_uploader = wp.media({
-				frame:    "post", 
-				state:    "insert", 
-				multiple: true 
+				frame:    "post",
+				state:    "insert",
+				multiple: true
 			});
 			media_uploader.on("insert", function(){
 
@@ -160,7 +160,7 @@ function property_gallery_styles_scripts(){
 					var html = '<img class="gallery_img_img" src="'+image_url+'" height="55" width="55" onclick="open_media_uploader_image_this(this)"/>';
 					element.append(html);
 					element.find('.meta_image_url').val(image_url);
-					console.log(image_url);		
+					console.log(image_url);
 				}
 			});
 			media_uploader.open();
@@ -181,7 +181,7 @@ function property_gallery_save( $post_id ) {
 		$is_autosave = wp_is_post_autosave( $post_id );
 		$is_revision = wp_is_post_revision( $post_id );
 		$is_valid_nonce = ( isset( $_POST[ 'sample_nonce' ] ) && wp_verify_nonce( $_POST[ 'sample_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
-		
+
 		if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
 				return;
 		}
@@ -190,11 +190,11 @@ function property_gallery_save( $post_id ) {
 		}
 
 		// Correct post type
-		if ( 'artifact' != $_POST['post_type'] ) // here you can set the post type name
+		if ( 'object' != $_POST['post_type'] ) // here you can set the post type name
 			return;
-	 
+
 		if ( $_POST['gallery'] ){
-			
+
 			// Build array for saving post meta
 			$gallery_data = array();
 			for ($i = 0; $i < count( $_POST['gallery']['image_url'] ); $i++ ){
@@ -202,15 +202,15 @@ function property_gallery_save( $post_id ) {
 					$gallery_data['image_url'][]  = $_POST['gallery']['image_url'][ $i ];
 				}
 			}
-	 
-			if ( $gallery_data ) 
+
+			if ( $gallery_data )
 				update_post_meta( $post_id, 'gallery_data', $gallery_data );
-			else 
+			else
 				delete_post_meta( $post_id, 'gallery_data' );
-		} 
+		}
 		// Nothing received, all fields are empty, delete option
 		else{
 			delete_post_meta( $post_id, 'gallery_data' );
 		}
 }
-add_action( 'save_post', 'property_gallery_save' );
+add_action( 'save_post', 'property_gallery_save' ); 

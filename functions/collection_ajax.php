@@ -104,7 +104,7 @@ class CollectionsAjaxGrid{
 
   	if($collection_posts->have_posts()) :
 
-      // media type taxonmies for each post artifact id
+      // media type taxonmies for each post object id
   		$postlist = array();
   		$types_used = array();
 
@@ -147,10 +147,10 @@ class CollectionsAjaxGrid{
 
 				$baseclasses = esc_attr( implode( ' ', get_post_class( '', $ID ) ) );
 
-  			$html = '<div id="post-'.$ID.'" class="post-artifact post '.get_post_class().' '.$featured.''.$thumb_orientation.' '.$classes.' '.$baseclasses.'" data-id="'.$ID .'" data-slug="'.$slug.'"><div class="innerpadding">';
+  			$html = '<div id="post-'.$ID.'" class="post-object post '.get_post_class().' '.$featured.''.$thumb_orientation.' '.$classes.' '.$baseclasses.'" data-id="'.$ID .'" data-slug="'.$slug.'"><div class="innerpadding">';
 
   			if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
-  			     $html .= '<div class="artifact-image"><img src="'.get_the_post_thumbnail_url().'" class="attachment-normal size-normal wp-post-image" alt="" loading="lazy" /></div>';
+  			     $html .= '<div class="object-image"><img src="'.get_the_post_thumbnail_url().'" class="attachment-normal size-normal wp-post-image" alt="" loading="lazy" /></div>';
   		  }
   			$html .= '<div class="overlay">';
   			$html .= '<h2 class="entry-title" itemprop="headline"><a href="'.get_the_permalink().'" class="entry-title-link">'.get_the_title().'</a></h2>';

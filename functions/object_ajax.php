@@ -2,25 +2,25 @@
 /**/
 
 
-class ArtifactAjaxView{
+class objectAjaxView{
 
 	public function __construct() {
 
 
 	// We add the action twice, once for logged in users and once for non logged in users.
-	add_action( 'wp_ajax_artifact_view',  array( $this,'artifact_view_callback' ) );
-	add_action( 'wp_ajax_nopriv_artifact_view',  array( $this,'artifact_view_callback') );
+	add_action( 'wp_ajax_object_view',  array( $this,'object_view_callback' ) );
+	add_action( 'wp_ajax_nopriv_object_view',  array( $this,'object_view_callback') );
 
 	// Enqueue the script on the front end.
-	add_action( 'wp_enqueue_scripts',  array( $this,'enqueue_artifact_view_script' ) );
+	add_action( 'wp_enqueue_scripts',  array( $this,'enqueue_object_view_script' ) );
 	// Enqueue the script on the back end (wp-admin)
-	add_action( 'admin_enqueue_scripts',  array( $this,'enqueue_artifact_view_script' ) );
+	add_action( 'admin_enqueue_scripts',  array( $this,'enqueue_object_view_script' ) );
 
 	}
 
 
 
-	public function artifact_view_callback() {
+	public function object_view_callback() {
 
 
 
@@ -106,4 +106,4 @@ class ArtifactAjaxView{
 	}
 
 }
-new ArtifactAjaxView();
+new objectAjaxView();

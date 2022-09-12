@@ -1,7 +1,7 @@
 <?php
 
-/* Display collection artifacts */
-$posttype = 'artifact';
+/* Display collection objects */
+$posttype = 'object';
 $slug = get_query_var( 'term' );
 $taxname = get_query_var( 'taxonomy' );
 $term = get_term_by( 'slug', $slug, $taxname );
@@ -77,7 +77,7 @@ elseif ( get_query_var( 'page' ) ) { $paged = get_query_var( 'page' ); }
 else { $paged = 1; }
 
 $get_post_args = array(
-  'post_type' => 'artifact', // Your Post type Name that You Registered
+  'post_type' => 'object', // Your Post type Name that You Registered
   'posts_per_page' => $ppp,
   'paged' => $paged,
   'order' => 'ASC',
@@ -134,7 +134,7 @@ if($collection_posts->have_posts()) :
             $thumb_orientation = 'portrait';
           }
 
-          echo '<div class="post-artifact post '.$thumb_orientation.' '.$classes.'" data-id="'.$ID .'"><div class="innerpadding">';
+          echo '<div class="post-object post '.$thumb_orientation.' '.$classes.'" data-id="'.$ID .'"><div class="innerpadding">';
 
             if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
     						the_post_thumbnail( 'full' );

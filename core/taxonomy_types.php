@@ -4,7 +4,7 @@
  * TODO type icons/images ?  https://github.com/daggerhart/taxonomy-term-image/blob/master/taxonomy-term-image.php
  */
 
-// register new taxonomy which applies to attachments (+ artifacts and posts)
+// register new taxonomy which applies to attachments (+ objects and posts)
 function add_types_taxonomy() {
     $labels = array(
         'name'              => 'Types',

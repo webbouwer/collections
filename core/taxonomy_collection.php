@@ -1,6 +1,6 @@
 <?php
 
-// register new taxonomy which applies to posts and artifacts (or attachments/posts)
+// register new taxonomy which applies to posts and objects (or attachments/posts)
 function add_collection_taxonomy() {
     $labels = array(
         'name'              => 'Collections',
@@ -30,8 +30,8 @@ function add_collection_taxonomy() {
         'show_in_rest' => true, // important for metabox display!
     );
 
-    //register_taxonomy( 'collection', array( 'attachment', 'post', 'artifact' ), $args );
-   register_taxonomy( 'collection', array( 'post', 'artifact' ), $args );
+    //register_taxonomy( 'collection', array( 'attachment', 'post', 'object' ), $args );
+   register_taxonomy( 'collection', array( 'post', 'object' ), $args );
 }
 add_action( 'init', 'add_collection_taxonomy' );
 

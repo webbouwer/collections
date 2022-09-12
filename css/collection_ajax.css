@@ -99,102 +99,102 @@ blauw : #00A3E8;
 
 #typemenu .but-foto.available:hover,
 #typemenu .but-foto.available.selected,
-#loopcontainer.grid-view .post-artifact .item-icons .but-foto,
+#loopcontainer.grid-view .post-object .item-icons .but-foto,
 .column .media-icon.but-foto
 {
   background-image:url('../icons/menu_icon_white_foto.png');
 }
 #typemenu .but-audio.available:hover,
 #typemenu .but-audio.available.selected,
-#loopcontainer.grid-view .post-artifact .item-icons .but-audio,
+#loopcontainer.grid-view .post-object .item-icons .but-audio,
 .column .media-icon.but-audio
 {
   background-image:url('../icons/menu_icon_white_audio.png');
 }
 #typemenu .but-gedicht.available:hover,
 #typemenu .but-gedicht.available.selected,
-#loopcontainer.grid-view .post-artifact .item-icons .but-gedicht,
+#loopcontainer.grid-view .post-object .item-icons .but-gedicht,
 .column .media-icon.but-gedicht
 {
   background-image:url('../icons/menu_icon_white_gedicht.png');
 }
 #typemenu .but-sculptuur.available:hover,
 #typemenu .but-sculptuur.available.selected,
-#loopcontainer.grid-view .post-artifact .item-icons .but-sculptuur,
+#loopcontainer.grid-view .post-object .item-icons .but-sculptuur,
 .column .media-icon.but-sculptuur
 {
   background-image:url('../icons/menu_icon_white_sculptuur.png');
 }
 #typemenu .but-video.available:hover,
 #typemenu .but-video.available.selected,
-#loopcontainer.grid-view .post-artifact .item-icons .but-video,
+#loopcontainer.grid-view .post-object .item-icons .but-video,
 .column .media-icon.but-video
 {
   background-image:url('../icons/menu_icon_white_video.png');
 }
 #typemenu .but-schilderij.available:hover,
 #typemenu .but-schilderij.available.selected,
-#loopcontainer.grid-view .post-artifact .item-icons .but-schilderij,
+#loopcontainer.grid-view .post-object .item-icons .but-schilderij,
 .column .media-icon.but-schilderij
 {
   background-image:url('../icons/menu_icon_white_schilderij.png');
 }
 #typemenu .but-verhaal.available:hover,
 #typemenu .but-verhaal.available.selected,
-#loopcontainer.grid-view .post-artifact .item-icons .but-verhaal,
+#loopcontainer.grid-view .post-object .item-icons .but-verhaal,
 .column .media-icon.but-verhaal
 {
   background-image:url('../icons/menu_icon_white_geschrift.png');
 }
 #typemenu .but-pers.available:hover,
 #typemenu .but-pers.available.selected,
-#loopcontainer.grid-view .post-artifact .item-icons .but-pers,
+#loopcontainer.grid-view .post-object .item-icons .but-pers,
 .column .media-icon.but-pers
 {
   background-image:url('../icons/menu_icon_white_newspaper.png');
 }
 #typemenu .but-overige.available:hover,
 #typemenu .but-overige.available.selected,
-#loopcontainer.grid-view .post-artifact .item-icons .but-overige,
+#loopcontainer.grid-view .post-object .item-icons .but-overige,
 .column .media-icon.but-overige
 {
   background-image:url('../icons/menu_icon_white_overig.png');
 }
 
 
-#loopcontainer .post-artifact .item-icons .but-foto
+#loopcontainer .post-object .item-icons .but-foto
 {
   order: 1;
 }
-#loopcontainer .post-artifact .item-icons .but-audio
+#loopcontainer .post-object .item-icons .but-audio
 {
   order: 2;
 }
-#loopcontainer .post-artifact .item-icons .but-gedicht
+#loopcontainer .post-object .item-icons .but-gedicht
 {
   order: 3;
 }
-#loopcontainer .post-artifact .item-icons .but-sculptuur
+#loopcontainer .post-object .item-icons .but-sculptuur
 {
   order: 4;
 }
-#loopcontainer .post-artifact .item-icons .but-video
+#loopcontainer .post-object .item-icons .but-video
 {
   order: 5;
 }
-#loopcontainer .post-artifact .item-icons .but-schilderij
+#loopcontainer .post-object .item-icons .but-schilderij
 {
   order: 6;
 }
-#loopcontainer .post-artifact .item-icons .but-verhaal
+#loopcontainer .post-object .item-icons .but-verhaal
 {
   order: 7;
 }
-#loopcontainer .post-artifact .item-icons .but-pers
+#loopcontainer .post-object .item-icons .but-pers
 {
   order: 8;
 }
-#loopcontainer .post-artifact .item-icons .but-overige
+#loopcontainer .post-object .item-icons .but-overige
 {
   order: 9;
 }
@@ -205,7 +205,7 @@ blauw : #00A3E8;
 #typemenu ul.collection-types li.available
 {
 }
-#typemenu ul.artifact-types li.available{
+#typemenu ul.object-types li.available{
 
 }
 
@@ -300,11 +300,11 @@ blauw : #00A3E8;
 
 
 
+*/
 
 
 
-
-#loopcontainer.grid-view .post-artifact {
+#loopcontainer.grid-view .post-object {
 
     width: calc(40% - 30px);
     margin:15px;
@@ -316,82 +316,82 @@ blauw : #00A3E8;
    transition: all 0.2s ease-in-out;
 
 }
-.small #loopcontainer.grid-view .post-artifact,
-.medium #loopcontainer.grid-view .post-artifact {
+.small #loopcontainer.grid-view .post-object,
+.medium #loopcontainer.grid-view .post-object {
 
     width: calc(40% - 12px);
     margin:6px;
 
 }
 
-#loopcontainer.grid-view .post-artifact.panorama
+#loopcontainer.grid-view .post-object.panorama
 {
   width: calc(70% - 30px);
 
 }
-#loopcontainer.grid-view .post-artifact.landscape
+#loopcontainer.grid-view .post-object.landscape
 {
   width: calc(40% - 30px);
 }
-#loopcontainer.grid-view .post-artifact.portrait
+#loopcontainer.grid-view .post-object.portrait
 {
   width: calc(30% - 30px);
 }
-#loopcontainer.grid-view .post-artifact.square
+#loopcontainer.grid-view .post-object.square
 {
   width: calc(30% - 30px);
 }
 
 
-.small #loopcontainer.grid-view .post-artifact.panorama,
-.medium #loopcontainer.grid-view .post-artifact.panorama
+.small #loopcontainer.grid-view .post-object.panorama,
+.medium #loopcontainer.grid-view .post-object.panorama
 {
   width: calc(70% - 12px);
 }
-.small #loopcontainer.grid-view .post-artifact.landscape,
-.medium #loopcontainer.grid-view .post-artifact.landscape
+.small #loopcontainer.grid-view .post-object.landscape,
+.medium #loopcontainer.grid-view .post-object.landscape
 {
   width: calc(40% - 12px);
 }
-.small #loopcontainer.grid-view .post-artifact.portrait,
-.medium #loopcontainer.grid-view .post-artifact.portrait
+.small #loopcontainer.grid-view .post-object.portrait,
+.medium #loopcontainer.grid-view .post-object.portrait
 {
   width: calc(30% - 12px);
 }
-.small #loopcontainer.grid-view .post-artifact.square,
-.medium #loopcontainer.grid-view .post-artifact.square
+.small #loopcontainer.grid-view .post-object.square,
+.medium #loopcontainer.grid-view .post-object.square
 {
   width: calc(30% - 12px);
 }
 
 
 
-.large #loopcontainer.grid-view .post-artifact.panorama
+.large #loopcontainer.grid-view .post-object.panorama
 {
   min-width:580px;
 }
-.large #loopcontainer.grid-view .post-artifact.landscape
+.large #loopcontainer.grid-view .post-object.landscape
 {
   min-width:460px;
 }
-.large #loopcontainer.grid-view .post-artifact.portrait
+.large #loopcontainer.grid-view .post-object.portrait
 {
   min-width:240px;
 }
-.large #loopcontainer.grid-view .post-artifact.square
+.large #loopcontainer.grid-view .post-object.square
 {
   min-width:240px;
 }
 
 
 
-#loopcontainer.grid-view .post-artifact .innerpadding
+#loopcontainer.grid-view .post-object .innerpadding
 {
   position:relative;
   padding:0;
 }
 
-#loopcontainer.grid-view .post-artifact img.wp-post-image
+#loopcontainer.grid-view .post-object img.wp-post-image
 {
   display: block;
   width:100%;
@@ -399,7 +399,7 @@ blauw : #00A3E8;
   border:none;
 }
 
-#loopcontainer.grid-view .post-artifact .overlay
+#loopcontainer.grid-view .post-object .overlay
 {
   position: absolute;
   top: 0;
@@ -426,8 +426,8 @@ blauw : #00A3E8;
   transition: all .5s ease-in-out;
 }
 
-#loopcontainer.grid-view .post-artifact:hover .overlay,
-#loopcontainer.grid-view .post-artifact.hovered .overlay {
+#loopcontainer.grid-view .post-object:hover .overlay,
+#loopcontainer.grid-view .post-object.hovered .overlay {
   opacity: 1;
 }
 
@@ -436,36 +436,36 @@ blauw : #00A3E8;
 
 
 
-#loopcontainer.list-view .post-artifact
+#loopcontainer.list-view .post-object
 {
   position: relative;
   width:100%;
 }
-#loopcontainer.list-view .post-artifact .innerpadding
+#loopcontainer.list-view .post-object .innerpadding
 {
   position:relative;
   padding:0px;
 }
-#loopcontainer.list-view .post-artifact
+#loopcontainer.list-view .post-object
 {
   clear:both;
 }
-#loopcontainer.list-view .post-artifact img.wp-post-image
+#loopcontainer.list-view .post-object img.wp-post-image
 {
   width:auto;
   height:90px;
   float:left;
 }
-#loopcontainer.list-view .post-artifact.landscape img.wp-post-image
+#loopcontainer.list-view .post-object.landscape img.wp-post-image
 {
 }
-#loopcontainer.list-view .post-artifact .overlay
+#loopcontainer.list-view .post-object .overlay
 {
 }
-#loopcontainer.list-view .post-artifact .overlay .item-icons
+#loopcontainer.list-view .post-object .overlay .item-icons
 {
 }
-#loopcontainer.list-view .post-artifact .overlay .item-excerpt
+#loopcontainer.list-view .post-object .overlay .item-excerpt
 {
 }
 
@@ -512,7 +512,7 @@ blauw : #00A3E8;
   height:auto;
 }
 
-.artifact-media .mediacontainer
+.object-media .mediacontainer
 {
   display:none;
 }

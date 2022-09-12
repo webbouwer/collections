@@ -1,7 +1,7 @@
 <?php
 
-/* Display collection artifacts */
-$posttype = 'artifact';
+/* Display collection objects */
+$posttype = 'object';
 $taxname = 'collection';
 
 /*

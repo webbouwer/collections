@@ -51,9 +51,9 @@ if ( have_posts() ) :
         $thumb_orientation = 'portrait';
       }
 
-      echo '<div class="post-artifact post '.$thumb_orientation.' '.$classes.'" data-id="'.$ID .'"><div class="innerpadding">';
+      echo '<div class="post-object post '.$thumb_orientation.' '.$classes.'" data-id="'.$ID .'"><div class="innerpadding">';
 
-        echo '<div class="artifact-image">';
+        echo '<div class="object-image">';
         if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
 						the_post_thumbnail( 'full' );
 				}
