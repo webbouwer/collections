@@ -91,6 +91,38 @@ add_action( 'pre_get_posts', function( $query) {
 } );
 */
 
+function typeMenuHTML(){
+	// type menu
+	$typeparent =get_terms( 'types', array('hide_empty' => 0, 'parent' => 4 ));
+	$types = array();
+	foreach ($typeparent as $child) {
+		$types[$child->slug] = $child->slug;
+		$type_names[$child->slug] = $child->name;
+		$type_desc[$child->slug] = $child->description;
+	}
+	$allfilterclasses = '';
+	echo '<div id="typemenu"><div id="helpinfo">Help</div><div class="innerpadding"><ul class="collection-types">';
+		foreach ( $type_names as $slug => $type ) :
+			echo '<li data-type="'.$slug.'" data-desc="'.$type_desc[$slug].'" class="icon-button but-'.$slug.'"><span>'.$type.'</span></li>';
+			$allfilterclasses .= $slug.' ';
+		endforeach;
+	echo '</ul><div class="menuinfo"></div></div></div>';
+}
+
+
+function orderMenuHTML()
+{
+	echo '<div id="isotopemenu">';
+	echo '<div id="show-recent">Bekijk laatst toegevoegde objecten</div>';
+	echo '<div id="display-toggle"><a class="list"><span>lijst</span></a><a class="grid"><span>tegels</span></a></div>';
+	echo '<div id="display-options"><span>Sorteer:</span><ul class="orderby">';
+	echo '<li class="default selected" data-orderby="menu_order">Selectie</li><li class="title" data-orderby="title">Titel</li>';
+	//echo '<li class="date" data-orderby="date">Datum</li>';
+	echo '</ul><ul class="order">';
+	echo '<li class="asc selected" data-order="asc">Oplopend</li><li class="desc" data-order="desc">Aflopend</li>';
+	echo '</ul></div></div>';
+}
+
 class collectionsMain {
 
 	protected $settings;

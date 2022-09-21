@@ -40,7 +40,10 @@ class CollectionsAjaxGrid{
       ) );
   		wp_enqueue_script( 'imagesloaded-package', plugins_url( '../lib/javascript/imagesloaded.js', __FILE__ ), false );
   		wp_enqueue_script( 'isotope-package', plugins_url( '../lib/javascript/isotope.pkgd.min.js', __FILE__ ), false );
-  		wp_enqueue_style( 'collection-page-style', plugins_url( '../css/collection_ajax.css', __FILE__ ) );
+			wp_enqueue_style( 'collection-page-icons', plugins_url( '../css/collection_icons.css', __FILE__ ) );
+			wp_enqueue_style( 'collection-page-style', plugins_url( '../css/collection_style.css', __FILE__ ) );
+			wp_enqueue_style( 'collection-page-util', plugins_url( '../css/collection_util.css', __FILE__ ) );
+  		wp_enqueue_style( 'collection-page-ajax', plugins_url( '../css/collection_ajax.css', __FILE__ ) ); 
 
     //}
   }

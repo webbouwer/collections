@@ -1,6 +1,5 @@
 jQuery(function($) {
 
-
   function setCookie() {
       var now = new Date();
       var minutes = 30;
@@ -9,20 +8,22 @@ jQuery(function($) {
       document.cookie="firsttime=" + cookievalue;
       document.cookie = "expires=" + now.toUTCString() + ";"
   }
+
   function getCookie(cname) {
-  let name = cname + "=";
-  let ca = document.cookie.split(';');
-  for(let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
+    let name = cname + "=";
+    let ca = document.cookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
     }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
+    return "";
   }
-  return "";
-}
+
   function checkCookie() {
     var chk = getCookie("firsttime");
     if (chk != ""){
@@ -31,11 +32,6 @@ jQuery(function($) {
       setCookie(); // firsttime
     }
   }
-
-
-
-
-
 
 
   // prepare html container
@@ -62,7 +58,8 @@ jQuery(function($) {
       columnWidth: colWidth,
       gutter: gutterWidth,
     },
-    initLayout: false
+    percentPosition: false,
+    initLayout: true
   });
 
   // prepare data
@@ -72,20 +69,11 @@ jQuery(function($) {
 
   function getCollectionData() {
 
-      //console.log('more?');
-
     if ($('#loopcontainer.isotope').length) {
-
-      if (pullflag) {
+      if (pullflag) {   //console.log('more?');
         pullflag = false;
         pullpage++;
-        let type = $('#loopcontainer').data('posttype');
-        let tax = $('#loopcontainer').data('taxname');
-        let term = $('#loopcontainer').data('term'); // cat or sub cat
-        let amount = $('#loopcontainer').data('ppp');
-
-        let orderby = $('#loopcontainer').attr('data-orderby');
-        let order = $('#loopcontainer').attr('data-order');
+        var amount = $('#loopcontainer').data('ppp');
 
         jQuery.ajax({
           type: "POST",
@@ -95,11 +83,11 @@ jQuery(function($) {
             action: 'getCollectionData',
             dataType: 'json', // Choosing a JSON datatype
             data: {
-              posttype: type,
-              taxname: tax,
-              slug: term,
-              orderby: orderby,
-              order: order,
+              posttype: $('#loopcontainer').data('posttype'),
+              taxname: $('#loopcontainer').data('taxname'),
+              slug: $('#loopcontainer').data('term'),
+              orderby: $('#loopcontainer').attr('data-orderby'),
+              order: $('#loopcontainer').attr('data-order'),
               ppp: amount,
               page: pullpage
             },
@@ -110,17 +98,12 @@ jQuery(function($) {
             for (var i = 0; i < response.length; ++i) {
               items.push(response[i].html);
             }
-              /*
-            $.each(response, function(key, val) {
-              items.push(val.html);
-            });*/
 
-            $("#loopcontainer").append(items);
-            $('#loopcontainer').imagesLoaded(function(instance) {
+            $("#loopcontainer").append(items).imagesLoaded(function(instance) {
               setTypeMenu();
               container.isotope('reloadItems');
               doneResizing(); // recall isotope
-              $(window).trigger('hashchange'); // check hash
+              //$(window).trigger('hashchange'); // check hash
             });
             if (response.length >= amount) {
               pullflag = true;
@@ -154,7 +137,21 @@ jQuery(function($) {
           $(this).addClass('notavailable');
         }
       });
+
     }
+
+
+          $('body').find('#typemenu ul.collection-types li').hover(
+            function () {
+              if( $(this).hasClass('available') && $('#typemenu ul').hasClass('collection-types') ){
+              $('.menuinfo').html( '<span>'+ $(this).data('desc') +'<span>');
+              }
+            },
+           function () {
+              $('.menuinfo').html('');
+           }
+          );
+
     // object type menu
     if ($('#typemenu ul').hasClass('object-types')) {
       $('#typemenu ul li:not(#menubutton)').each(function() {
@@ -171,24 +168,17 @@ jQuery(function($) {
       //console.log('set object types menu');
     }
 
-    $('#typemenu ul.collection-types li').hover(
 
-               function () {
-                 if( $(this).hasClass('notavailable') ){
-                 }else{
-                  $('.menuinfo').html( '<span>'+ $(this).data('desc') +'<span>');
-                 }
-               },
 
-               function () {
-                  $('.menuinfo').html('');
-               }
-            );
+
   }
+
 
 
   // load isotope grid
   function setColumnWidth() {
+
+    container = $('body').find('#loopcontainer');
 
     var w = container.width();
     colWidth = w / 20; // TODO: check width for small screens
@@ -198,7 +188,9 @@ jQuery(function($) {
         masonry: {
           columnWidth: colWidth,
           gutter: gutterWidth,
-        }
+        },
+        percentPosition: false,
+        initLayout: true
       }).isotope({
         filter: filters +', .featured'
       }).isotope('layout');
@@ -210,14 +202,16 @@ jQuery(function($) {
 
   function activeOverlay(content,type = false) {
 
+    $('#isotopemenu').fadeOut();
+
     if ($('#infoboxcontainer').length > 0) {
       $('#infoboxcontainer').fadeOut(100, function() {
         $(this).remove();
       });
     }
     if ($('#overlaycontainer').length < 1) {
-      $('<div id="overlaycontainer"></div>').hide().appendTo($('#loopcontainer').parent());
-      $('<div class="closeoverlay"></div><div class="outermargin"></div>').appendTo($('#overlaycontainer'));
+      $('<div id="overlaycontainer"></div>').hide().appendTo($('#objectcontainer'));
+      $('<div class="closeoverlay"><span>close</span></div><div class="outermargin"></div>').appendTo($('#overlaycontainer'));
     }
     $('#overlaycontainer .outermargin').html(content);
 
@@ -236,11 +230,12 @@ jQuery(function($) {
     //$('#typemenu .reset').fadeOut();
 
     $('#overlaycontainer').fadeIn(200, function() {
+
       if(type){
         // active filter type
         $('body').find('.popcontainer').addClass(type);
         setTypeMenu();
-        $('body').find('#typemenu ul.object-types li.but-'+type).trigger('click');
+        $('body').find('#typemenu ul.object-types li.but-'+type).addClass('selected').trigger('click');
       }
 
     });
@@ -251,7 +246,8 @@ jQuery(function($) {
 
     selected_id = '';
     selected_slug = '';
-    selected_mediatype = defaultselect;
+
+    selected_mediatype = $('body').find('#typemenu ul.collection-types li.selected').data('type');
 
     $('#overlaycontainer').removeClass('intro');
     $('#overlaycontainer').fadeOut(200, function() {
@@ -259,26 +255,16 @@ jQuery(function($) {
     });
 
     $('#typemenu ul').removeClass("object-types").addClass("collection-types");
-    var butclass = filters;
-    var type = butclass.replace(".","");
-    var butname = '.but-' + type;
 
-    $('#typemenu ul li').removeClass('selected');
-    $('#typemenu ul li'+butname).addClass('selected');
-
-    /*
-        if( type == defaultselect ){
-          $('#typemenu .reset').fadeOut();
-        }else{
-          $('#typemenu .reset').fadeIn();
-        }
-        */
     setTypeMenu();
 
     $('#loopcontainer').fadeIn(200, function() {
-      setTimeout(doneResizing, 50); // // reposition items (if window resized)
-    });
 
+      $('#isotopemenu').fadeIn();
+      $('body').find('#typemenu ul.collection-types li.selected').trigger('click');
+      setTimeout(doneResizing, 50); // // reposition items (if window resized)
+
+    });
 
   }
 
@@ -367,9 +353,6 @@ jQuery(function($) {
   }
 
 
-  $('body').find('.mediaholder.active .embed')
-
-
   function posPrevNext(){
 
     $('.prevnextnav').hide();
@@ -380,11 +363,10 @@ jQuery(function($) {
 
   }
 
-
   function getobject(){
 
-    var selected_id = $('#loopcontainer').data('id');
-    var selected_type = $('#loopcontainer').data('type');
+    var selected_id = $('#objectcontainer').data('id');
+    var selected_type = $('#objectcontainer').data('type');
     var data = {
       nonce: ajax.nonce,
       action: 'object_view',
@@ -392,15 +374,13 @@ jQuery(function($) {
       id: selected_id
     };
 
-    //jQuery.getJSON(ajax_data.ajaxurl, data, function(json) {
+
     jQuery.ajax({
 
       type: "GET",
       url: ajax.url,
       data: data,
       success: function(json) {
-
-      //if (json.success) {
 
         var p = json.data.postdata;
         var html = '<div class="popcontainer ' + p.slug + '">' +
@@ -410,7 +390,6 @@ jQuery(function($) {
           '<div class="title"><h1>' + p.title + '<h1></div><div class="text">' + p.content + '</div></div>'+
           '</div>';
 
-
         var bundle = json.data.postmedia;
         var objectmedia = '';
 
@@ -419,9 +398,6 @@ jQuery(function($) {
           var countmedia = 0;
           var mediabox = '';
 
-          //var option = '<div class="column">';
-          //option += '<div class="media-icon but-' + $(el).data('type') + '" data-type="' + $(el).data('type') + '" >';
-          //option += '<span>' + $(el).find('span').text();
           mediabox += '<div class="mediacontainer '+$(el).data('type')+'">';
 
           $.each(bundle, function(i, media) {
@@ -459,9 +435,7 @@ jQuery(function($) {
               mediabox += '<div class="caption">'+media.caption+'</div>';
               mediabox += '</div>';
               // title,excerpt,src,type_parent,type_slug,type_name
-
             }
-
           });
           mediabox += '</div>';
 
@@ -469,12 +443,10 @@ jQuery(function($) {
             objectmedia += mediabox;
           }
 
-
         });
 
         html += '<div class="object-media">'+objectmedia+'</div>';
-        activeOverlay(html,selected_mediatype);
-
+        activeOverlay(html,selected_type);
 
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -491,17 +463,22 @@ jQuery(function($) {
   // on start get data and set taxonomy menu
   $(window).ready(function() {
 
-    getCollectionData();
-
-    $('#primarymenubox').before($('#typemenu'));
-    if ($('#categorymenu').length) {
-      $('#primarymenubox').before($('#categorymenu'));
+    if( $('#loopcontainer.isotope').length > 0 ){
+      getCollectionData();
+      let type = 'foto';
+      let queryString = window.location.search;
+      let urlParams = new URLSearchParams(queryString);
+      let qtype = urlParams.get('type');
+      if( qtype != ''){
+        type = qtype;
+      }
+      $('body').find('#typemenu ul.collection-types li.but-'+type).addClass('selected');
     }
-    //$('#typemenu .reset').hide();
 
     setTypeMenu();
 
-    if( $('#loopcontainer').length > 0  && $('#loopcontainer').data('id') ){
+    if( $('#objectcontainer').length > 0  && $('#objectcontainer').data('id') ){
+      $('#isotopemenu').hide();
       getobject();
     }
 
@@ -509,11 +486,12 @@ jQuery(function($) {
 
   // onscroll load more
   $(document).on('scroll', function() {
+
     var scrollHeight = $(document).height();
     var scrollPosition = $(window).height() + $(window).scrollTop();
-
     if ((scrollHeight - scrollPosition) / scrollHeight === 0) {
-      if( !$('body').find('#infoboxcontainer,#overlaycontainer').length ){
+      if( $('#loopcontainer.isotope').length > 0 &&
+      !$('body').find('#infoboxcontainer,#overlaycontainer').length ){
         getCollectionData();
       }
     }
@@ -602,7 +580,7 @@ jQuery(function($) {
 
 
   // action type taxonomy menu
-  $('#typemenu').on('click touchend', 'ul.collection-types li.available', function() {
+  $('body').on('click touchend', '#typemenu ul.collection-types li.available', function() {
 
     var type = $(this).data('type');
     var butclass = '.' + type;
@@ -618,30 +596,37 @@ jQuery(function($) {
     }else{
       $('#typemenu .reset').fadeIn();
     }*/
+    let url = new window.URL( $('#loopcontainer').data('homeurl') );
+    url.searchParams.set("type", type);
+    history.pushState('', '', url);
+
     setColumnWidth();
-
-
   });
 
   // action type post menu
   $('body').on('click touchend', '#typemenu ul.object-types li.available', function() {
     //alert( $(this).data('type') );
     var picturebox = $( '.popcontainer .mediabox .cover');
-    var container = $('.popcontainer .mediabox');
+    let container = $('.popcontainer .mediabox');
+    let type = $(this).data('type');
 
-    container.html( $('.object-media .mediacontainer.'+ $(this).data('type') ).clone() );
+    container.html( $('.object-media .mediacontainer.'+ type ).clone() );
     container.prepend(picturebox);
     container.addClass('display');
 
-    setMediaboxSlider( $(this).data('type') );
+    setMediaboxSlider( type );
 
     $('#typemenu ul.object-types li').removeClass('selected');
-    $('#typemenu ul.object-types li.but-'+$(this).data('type')).addClass('selected');
+    $('#typemenu ul.object-types li.but-'+type).addClass('selected');
 
-    $('body').find('.popcontainer').addClass($(this).data('type'));
+    $('body').find('.popcontainer').addClass(type);
 
     $('.media-icon').removeClass('selected');
-    $('.media-icon.but-'+$(this).data('type')).addClass('selected');
+    $('.media-icon.but-'+type).addClass('selected');
+
+    var url = new window.URL(document.location);
+    url.searchParams.set("type", type);
+    history.pushState('', '', url);
 
   });
 
@@ -785,13 +770,13 @@ jQuery(function($) {
 
   function activeInfobox(content, popclass) {
 
-      if ($('#overlaycontainer').length > 0) {
+      /*if ($('#overlaycontainer').length > 0) {
         $('#overlaycontainer').fadeOut(100, function() {
           $(this).remove();
         });
-      }
+      }*/
       if ($('#infoboxcontainer').length < 1) {
-        $('<div id="infoboxcontainer" class="'+popclass+'"><div class="closeinfobox"></div><div class="outermargin"></div></div>').hide().appendTo($('#loopcontainer').parent());
+        $('<div id="infoboxcontainer" class="'+popclass+'"><div class="closeinfobox">close</div><div class="outermargin"></div></div>').hide().appendTo($('header'));
       }
       //content = infoboxTemplate( content );
       $('#infoboxcontainer .outermargin').html(content);

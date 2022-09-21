@@ -1,8 +1,10 @@
 <?php
+global $wp;
+$current_url = home_url( add_query_arg( array(), $wp->request ) );
 
 /* Display collection objects */
 $posttype = 'object';
-$slug = get_query_var( 'term' );
+$pagetermslug = get_query_var( 'term' );
 $taxname = get_query_var( 'taxonomy' );
 $term = get_term_by( 'slug', $slug, $taxname );
 $ppp = get_option( 'posts_per_page' ); // default
@@ -12,65 +14,34 @@ $viewtype = 'basic';
 $display_option = get_option( 'dropdown_option_setting_option_name' ); // Array
 $viewtype =  $display_option['dropdown_option_0']; // Option value
 
+$collection_title = get_term($term->term_id)->name;
+$collection_desc = get_term($term->term_id)->description;
+
 get_header(); // theme default header
+
+if ($term->parent == 0) { // (top collection
+  echo '<div id="categorymenu"><div class="taxonomy-'.$pagetermslug.' category">';
+  echo '<div class="innerpadding">';
+  wp_list_categories('taxonomy=collection&depth=1&show_count=1&title_li=&child_of=' . $term->term_id);
+  echo '</div></div>';
+}
+
+echo '<div id="collection-info"><h1>'.$collection_title.'</h1>'.$collection_desc.'</div>';
 
 
 
 if( $viewtype == 'grid'){
 
+// typeMenuHTML collections.php
+typeMenuHTML();
 
-echo '<div id="loopcontainer" class="grid-view isotope" data-posttype="'.$posttype.'"  data-taxname="'.$taxname.'" data-term="'.$slug.'" data-ppp="'.$ppp.'">';
+orderMenuHTML();
 
-  if ($term->parent == 0) { // (top collection
-
-    echo '<div id="categorymenu"><div class="taxonomy-'.$slug.' category">';
-    echo '<div class="innerpadding">';
-    wp_list_categories('taxonomy=collection&depth=1&show_count=1&title_li=&child_of=' . $term->term_id);
-    echo '</div></div>';
-
-  }
-
-  // type menu
-  $typeparent =get_terms( 'types', array('hide_empty' => 0, 'parent' => 4 ));
-  $types = array();
-  foreach ($typeparent as $child) {
-    $types[$child->slug] = $child->slug;
-    $type_names[$child->slug] = $child->name;
-  }
-
-  $allfilterclasses = '';
-
-  echo '<div id="typemenu"><div class="innerpadding"><ul class="collection-types">';
-
-    foreach ( $type_names as $slug => $type ) :
-
-      echo '<li data-type="'.$slug.'" class="icon-button but-'.$slug.'"><span>'.$type.'</span></li>';
-
-      $allfilterclasses .= $slug.' ';
-
-    endforeach;
-
-  echo '</ul></div></div>';
-
-  echo '</div>'; // end loopcontainer.isotope
-
-
+echo '<div id="loopcontainer" class="grid-view isotope" data-homeurl="'.$current_url.'" data-posttype="'.$posttype.'"  data-taxname="'.$taxname.'" data-term="'.$pagetermslug.'" data-ppp="'.$ppp.'">';
 
 }else{ // $viewtype == 'basic'
 
-
-
 echo '<div id="loopcontainer">';
-
-if ($term->parent == 0) { // (top collection
-
-  echo '<div class="taxonomy-'.$slug.' category">';
-  echo '<div class="innerpadding">';
-  wp_list_categories('taxonomy=collection&depth=1&show_count=1&title_li=&child_of=' . $term->term_id);
-  echo '</div></div>';
-
-}
-// else{ (when category has parent)
 
 if ( get_query_var( 'paged' ) ) { $paged = get_query_var( 'paged' ); }
 elseif ( get_query_var( 'page' ) ) { $paged = get_query_var( 'page' ); }
@@ -175,10 +146,8 @@ endif;
 
 wp_reset_query();
 
-//} //end else (when category has parent)
 echo '</div>'; // end loopcontainer
 
 } // end basic list pages
-
 
 get_footer();  // theme default footer

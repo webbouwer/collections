@@ -1,0 +1,39 @@
+/* util styling */
+
+#typemenu li.selected span
+{
+  color:#FF004D;
+}
+
+#typemenu li.notavailable span
+{
+  color:#C8CCD2;
+}
+
+
+
+.mediabox.display .cover {
+  display:none;
+  /*position: absolute;
+  left: 15px;
+  width: 15%;
+  height: auto;
+  z-index: 99;
+  */
+}
+
+.mediabox.display .mediacontainer
+{
+  min-height:60vh;
+}
+.mediabox .slider div.mediaholder
+{
+  position:absolute !important;
+  height:100%:
+  display:none;
+}
+
+.object-media .mediacontainer
+{
+  display:none;
+}
