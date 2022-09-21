@@ -196,107 +196,63 @@ blauw : #00A3E8;
 }
 
 
-/*
-
-#typemenu ul.collection-types li.available
+/* collections overview typemenu */
+#typemenu
 {
-}
-#typemenu ul.object-types li.available{
-
-}
-
-#typemenu .reset
-{
-}
-
-.tourinfobox
-{
-  position:absolute;
-  padding:8px;
-  background-color: #EEEFF1;
-  font-family: "Verdana", arial, serif;
-  font-size:11px;
-  width:240px;
-  left:50%;
-  display:none;
-  z-index:999;
-  border: solid 2px #ADB4BE;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-}
-
-#tourbox-0
-{
-  margin-left:-120px;
-  bottom:-85px;
-}
-#tourbox-0:before{
-    content: "";
-    position: absolute;
-    top: -20px;
-    left:110px;
-    z-index: 1;
-    border: solid 10px transparent;
-    border-bottom-color: #ADB4BE;
-}
-#tourbox-1
-{
-  margin-left:120px;
-  top:-30px;
-}
-#tourbox-2
-{
-  margin-left:-120px;
-  bottom:-85px;
-}
-#tourbox-2:before{
-    content: "";
-    position: absolute;
-    top: -20px;
-    left:110px;
-    z-index: 1;
-    border: solid 10px transparent;
-    border-bottom-color: #ADB4BE;
-}
-#tourbox-3
-{
-  margin-left:-210px;
-  bottom:-75px;
-}
-
-#main,
-#loopcontainer
-{
-  display: block;
-  position: relative;
   width:100%;
+  max-width:640px;
+  margin:0px auto;
+  justify-content: center;
 }
-
-
-#display-toggle
+#typemenu ul
 {
-  position:absolute;
-  top:5px;
-  right:5px;
-  z-index:99;
+  display:flex;
+  list-style:none;
+  flex-direction: row;
 }
-#display-toggle a
+#typemenu ul li
+{
+  flex:1;
+}
+#typemenu ul li.notavailable
+{
+  opacity:0.2;
+}
+
+#typemenu ul li.available
+{
+  cursor:pointer;
+}
+
+#display-toggle a,
+#typemenu ul li
+{
+  background-size:cover;
+  margin:0;
+}
+#typemenu .menuinfo
+{
+  color:#ADB4BE; /* #5E6877;*/
+  font-family: "Archery", Arial, Helvetica, sans-serif;
+}
+#typemenu .menuinfo span
 {
 }
-
-.grid-view .grid
+#typemenu .menuinfo
 {
-  display:none;
+  margin-top:46px;
+  font-size:1.2em;
+  color:#ADB4BE; /* #5E6877;*/
 }
-.list-view .list
+#typemenu .menuinfo
 {
-  display:none;
+  margin-top:21px;
+  margin-bottom:-40px;
+  font-size:1em;
+  min-height:30px;
+
 }
 
-
-
-*/
 
 
 

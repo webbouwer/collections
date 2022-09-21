@@ -501,7 +501,7 @@ jQuery(function($) {
 
     setTypeMenu();
 
-    if( $('#loopcontainer').length > 0 ){
+    if( $('#loopcontainer').length > 0  && $('#loopcontainer').data('id') ){
       getobject();
     }
 
