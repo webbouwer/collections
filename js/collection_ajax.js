@@ -383,6 +383,8 @@ jQuery(function($) {
 
   function getobject(){
 
+    var selected_id = $('#loopcontainer').data('id');
+    var selected_type = $('#loopcontainer').data('type');
     var data = {
       nonce: ajax.nonce,
       action: 'object_view',
@@ -498,6 +500,10 @@ jQuery(function($) {
     //$('#typemenu .reset').hide();
 
     setTypeMenu();
+
+    if( $('#loopcontainer').length > 0 ){
+      getobject();
+    }
 
   });
 
@@ -679,6 +685,7 @@ jQuery(function($) {
   });
 
   // hash events
+  /*
   $(window).bind('hashchange', function(e) {
 
     var pagehash = window.location.hash;
@@ -714,15 +721,15 @@ jQuery(function($) {
     }
 
   });
-
+  */
 
   $(window).load(function() {
 
-    var pagehash = window.location.hash;
-    var hash = pagehash.replace('#','');
+    //var pagehash = window.location.hash;
+    //var hash = pagehash.replace('#','');
+    //if( $('body.home').length && hash == '' ){
 
-    if( $('body.home').length && hash == '' ){ // must be homepage
-
+      if( $('body.home').length > 0 ){// must be homepage
 
       // check cookie
       var chk = getCookie("firsttime");
@@ -739,8 +746,13 @@ jQuery(function($) {
             });
 
         }, 300);
+
       } //console.log(document.cookie);
+
     }
+
+
+
 
   });
 

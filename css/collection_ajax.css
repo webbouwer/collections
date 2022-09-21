@@ -1,38 +1,33 @@
 /*
-
 rood roze : #FF004D
-
 grijs standaard : #ADB4BE
-
 licht grijs   :#C8CCD2
-
 Donker grijs   :#5E6877
-
 blauw : #00A3E8;
-
 */
 
 #typemenu ul li.notavailable
-
 {
-
   opacity:0.2;
-
 }
 
 #typemenu ul li.available
-
 {
-
   cursor:pointer;
-
 }
 
-
+.prevnextnav
+{
+  position:absolute;
+  z-index:900;
+  top:120px;
+  left:20px;
+  width:200px;
+}
 #prevmedia span,
 #nextmedia span
 {
-  display:none;
+  /*display:none; */
 }
 #prevmedia
 {
@@ -44,6 +39,7 @@ blauw : #00A3E8;
   right:-50px;
   background:url('../icons/arrow_icon_right_grey.png');
 }
+
 
 /* base icon buttons */
 .but-foto
@@ -535,4 +531,242 @@ blauw : #00A3E8;
   position:absolute !important;
   display:none;
 }
-*/
+
+
+
+/* popcontainer */
+
+#overlaycontainer .popcontainer
+
+{
+  position:relative;
+}
+
+#overlaycontainer .popcontainer .contentbox
+
+{
+  position:fixed;
+  bottom:0px;
+  left:0px;
+  width:100%;
+}
+
+
+
+
+
+#overlaycontainer .popcontainer .mediabox
+{
+  min-height:80vh;
+  background-color: #ffffff;
+  max-width:960px;
+  min-width:320px;
+  width:100%;
+  margin:0px auto;
+}
+
+
+
+
+
+#overlaycontainer .popcontainer .mediabox .mediacontainer
+
+{
+  position:relative;
+  width:100%;
+  min-height:80vh;
+
+}
+
+
+
+#overlaycontainer .popcontainer .contentbox .title
+{
+  padding: 2vh;
+  /* border-top:3px solid #ADB4BE; /* #00A3E8;*/
+  background:url('../icons/minus_icon_grey.png') center right no-repeat #ffffff;
+}
+
+#overlaycontainer .popcontainer .contentbox .title:hover
+{
+  background:url('../icons/minus_icon_blue.png') center right no-repeat #ffffff;
+}
+
+#overlaycontainer .popcontainer .contentbox .title.closed
+{
+  background:url('../icons/arrow_icon_up_grey.png') center right no-repeat #ffffff;
+}
+
+#overlaycontainer .popcontainer .contentbox .title.closed:hover
+{
+  background:url('../icons/arrow_icon_up_blue.png') center right no-repeat #ffffff;
+}
+
+
+
+#overlaycontainer .popcontainer .innerpadding .infotext
+{
+  display:block;
+  width:40%;
+  min-height:10vh;
+}
+
+
+
+#overlaycontainer .popcontainer .contentbox .innerpadding
+{
+}
+
+
+
+#overlaycontainer .popcontainer .contentbox .innerpadding .column
+{
+  margin:0.33%;
+  background-color:#ADB4BE;
+  max-height:64px;
+}
+
+#overlaycontainer .popcontainer .contentbox .innerpadding .column .media-icon
+{
+    position: relative;
+}
+
+.mediaholder img,
+.mediaholder iframe,
+.mediaholder video,
+.mediabox .cover img,
+#loopcontainer.list-view .post-artifact .innerpadding
+{
+  -webkit-box-shadow: 0px 5px 11px -1px rgba(0,0,0,0.56);
+  box-shadow: 0px 5px 11px -1px rgba(0,0,0,0.56);
+}
+
+#overlaycontainer .popcontainer .mediabox .mediaholder .caption
+{
+  padding:15px 0px;
+  font-family: "Montserrat-semibold", Arial, Helvetica, sans-serif;
+  font-size:0.8em;
+}
+
+
+
+#overlaycontainer .popcontainer .mediabox .mediaholder .caption a
+
+{
+
+color:#FF004D;
+
+}
+
+
+
+
+
+#overlaycontainer .popcontainer .mediabox .mediaholder
+{
+  position:relative;
+  width:100% !important;
+  text-align:center;
+}
+
+#overlaycontainer .popcontainer .mediabox .mediaholder img,
+#overlaycontainer .popcontainer .mediabox .mediaholder iframe,
+#overlaycontainer .popcontainer .mediabox .mediaholder video
+{
+  max-width:100%;
+}
+
+#overlaycontainer .popcontainer .mediabox .mediaholder iframe
+{
+}
+
+#overlaycontainer .popcontainer .mediabox .mediaholder img
+{
+}
+
+#overlaycontainer .popcontainer .mediabox .mediaholder img.landscape
+{
+}
+
+#overlaycontainer .popcontainer .mediabox .mediaholder img.portrait,
+
+#overlaycontainer .popcontainer .mediabox .mediaholder img.square
+
+{
+
+}
+
+#overlaycontainer .popcontainer .mediabox .mediaholder img,
+#overlaycontainer .popcontainer .mediabox .mediaholder iframe,
+#overlaycontainer .popcontainer .mediabox .mediaholder video
+{
+  display:block;
+  width: 640px; /*100% !important; */
+  min-height:60vh;
+  height:100%;
+  margin: 0px auto;
+}
+
+.prevnextnav
+{
+}
+
+
+
+#overlaycontainer .popcontainer .prevnextnav
+{
+  position:absolute;
+  top:-30px;
+  right:120px;
+}
+
+
+#prevmedia,
+#nextmedia
+{
+  display:block;
+  position:absolute;
+  top:0px;
+  width:64px;
+  height:64px;
+  z-index:99;
+  border:none;
+  background-color:transparent;
+  content: '';
+  cursor:pointer;
+}
+
+
+#overlaycontainer .popcontainer .prevnextnav
+{
+  position:absolute;
+  top:-36px;
+  right:80px;
+}
+
+#prevmedia,
+#nextmedia
+{
+  width:36px;
+  height:36px;
+  background-size:cover;
+  margin:0;
+}
+
+#prevmedia span,
+#nextmedia span
+{
+  /*display:none;*/
+}
+
+#prevmedia
+{
+  left:0px;
+  background:url('../icons/arrow_icon_left_grey.png');
+}
+
+#nextmedia
+{
+  right:50px;
+  background:url('../icons/arrow_icon_right_grey.png');
+}

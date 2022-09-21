@@ -4,11 +4,18 @@
 $posttype = 'object';
 $taxname = 'collection';
 
+/*
+$slug = get_query_var( 'term' );
+$taxname = get_query_var( 'taxonomy' );
+$term = get_term_by( 'slug', $slug, $taxname );
+$ppp = get_option( 'posts_per_page' ); // default
+*/
+
 $values = get_post_custom( get_the_ID() );
 $slug = isset( $values['page_collection_selectbox'] ) ? $values['page_collection_selectbox'][0] : 'Uncategorized';
 $orderby = 'menu_order';
 $order = 'ASC';
-$ppp = 4;//isset( $values['page_collection_loadamount'] ) ? $values['page_collection_loadamount'][0] : 12;
+$ppp = isset( $values['page_collection_loadamount'] ) ? $values['page_collection_loadamount'][0] : 12;
 
 $term = get_term_by( 'slug', $slug, $taxname );
 
@@ -17,14 +24,12 @@ $collection_desc = get_term($term->term_id)->description;
 
 get_header(); // theme default header
 
-echo '<div id="loopcontainer" class="grid-view isotope" data-posttype="'.$posttype.'"  data-taxname="'.$taxname.'" data-term="'.$slug.'" data-orderby="'.$orderby.'" data-order="'.$order.'"  data-ppp="'.$ppp.'">';
-echo '</div>'; // end loopcontainer.isotope
 
 
-get_footer();  // theme default footer
+  echo '<div id="loopcontainer" class="grid-view isotope" data-posttype="'.$posttype.'"  data-taxname="'.$taxname.'" data-term="'.$slug.'" data-orderby="'.$orderby.'" data-order="'.$order.'"  data-ppp="'.$ppp.'">';
+  echo '</div>'; // end loopcontainer.isotope
 
 
-/*
 
 echo '<div id="show-recent">Bekijk laatst toegevoegde objecten</div>';
 
@@ -71,4 +76,6 @@ echo '</ul></div>';
 
   echo '</ul><div class="menuinfo"></div></div></div>';
 
-*/
+
+
+get_footer();  // theme default footer

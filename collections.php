@@ -86,7 +86,7 @@ add_action( 'init', 'pluginconstruct' );
 /*
 add_action( 'pre_get_posts', function( $query) {
 		if ( $query->is_tax( 'collection' ) ) { // Replace with the name of the taxonomy you want to target
-				$query->set( 'posts_per_page', 3 ); // change '6' to the number of posts you want to appear
+				$query->set( 'posts_per_page', 3 ); // change '3' to the number of posts you want to appear
 		}
 } );
 */
@@ -130,7 +130,7 @@ class collectionsMain {
 			//global $post;
 			//if ( is_page_template('collection-page.php') ) {
 				include(plugin_dir_path(__FILE__) . 'functions/collection_ajax.php');
-				//include(plugin_dir_path(__FILE__) . 'functions/object_ajax.php');
+				include(plugin_dir_path(__FILE__) . 'functions/object_ajax.php');
 			//}
 			/*
 			global $post;
