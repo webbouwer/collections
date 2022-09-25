@@ -34,6 +34,29 @@ jQuery(function($) {
   }
 
 
+  // touch detections
+  var element = $('#loopcontainer');
+  var moved;
+  var downListener = () => {
+    moved = false;
+  }
+  element.on('mousedown', downListener);
+  var moveListener = () => {
+    moved = true;
+  }
+  element.on('mousemove', moveListener);
+  var upListener = () => {
+    if (moved) {
+      console.log('moved');
+    } else {
+      console.log('not moved');
+    }
+  }
+  element.on('mouseup', upListener);
+
+
+
+
   // prepare html container
   var container = $('#loopcontainer.isotope'),
     gutterWidth = 0,
@@ -48,7 +71,9 @@ jQuery(function($) {
     // prepare item selection
     var selected_id = '',
     selected_slug = '',
-    selected_mediatype = defaultselect;
+    selected_mediatype = defaultselect,
+    viewtype = 'grid-view';
+
 
   container.isotope({
     itemSelector: '.post-object',
@@ -61,6 +86,8 @@ jQuery(function($) {
     percentPosition: false,
     initLayout: true
   });
+
+
 
   // prepare data
   let pullpage = 0; // starts onload
@@ -209,13 +236,12 @@ jQuery(function($) {
         $(this).remove();
       });
     }
+
     if ($('#overlaycontainer').length < 1) {
       $('<div id="overlaycontainer"></div>').hide().appendTo($('#objectcontainer'));
       $('<div class="closeoverlay"><span>close</span></div><div class="outermargin"></div>').appendTo($('#overlaycontainer'));
     }
     $('#overlaycontainer .outermargin').html(content);
-
-
 
     setImagesOrient();
 
@@ -224,10 +250,15 @@ jQuery(function($) {
     }).appendTo('#overlaycontainer .outermargin .mediacontainer.'+type);
 
 
-    $('#loopcontainer').fadeOut(200);
+    // object navigation
+    viewtype = 'grid-view';
+    if( $('#loopcontainer').hasClass('list-view') ){
+      viewtype = 'list-view';
+    }
+    $('#loopcontainer').removeClass('grid-view list-view');//$('#loopcontainer').fadeOut(200);
+    $('#loopcontainer').addClass('nav-view');
 
-    $('#typemenu ul').removeClass("collection-types").addClass("object-types");
-    //$('#typemenu .reset').fadeOut();
+    $('#typemenu ul').removeClass("collection-types").addClass("object-types");//$('#typemenu .reset').fadeOut();
 
     $('#overlaycontainer').fadeIn(200, function() {
 
@@ -247,7 +278,7 @@ jQuery(function($) {
     selected_id = '';
     selected_slug = '';
 
-    selected_mediatype = $('body').find('#typemenu ul.collection-types li.selected').data('type');
+    //selected_mediatype = $('body').find('#typemenu .icon-button.selected').data('type');
 
     $('#overlaycontainer').removeClass('intro');
     $('#overlaycontainer').fadeOut(200, function() {
@@ -258,13 +289,15 @@ jQuery(function($) {
 
     setTypeMenu();
 
-    $('#loopcontainer').fadeIn(200, function() {
+    //$('#loopcontainer').fadeIn(200, function() {
+    $('#loopcontainer').removeClass('nav-view');//$('#loopcontainer').fadeOut(200);
+    $('#loopcontainer').addClass(viewtype);
 
-      $('#isotopemenu').fadeIn();
-      $('body').find('#typemenu ul.collection-types li.selected').trigger('click');
-      setTimeout(doneResizing, 50); // // reposition items (if window resized)
+    $('#isotopemenu').fadeIn();
+    $('body').find('#typemenu ul.collection-types li.selected').trigger('click');
+    setTimeout(doneResizing, 50); // // reposition items (if window resized)
 
-    });
+    //});
 
   }
 
@@ -362,6 +395,10 @@ jQuery(function($) {
     },300);
 
   }
+
+
+
+
 
   function getobject(){
 
@@ -482,6 +519,8 @@ jQuery(function($) {
       getobject();
     }
 
+
+
   });
 
   // onscroll load more
@@ -573,6 +612,7 @@ jQuery(function($) {
     pullpage = 0; // starts onload
     pullflag = true;
     $('#loopcontainer .post-object').remove();
+    $('#overlaycontainer .closeoverlay').trigger('click');
     getCollectionData();
   });
 
@@ -596,6 +636,9 @@ jQuery(function($) {
     }else{
       $('#typemenu .reset').fadeIn();
     }*/
+    $('#loopcontainer,#objectcontainer').attr('data-type', type);
+
+
     let url = new window.URL( $('#loopcontainer').data('homeurl') );
     url.searchParams.set("type", type);
     history.pushState('', '', url);
@@ -624,6 +667,14 @@ jQuery(function($) {
     $('.media-icon').removeClass('selected');
     $('.media-icon.but-'+type).addClass('selected');
 
+
+    $('#loopcontainer,#objectcontainer').attr('data-type', type);
+
+    // set object nav
+    var butclass = '.' + type;
+    filters = butclass;
+    setColumnWidth();
+
     var url = new window.URL(document.location);
     url.searchParams.set("type", type);
     history.pushState('', '', url);
@@ -631,7 +682,27 @@ jQuery(function($) {
   });
 
 
-  // popup overlay object
+  // click url vs popup overlay object
+  $(document).on('click touchend', '.post-object .overlay', function(event) {
+      if( moved == false){
+
+        let type = $('#typemenu .icon-button.selected').data('type');
+        let link = $(this).find('.entry-title a').attr('href');
+
+        if( !$(this).closest('.post-object').hasClass(type)){
+          type = 'foto';
+        }
+        link = link + '?type='+type;
+
+        //let url = link + '?type='+$('#loopcontainer').data('type');
+        //$(this).find('.entry-title a').attr('href', url);
+        window.location = link;
+        //$(this).find('.entry-title a')[0].click();
+      }
+  });
+
+
+
   /*
   $(document).on('click touchend', '.post-object .overlay, .entry-title a,.item-icons ul li', function(event) {
 

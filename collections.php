@@ -101,7 +101,7 @@ function typeMenuHTML(){
 		$type_desc[$child->slug] = $child->description;
 	}
 	$allfilterclasses = '';
-	echo '<div id="typemenu"><div id="helpinfo">Help</div><div class="innerpadding"><ul class="collection-types">';
+	echo '<div id="typemenu"><div class="innerpadding"><ul class="collection-types">';
 		foreach ( $type_names as $slug => $type ) :
 			echo '<li data-type="'.$slug.'" data-desc="'.$type_desc[$slug].'" class="icon-button but-'.$slug.'"><span>'.$type.'</span></li>';
 			$allfilterclasses .= $slug.' ';
@@ -113,7 +113,6 @@ function typeMenuHTML(){
 function orderMenuHTML()
 {
 	echo '<div id="isotopemenu">';
-	echo '<div id="show-recent">Bekijk laatst toegevoegde objecten</div>';
 	echo '<div id="display-toggle"><a class="list"><span>lijst</span></a><a class="grid"><span>tegels</span></a></div>';
 	echo '<div id="display-options"><span>Sorteer:</span><ul class="orderby">';
 	echo '<li class="default selected" data-orderby="menu_order">Selectie</li><li class="title" data-orderby="title">Titel</li>';

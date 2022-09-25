@@ -23,10 +23,12 @@ if ($term->parent == 0 && !is_front_page() ) { // (top collection
 
 
 // typeMenuHTML collections.php
+
+echo '<div id="show-recent">Bekijk laatst toegevoegde objecten</div><div id="helpinfo">Help</div>';
+echo '<div id="optionbar">';
 typeMenuHTML();
-
 orderMenuHTML();
-
+echo '</div>';
 echo '<div id="loopcontainer" class="grid-view isotope" data-homeurl="'.get_home_url().'" data-posttype="'.$posttype.'"  data-taxname="'.$taxname.'" data-term="'.$startslug.'" data-orderby="'.$orderby.'" data-order="'.$order.'"  data-ppp="'.$ppp.'">';
 echo '</div>'; // end loopcontainer.isotope
 

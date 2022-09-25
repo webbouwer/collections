@@ -5,45 +5,189 @@ licht grijs   :#C8CCD2
 Donker grijs   :#5E6877
 blauw : #00A3E8;
 */
-#loopcontainer,
-#objectcontainer
+#optionbar
+{
+  position: relative;
+  margin:0px auto;
+}
+#typemenu
+{
+}
+#typemenu ul.collection-types
+{
+  background-color:green;
+}
+#typemenu ul.object-types
+{
+  background-color:red;
+}
+
+#display-options
+{
+  background-color:green;
+}
+
+#loopcontainer
+{
+  position: relative;
+  background-color: green;
+  margin:0px auto;
+}
+#objectcontainer .outermargin
 {
   position: relative;
   background-color: red;
+  margin:0px auto;
 }
+
+
+
+
+
+.post-object
+{
+  position:relative;
+}
+
 .isotope.grid-view div.post-object.portrait
 {
-  max-width:20%;
+  max-width:320px;
 }
 .isotope.grid-view div.post-object.square
 {
-  max-width:40%;
+  max-width:320px;
 }
 .isotope.grid-view div.post-object.landscape
 {
-  max-width:80%;
+  max-width:420px;
 }
 .isotope.grid-view div.post-object.panorama
 {
-  max-width:80%;
+  max-width:680px;
+}
+
+
+div.mediaholder img,
+div.mediaholder embed,
+div.mediaholder video,
+div.mediaholder object
+{
+  margin:0px auto;
 }
 
 div.object-image img,
 div.object-image embed,
 div.object-image video,
-div.object-image object {
+div.object-image object{
   display: block;
   height: auto;
   max-width: 100%;
+  max-height: 100%;
 }
 
-.isotope.list-view div.post-object
+
+#loopcontainer.isotope.list-view div.post-object
 {
   width:100%;
   max-width:100%;
 }
-.isotope.list-view div.post-object div.object-image
+#loopcontainer.isotope.list-view div.post-object div.object-image
 {
   max-width:180px;
   float:left;
+}
+
+
+
+#loopcontainer.isotope.nav-view
+{
+  position:fixed !important;
+  height:70vh !important;
+  width:8vw;
+  right:0px;
+  top:180px;
+  overflow-y: scroll;
+  background-color: grey;
+}
+
+
+#loopcontainer.grid-view .post-object .overlay,
+#loopcontainer.nav-view .post-object .overlay
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, .5);
+  opacity: 0;
+  text-align: center;
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+}
+
+
+#loopcontainer.grid-view .post-object:hover .overlay,
+#loopcontainer.grid-view .post-object.hovered .overlay,
+#loopcontainer.nav-view .post-object .overlay {
+  opacity: 1;
+}
+#loopcontainer.nav-view .post-object .overlay:hover
+{
+  background: rgba(0, 0, 0, 0);
+}
+
+ 
+#loopcontainer.nav-view .post-object .overlay *
+{
+  display:none;
+}
+
+#objectcontainer #overlaycontainer
+{
+  height:inherit;
+}
+
+
+@media all and (min-width: 980px){
+
+  #optionbar
+  {
+    width: calc(100% - 8rem);
+    max-width: 168rem;
+    display:flex;
+  }
+  #typemenu
+  {
+    flex:5;
+  }
+  #display-options
+  {
+    flex:4;
+  }
+
+  #loopcontainer
+  {
+    width: calc(100% - 8rem);
+    max-width: 168rem;
+  }
+  #objectcontainer .outermargin
+  {
+    width: calc(100% - 8rem);
+    max-width: 168rem;
+    padding-right:8vw;
+  }
+
+
 }

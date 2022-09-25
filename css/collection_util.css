@@ -1,5 +1,17 @@
 /* util styling */
+#typemenu ul
+{
+  display: inline-flex;
+  flex-wrap: wrap;
+}
 
+#typemenu li,
+#display-options li
+{
+  list-style-type:none;
+  padding:0px;
+  margin:0px;
+}
 #typemenu li.selected span
 {
   color:#FF004D;
@@ -10,27 +22,141 @@
   color:#C8CCD2;
 }
 
+span.edit-link
+{
+display:none;
+}
+.menuinfo
+{
+  position:absolute;
+  bottom:0px;
+  z-index:300;
+}
 
 
-.mediabox.display .cover {
+#display-options
+{
+  position:absolute;
+  right:20px;
+  z-index:99;
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+#display-options ul
+{
+  display:block;
+  list-style:none;
+  margin:0;
+}
+
+#display-options span,
+#display-options ul li
+{
+  padding:6px 8px;
+  font-size:1.3em;
+  color: #ADB4BE;
+  min-width:80px;
+  background-color:#ffffff;
+  font-family: "Archery", Arial, Helvetica, sans-serif;
+}
+
+#display-options ul.orderby li,
+#display-options ul.order li
+{
+  cursor:pointer;
+}
+
+#display-options span
+{
+  display:inline-block;
+  height:32px;
+}
+
+#display-options ul li.selected
+{
+  color: #C8CCD2;
+}
+
+#display-options ul li:hover,
+#display-options ul li.selected:hover
+{
+  color: #5E6877;
+}
+#display-options ul.orderby li:not(.selected),
+#display-options ul.order li:not(.selected)
+{
   display:none;
-  /*position: absolute;
-  left: 15px;
-  width: 15%;
-  height: auto;
-  z-index: 99;
-  */
+}
+#display-options ul.orderby:hover li:not(.selected),
+#display-options ul.order:hover li:not(.selected)
+{
+  display:block;
+}
+
+
+#overlaycontainer .closeoverlay
+{
+  position:absolute;
+  right:8vw;
+  z-index:300;
+}
+
+#overlaycontainer .popcontainer
+{
+  position:relative;
+  display:block;
+  width:100%;
+}
+
+
+.popcontainer .prevnextnav
+{
+}
+
+.popcontainer .prevnextnav #nextmedia
+{
+  position:absolute;
+  top:0px;
+  left:0px;
+  z-index:300;
+}
+.popcontainer .prevnextnav #prevmedia
+{
+  position:absolute;
+  top:0px;
+  right:0px;
+  z-index:300;
+}
+
+
+
+.mediabox.display
+{
+  display:inline-flex;
+  width:calc(100% - 8rem);
+}
+
+.mediabox.display .cover
+{
+  flex:1;
+  padding-right:30px;
+}
+.mediabox.display .cover h1
+{
+  font-size:1.2em;
+  margin: 0px;
 }
 
 .mediabox.display .mediacontainer
 {
-  min-height:60vh;
+  flex:3;
+  width:70%;
 }
+
 .mediabox .slider div.mediaholder
 {
-  position:absolute !important;
-  height:100%:
-  display:none;
+
 }
 
 .object-media .mediacontainer

@@ -11,9 +11,12 @@ if( isset($_GET['type']) && $_GET['type'] != '' ){
 
 get_header(); // theme default header
 
-typeMenuHTML(); // typeMenuHTML collections.php
 
-orderMenuHTML(); // typeMenuHTML collections.php
+echo '<div id="show-recent">Bekijk laatst toegevoegde objecten</div><div id="helpinfo">Help</div>';
+echo '<div id="optionbar">';
+typeMenuHTML();
+orderMenuHTML();
+echo '</div>';
 
 if ( have_posts() ) :
 
@@ -36,9 +39,10 @@ if ( have_posts() ) :
   endwhile;
 
   echo '<div id="objectcontainer" data-id="'.$pid.'" data-type="'.$selectedtype.'"></div>';
-  echo '<div id="loopcontainer" class="grid-view isotope" data-homeurl="'.get_home_url().'" data-posttype="'.$posttype.'"  data-taxname="'.$taxname.'" data-term="chateau-du-lac" data-orderby="menu_order" data-order="ASC" data-ppp="'.$ppp.'"></div>';
-  ?>
+  echo '<div id="loopcontainer" class="nav-view isotope" data-homeurl="'.get_home_url().'" data-posttype="'.$posttype.'"  data-taxname="'.$taxname.'" data-term="chateau-du-lac" data-orderby="menu_order" data-order="ASC" data-ppp="'.$ppp.'"></div>';
+  /*
 
+?>
   <div class="pagelinkbox">
     <div class="previous-post-link">
       <?php previous_post_link('%link', '<< Previous Post', $in_same_term = true, $excluded_terms = '', $taxonomy = 'collection'); ?>
@@ -48,7 +52,10 @@ if ( have_posts() ) :
     </div>
   </div>
 
+
   <?php
+
+  */
 
 endif;
 

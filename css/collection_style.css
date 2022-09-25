@@ -1,0 +1,12 @@
+
+
+
+#loopcontainer .post-object .overlay h2.entry-title
+{
+  font-size:32px;
+}
+
+#loopcontainer .post-object .overlay h2.entry-title a
+{
+  color: #ffffff; /* #00A3E8; */
+}
