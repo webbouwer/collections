@@ -15,28 +15,23 @@ blauw : #00A3E8;
 }
 #typemenu ul.collection-types
 {
-  background-color:green;
 }
 #typemenu ul.object-types
 {
-  background-color:red;
 }
 
 #display-options
 {
-  background-color:green;
 }
 
 #loopcontainer
 {
   position: relative;
-  background-color: green;
   margin:0px auto;
 }
 #objectcontainer .outermargin
 {
   position: relative;
-  background-color: red;
   margin:0px auto;
 }
 
@@ -148,7 +143,7 @@ div.object-image object{
   background: rgba(0, 0, 0, 0);
 }
 
- 
+
 #loopcontainer.nav-view .post-object .overlay *
 {
   display:none;

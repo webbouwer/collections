@@ -847,7 +847,7 @@ jQuery(function($) {
         });
       }*/
       if ($('#infoboxcontainer').length < 1) {
-        $('<div id="infoboxcontainer" class="'+popclass+'"><div class="closeinfobox">close</div><div class="outermargin"></div></div>').hide().appendTo($('header'));
+        $('<div id="infoboxcontainer" class="'+popclass+'"><div class="closeinfobox"><span>close</span></div><div class="outermargin"></div></div>').hide().appendTo($('header'));
       }
       //content = infoboxTemplate( content );
       $('#infoboxcontainer .outermargin').html(content);

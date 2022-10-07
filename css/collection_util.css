@@ -98,8 +98,8 @@ display:none;
 #overlaycontainer .closeoverlay
 {
   position:absolute;
-  right:8vw;
-  z-index:300;
+  right:9vw;
+  z-index:900;
 }
 
 #overlaycontainer .popcontainer
@@ -112,21 +112,37 @@ display:none;
 
 .popcontainer .prevnextnav
 {
+  position:absolute;
+  right:120px;
+}
+#prevmedia, #nextmedia {
+  display: block;
+  position: absolute;
+  top: 0px;
+  width: 64px;
+  height: 64px;
+  z-index: 99;
+  border: none;
+  background-color: transparent;
+  content: '';
+  cursor: pointer;
+}
+#nextmedia{
+  right: -50px;
+  background: url('../icons/arrow_icon_right_grey.png');
+}
+#prevmedia {
+  left: -50px;
+  background: url('../icons/arrow_icon_left_grey.png');
 }
 
-.popcontainer .prevnextnav #nextmedia
+.closeoverlay span,
+.closeinfobox span,
+.closeintrobox span,
+#prevmedia span,
+#nextmedia span
 {
-  position:absolute;
-  top:0px;
-  left:0px;
-  z-index:300;
-}
-.popcontainer .prevnextnav #prevmedia
-{
-  position:absolute;
-  top:0px;
-  right:0px;
-  z-index:300;
+  display:none;
 }
 
 
@@ -158,6 +174,16 @@ display:none;
 {
 
 }
+
+.mediaholder .caption
+{
+  text-align:center;
+}
+.mediaholder img.landscape
+{
+  width:900px;
+}
+
 
 .object-media .mediacontainer
 {

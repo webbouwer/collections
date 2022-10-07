@@ -14,7 +14,14 @@
 }
 
 
-
+.closeoverlay, .closeinfobox, .closeintrobox {
+  height: 64px;
+  width: 64px;
+  z-index: 90;
+  background-color: transparent;
+  background-image: url('../icons/menu_open.png');
+  cursor: pointer;
+}
 
 .icon-button, .media-icon {
   position: relative;
