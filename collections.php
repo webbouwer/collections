@@ -18,6 +18,9 @@ require_once(plugin_dir_path(__FILE__) . 'functions/page_templates.php');
 require_once(plugin_dir_path(__FILE__) . 'functions/page_options.php');
 
 
+
+
+
 // https://wordpress.stackexchange.com/questions/204779/how-can-i-add-an-author-filter-to-the-media-library
 /*
 function media_add_author_dropdown()
