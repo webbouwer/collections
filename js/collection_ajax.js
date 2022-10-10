@@ -36,6 +36,7 @@ jQuery(function($) {
 
   // touch detections
   var element = $('#loopcontainer');
+  var gutterWidth = 0;
   var moved;
   var downListener = () => {
     moved = false;
@@ -59,8 +60,7 @@ jQuery(function($) {
 
   // prepare html container
   var container = $('#loopcontainer.isotope'),
-    gutterWidth = 0,
-    colWidth = container.width() / 20,
+    //colWidth = container.width() / 20,
     currCat = '',
 
     // prepare isotope
@@ -80,7 +80,7 @@ jQuery(function($) {
     animationEngine: 'best-available',
     transitionDuration: '0.9s',
     masonry: {
-      columnWidth: colWidth,
+      columnWidth: 1,
       gutter: gutterWidth,
     },
     percentPosition: false,
@@ -141,7 +141,7 @@ jQuery(function($) {
           },
           timeout: 60000
         });
-        return false;
+        return false; 
       }
     }
   }
@@ -201,19 +201,18 @@ jQuery(function($) {
   }
 
 
-
   // load isotope grid
   function setColumnWidth() {
 
     container = $('body').find('#loopcontainer');
 
     var w = container.width();
-    colWidth = w / 20; // TODO: check width for small screens
+    //colWidth = w / 3; // TODO: check width for small screens
 
     container //.isotope('reloadItems')
       .isotope({
         masonry: {
-          columnWidth: colWidth,
+          columnWidth: 1,
           gutter: gutterWidth,
         },
         percentPosition: false,

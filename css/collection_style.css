@@ -30,7 +30,6 @@
 }
 
 .Archeryfont,
-#optionbar,
 h1.entry-title,
 .archive-title,
 .modal-menu li a
@@ -56,7 +55,7 @@ H1,H2,
 			font-family: "Montserrat-semibold", Arial, Helvetica, sans-serif;
 }
 
-
+/*
 .toggle-wrapper .toggle-inner .toggle-text.toggle-text,
 .toggle-wrapper .toggle-inner .toggle-icon,
 .toggle-wrapper .toggle-inner .svg-icon,
@@ -67,62 +66,18 @@ H1,H2,
   color:#ADB4BE !important;
   letter-spacing:0.04em !important;
 }
+*/
 .toggle-wrapper .toggle-inner .toggle-icon
 {
 
 }
 
 
-span.edit-link
-{
-display:none;
+@media all and (max-width: 700px){
 }
 
-
-
-
-
-.modal-menu > li > a,
-.modal-menu > li > .ancestor-wrapper > a
-{
-  font-size:36px;
-  letter-spacing:0.04em !important;
+@media all and (min-width: 700px and max-width: 1000px){
 }
 
-
-
-article .entry-header h2.entry-title
-{
-  font-size:25px;
-}
-#loopcontainer .post-object .overlay h2.entry-title
-{
-  font-size:32px;
-}
-
-#loopcontainer .post-object .overlay h2.entry-title a
-{
-  color: #ffffff; /* #00A3E8; */
-}
-
-h1.entry-title
-{
-  font-size:32px;
-}
-
-.archive-header,
-.entry-header
-{
-  padding:30px 0px !important;
-}
-
-article
-{
-  padding-top:30px !important;
-}
-
-.page article,
-.post article
-{
-  padding-top:0px !important;
+@media all and (min-width: 1000px){
 }
