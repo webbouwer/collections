@@ -1,6 +1,100 @@
 
+/* fonts used */
+@font-face {
+    font-family: 'Archery';
+    src: url("../lib/fonts/archery/archery_black_rounded_regular.eot");
+	src: url('../lib/fonts/archery/archery_black_rounded_regular.eot?#iefix') format('embedded-opentype'),
+        /* url('../lib/fonts/archery/archery_black_rounded_regular.woff') format('woff'), */
+         url('../lib/fonts/archery/archery_black_rounded_regular.ttf') format('truetype');
+    	 /*url('../lib/fonts/archery/archery_black_rounded_regular.otf') format('opentype'),
+         url('../lib/fonts/archery/archery_black_rounded_regular.svg') format('svg'); */
+}
+
+@font-face {
+    font-family: 'Montserrat-regular';
+    src: url("../lib/fonts/montserrat/Montserrat-Regular.eot");
+	src: url('../lib/fonts/montserrat/Montserrat-Regular.eot?#iefix') format('embedded-opentype'),
+         /*url('../lib/fonts/montserrat/Montserrat-Regular.woff') format('woff'),*/
+         url('../lib/fonts/montserrat/Montserrat-Regular.ttf') format('truetype');
+    	 /*url('../lib/fonts/montserrat/Montserrat-Regular.otf') format('opentype'),
+         url('../lib/fonts/montserrat/Montserrat-Regular.svg') format('svg');*/
+}
+@font-face {
+    font-family: 'Montserrat-semibold';
+    src: url("../lib/fonts/montserrat/Montserrat-SemiBold.eot");
+	src: url('../lib/fonts/montserrat/Montserrat-SemiBold.eot?#iefix') format('embedded-opentype'),
+        /* url('../lib/fonts/montserrat/Montserrat-SemiBold.woff') format('woff'),*/
+         url('../lib/fonts/montserrat/Montserrat-SemiBold.ttf') format('truetype');
+    /*	 url('../lib/fonts/montserrat/Montserrat-SemiBold.otf') format('opentype'),
+         url('../lib/fonts/montserrat/Montserrat-SemiBold.svg') format('svg'); */
+}
+
+.Archeryfont,
+#optionbar,
+h1.entry-title,
+.archive-title,
+.modal-menu li a
+{
+			font-family: "Archery", Arial, Helvetica, sans-serif;
+      letter-spacing:0.04em !important;
+}
+
+.Montserrat,
+.archive-header,
+.entry-header,
+.entry-content
+{
+			font-family: "Montserrat-regular", Arial, Helvetica, sans-serif;
+}
 
 
+H1,H2,
+.innerpadding,
+.MontserratSB,
+.text
+{
+			font-family: "Montserrat-semibold", Arial, Helvetica, sans-serif;
+}
+
+
+.toggle-wrapper .toggle-inner .toggle-text.toggle-text,
+.toggle-wrapper .toggle-inner .toggle-icon,
+.toggle-wrapper .toggle-inner .svg-icon,
+#typemenu .menuinfo
+{
+  font-family: "Archery", Arial, Helvetica, sans-serif !important;
+  font-size:21px !important;
+  color:#ADB4BE !important;
+  letter-spacing:0.04em !important;
+}
+.toggle-wrapper .toggle-inner .toggle-icon
+{
+
+}
+
+
+span.edit-link
+{
+display:none;
+}
+
+
+
+
+
+.modal-menu > li > a,
+.modal-menu > li > .ancestor-wrapper > a
+{
+  font-size:36px;
+  letter-spacing:0.04em !important;
+}
+
+
+
+article .entry-header h2.entry-title
+{
+  font-size:25px;
+}
 #loopcontainer .post-object .overlay h2.entry-title
 {
   font-size:32px;
@@ -9,4 +103,26 @@
 #loopcontainer .post-object .overlay h2.entry-title a
 {
   color: #ffffff; /* #00A3E8; */
+}
+
+h1.entry-title
+{
+  font-size:32px;
+}
+
+.archive-header,
+.entry-header
+{
+  padding:30px 0px !important;
+}
+
+article
+{
+  padding-top:30px !important;
+}
+
+.page article,
+.post article
+{
+  padding-top:0px !important;
 }

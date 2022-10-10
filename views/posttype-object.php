@@ -12,11 +12,13 @@ if( isset($_GET['type']) && $_GET['type'] != '' ){
 get_header(); // theme default header
 
 
-echo '<div id="show-recent">Bekijk laatst toegevoegde objecten</div><div id="helpinfo">Help</div>';
+/*
 echo '<div id="optionbar">';
+echo '<div id="show-recent">Bekijk laatst toegevoegde objecten</div><div id="helpinfo">Help</div>';
 typeMenuHTML();
 orderMenuHTML();
 echo '</div>';
+*/ 
 
 if ( have_posts() ) :
 

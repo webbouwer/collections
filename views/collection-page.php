@@ -8,7 +8,7 @@ $values = get_post_custom( get_the_ID() );
 $startslug = isset( $values['page_collection_selectbox'] ) ? $values['page_collection_selectbox'][0] : 'Uncategorized';
 $orderby = 'menu_order';
 $order = 'ASC';
-$ppp = isset( $values['page_collection_loadamount'] ) ? $values['page_collection_loadamount'][0] : 12;
+$ppp = isset( $values['page_collection_loadamount'] ) ? $values['page_collection_loadamount'][0] : 25;
 
 $term = get_term_by( 'slug', $slug, $taxname );
 
@@ -24,11 +24,14 @@ if ($term->parent == 0 && !is_front_page() ) { // (top collection
 
 // typeMenuHTML collections.php
 
-echo '<div id="show-recent">Bekijk laatst toegevoegde objecten</div><div id="helpinfo">Help</div>';
+/*
 echo '<div id="optionbar">';
+echo '<div id="show-recent">Bekijk laatst toegevoegde objecten</div><div id="helpinfo">Help</div>';
 typeMenuHTML();
 orderMenuHTML();
 echo '</div>';
+*/
+
 echo '<div id="loopcontainer" class="grid-view isotope" data-homeurl="'.get_home_url().'" data-posttype="'.$posttype.'"  data-taxname="'.$taxname.'" data-term="'.$startslug.'" data-orderby="'.$orderby.'" data-order="'.$order.'"  data-ppp="'.$ppp.'">';
 echo '</div>'; // end loopcontainer.isotope
 

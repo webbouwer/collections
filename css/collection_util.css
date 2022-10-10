@@ -1,10 +1,80 @@
 /* util styling */
+
+#show-recent {
+  position:absolute;
+  left:2.9rem;
+  bottom:-20px;
+  color: #ADB4BE;
+  font-family: "Archery", Arial, Helvetica, sans-serif;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+#helpinfo {
+  color: #ADB4BE;
+  font-family: "Archery", Arial, Helvetica, sans-serif;
+  font-size: 1.2em;
+  position: absolute;
+  right: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  z-index:999;
+}
+#infoboxcontainer {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background-color: rgba( 225,225,225, 0.8);
+}
+#infoboxcontainer .outermargin {
+  position: relative;
+  display: block;
+  width: calc(100%-30px);
+  max-width: 640px;
+  background-color: #fff;
+}
+.closeinfobox {
+  position: absolute;
+  right: 0px;
+  top: -30px;
+  z-index: 90;
+  cursor: pointer;
+  right: 0px;
+  top: 0px;
+  height: 64px;
+  width: 64px;
+}
+
+
+
+#infoboxcontainer #helpcontent
+{
+  padding:30px;
+  font-family: "Montserrat-semibold", Arial, Helvetica, sans-serif;
+}
+#infoboxcontainer #helpcontent h3
+{
+  font-size:1em;
+}
+#infoboxcontainer #helpcontent p
+{
+  padding:10px 0px;
+}
+
+
+
+
 #typemenu ul
 {
   display: inline-flex;
   flex-wrap: wrap;
 }
-
 #typemenu li,
 #display-options li
 {
@@ -16,68 +86,63 @@
 {
   color:#FF004D;
 }
-
 #typemenu li.notavailable span
 {
   color:#C8CCD2;
 }
-
-span.edit-link
-{
-display:none;
-}
-.menuinfo
+#typemenu .menuinfo
 {
   position:absolute;
-  bottom:0px;
+  top:-28px;
+  left: 2.9rem;
   z-index:300;
 }
+
+
+
 
 
 #display-options
 {
   position:absolute;
-  right:20px;
-  z-index:99;
+  right:calc(2% + 50px);
+  margin-top:-32px;
   display: inline-flex;
   flex-wrap: wrap;
 }
-
 #display-options ul
 {
   display:block;
   list-style:none;
   margin:0;
 }
-
 #display-options span,
 #display-options ul li
 {
-  padding:6px 8px;
-  font-size:1.3em;
+  padding:2px 4px;
+  font-size:1.2em;
   color: #ADB4BE;
   min-width:80px;
-  background-color:#ffffff;
   font-family: "Archery", Arial, Helvetica, sans-serif;
 }
-
 #display-options ul.orderby li,
 #display-options ul.order li
 {
   cursor:pointer;
+  background-color:#ffffff;
+  height:32px;
 }
-
 #display-options span
 {
   display:inline-block;
-  height:32px;
+  margin-top:4px;
+  height:28px;
+  background-color:#ffffff;
 }
-
 #display-options ul li.selected
 {
   color: #C8CCD2;
 }
-
 #display-options ul li:hover,
 #display-options ul li.selected:hover
 {
@@ -95,19 +160,24 @@ display:none;
 }
 
 
+
+
+
 #overlaycontainer .closeoverlay
 {
   position:absolute;
   right:9vw;
   z-index:900;
 }
-
 #overlaycontainer .popcontainer
 {
   position:relative;
   display:block;
   width:100%;
 }
+
+
+
 
 
 .popcontainer .prevnextnav
@@ -135,7 +205,6 @@ display:none;
   left: -50px;
   background: url('../icons/arrow_icon_left_grey.png');
 }
-
 .closeoverlay span,
 .closeinfobox span,
 .closeintrobox span,
@@ -146,35 +215,20 @@ display:none;
 }
 
 
-
 .mediabox.display
 {
   display:inline-flex;
   width:calc(100% - 8rem);
 }
-
-.mediabox.display .cover
-{
-  flex:1;
-  padding-right:30px;
-}
-.mediabox.display .cover h1
-{
-  font-size:1.2em;
-  margin: 0px;
-}
-
 .mediabox.display .mediacontainer
 {
   flex:3;
   width:70%;
 }
-
 .mediabox .slider div.mediaholder
 {
 
 }
-
 .mediaholder .caption
 {
   text-align:center;
@@ -188,4 +242,133 @@ display:none;
 .object-media .mediacontainer
 {
   display:none;
+}
+
+
+
+
+
+
+
+/* toggle grid / list */
+#display-toggle
+{
+  float:right;
+  margin-top:-46px;
+  margin-right:2%;
+}
+
+#display-toggle a
+{
+  position:relative;
+  width:48px;
+  height:48px;
+  cursor:pointer;
+}
+
+.grid-view #display-toggle a.list
+{
+  display:block;
+  background-image:url('../icons/menu_icon_list_grey.png');
+  background-size:cover;
+}
+
+.list-view #display-toggle a.grid
+{
+  display:block;
+  background-image:url('../icons/menu_icon_grid_grey.png');
+  background-size:cover;
+}
+
+#display-toggle a span
+{
+  display:none;
+}
+
+#display-toggle a:hover span{
+  display:block;
+  position:absolute;
+  top:-16px;
+  left:8px;
+  font-size:1em;
+  color: #ADB4BE;
+  font-family: "Archery", Arial, Helvetica, sans-serif;
+}
+
+.grid-view a.grid
+{
+  display:none;
+}
+
+.list-view a.list
+{
+  display:none;
+}
+
+
+
+@media all and (max-width: 700px){
+
+  #optionbar #typemenu
+  {
+    display:none;
+    position:absolute;
+    top:0px;
+  }
+
+  #isotopemenu
+  {
+    display:none;
+    position:absolute;
+    top:50px;
+  }
+
+
+
+  #show-recent {
+    position:absolute;
+    left:0px;
+    bottom:-20px;
+    color: none;
+    font-family: "Archery", Arial, Helvetica, sans-serif;
+    font-size: 0.8em;
+    cursor: pointer;
+  }
+
+  .mediabox.display .cover
+  {
+    display:none;
+  }
+
+  #loopcontainer .entry-title .entry-title-link
+  {
+    font-size:19px;
+  }
+
+
+}
+
+@media all and (min-width: 700px and max-width: 1000px){
+
+}
+
+@media all and (min-width: 1000px){
+
+  #optionbar #typemenu
+  {
+    margin:0px auto;
+  }
+
+  .mediabox.display .cover
+  {
+    flex:1;
+    padding-right:30px;
+  }
+  .mediabox.display .cover h1
+  {
+    font-size:1.2em;
+    margin: 0px;
+  }
+
+
 }

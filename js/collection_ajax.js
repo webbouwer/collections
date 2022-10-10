@@ -538,6 +538,9 @@ jQuery(function($) {
   });
 
 
+
+
+
   // on resize
   var resizeId;
   $(window).resize(function() {
@@ -547,20 +550,36 @@ jQuery(function($) {
 
   function doneResizing() {
       setColumnWidth();
+
+      if ($(window).width() < 960) {
+        $('#collection-types').hide(); //prependTo( $('nav .mobile-menu') );
+      }else{
+        $('#collection-types').show(); //prependTo( $('#optionbar') );
+      }
   }
 
 
+
+
+
+  if($('#loopcontainer.grid-view').length){
+    $('body').addClass('grid-view');
+    $('body').removeClass('list-view');
+  }else{
+    $('body').addClass('list-view');
+    $('body').removeClass('grid-view');
+  }
 
   // grid / list toggle
   $(document).on('click touchend', '#display-toggle a', function(e){
     e.preventDefault();
     if($('#loopcontainer.grid-view').length){
-      $('#loopcontainer').removeClass('grid-view');
-      $('#loopcontainer').addClass('list-view');
+      $('body,#loopcontainer').removeClass('grid-view');
+      $('body,#loopcontainer').addClass('list-view');
       doneResizing();
     }else{
-      $('#loopcontainer').removeClass('list-view');
-      $('#loopcontainer').addClass('grid-view');
+      $('body,#loopcontainer').removeClass('list-view');
+      $('body,#loopcontainer').addClass('grid-view');
       doneResizing();
     }
   });

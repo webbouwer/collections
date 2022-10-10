@@ -13,44 +13,8 @@ require_once(plugin_dir_path(__FILE__) . 'core/taxonomy_collection.php');
 require_once(plugin_dir_path(__FILE__) . 'core/taxonomy_types.php');
 require_once(plugin_dir_path(__FILE__) . 'core/wp_dropdown_posts.php');
 require_once(plugin_dir_path(__FILE__) . 'core/posttype_object.php');
-
 require_once(plugin_dir_path(__FILE__) . 'functions/page_templates.php');
 require_once(plugin_dir_path(__FILE__) . 'functions/page_options.php');
-
-
-
-
-
-// https://wordpress.stackexchange.com/questions/204779/how-can-i-add-an-author-filter-to-the-media-library
-/*
-function media_add_author_dropdown()
-{
-    $scr = get_current_screen();
-    if ( $scr->base !== 'upload' ) return;
-
-    $author   = filter_input(INPUT_GET, 'author', FILTER_SANITIZE_STRING );
-    $selected = (int)$author > 0 ? $author : '-1';
-    $args = array(
-        'show_option_none'   => 'All Authors',
-        'name'               => 'author',
-        'selected'           => $selected
-    );
-    wp_dropdown_users( $args );
-}
-add_action('restrict_manage_posts', 'media_add_author_dropdown');
-
-
-function author_filter($query) {
-    if ( is_admin() && $query->is_main_query() ) {
-        if (isset($_GET['author']) && $_GET['author'] == -1) {
-            $query->set('author', '');
-        }
-    }
-}
-add_action('pre_get_posts','author_filter');
-*/
-
-
 
 function media_belongs_to_post_dropdown()
 {
@@ -70,7 +34,6 @@ function media_belongs_to_post_dropdown()
 }
 add_action('restrict_manage_posts', 'media_belongs_to_post_dropdown');
 
-
 function parent_filter($query) {
     if ( is_admin() && $query->is_main_query() ) {
         if (isset($_GET['post_parent']) && $_GET['post_parent'] == -1) {
@@ -80,19 +43,10 @@ function parent_filter($query) {
 }
 add_action('pre_get_posts','parent_filter');
 
-
 function pluginconstruct() {
 	return new collectionsMain();
 }
 add_action( 'init', 'pluginconstruct' );
-
-/*
-add_action( 'pre_get_posts', function( $query) {
-		if ( $query->is_tax( 'collection' ) ) { // Replace with the name of the taxonomy you want to target
-				$query->set( 'posts_per_page', 3 ); // change '3' to the number of posts you want to appear
-		}
-} );
-*/
 
 function typeMenuHTML(){
 	// type menu
@@ -111,7 +65,6 @@ function typeMenuHTML(){
 		endforeach;
 	echo '</ul><div class="menuinfo"></div></div></div>';
 }
-
 
 function orderMenuHTML()
 {
@@ -138,6 +91,7 @@ class collectionsMain {
 
 		include(plugin_dir_path(__FILE__) . 'functions/settings.php');
 
+
 		$this->settings = new CollectionsSettings();
 		$this->taxonomy_includes();
 
@@ -159,26 +113,8 @@ class collectionsMain {
 	}
 
 	public function taxonomy_includes(){
-
-			// TODO: make this load on template pages only..
-			//global $post;
-			//if ( is_page_template('collection-page.php') ) {
-				include(plugin_dir_path(__FILE__) . 'functions/collection_ajax.php');
-				include(plugin_dir_path(__FILE__) . 'functions/object_ajax.php');
-			//}
-			/*
-			global $post;
-			if( is_page() ){
-				$template = get_page_template_slug( $post->ID );
-			}
-			$display_option = get_option( 'dropdown_option_setting_option_name' ); // Array
-			$viewtype =  $display_option['dropdown_option_0'];
-
-			if( $viewtype == 'grid' || $template == '../views/collection-page.php' ){
-				include(plugin_dir_path(__FILE__) . 'functions/collection_ajax.php');
-				include(plugin_dir_path(__FILE__) . 'functions/object_ajax.php');
-
-			//}*/
+		include(plugin_dir_path(__FILE__) . 'functions/collection_ajax.php');
+		include(plugin_dir_path(__FILE__) . 'functions/object_ajax.php');
 	}
 
 }

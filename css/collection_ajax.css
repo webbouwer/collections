@@ -10,24 +10,12 @@ blauw : #00A3E8;
   position: relative;
   margin:0px auto;
 }
-#typemenu
-{
-}
-#typemenu ul.collection-types
-{
-}
-#typemenu ul.object-types
-{
-}
-
-#display-options
-{
-}
 
 #loopcontainer
 {
   position: relative;
   margin:0px auto;
+  min-height:calc(100vh - 200px);
 }
 #objectcontainer .outermargin
 {
@@ -39,27 +27,6 @@ blauw : #00A3E8;
 
 
 
-.post-object
-{
-  position:relative;
-}
-
-.isotope.grid-view div.post-object.portrait
-{
-  max-width:320px;
-}
-.isotope.grid-view div.post-object.square
-{
-  max-width:320px;
-}
-.isotope.grid-view div.post-object.landscape
-{
-  max-width:420px;
-}
-.isotope.grid-view div.post-object.panorama
-{
-  max-width:680px;
-}
 
 
 div.mediaholder img,
@@ -94,17 +61,6 @@ div.object-image object{
 
 
 
-#loopcontainer.isotope.nav-view
-{
-  position:fixed !important;
-  height:70vh !important;
-  width:8vw;
-  right:0px;
-  top:180px;
-  overflow-y: scroll;
-  background-color: grey;
-}
-
 
 #loopcontainer.grid-view .post-object .overlay,
 #loopcontainer.nav-view .post-object .overlay
@@ -134,19 +90,8 @@ div.object-image object{
 
 
 #loopcontainer.grid-view .post-object:hover .overlay,
-#loopcontainer.grid-view .post-object.hovered .overlay,
-#loopcontainer.nav-view .post-object .overlay {
+#loopcontainer.grid-view .post-object.hovered .overlay {
   opacity: 1;
-}
-#loopcontainer.nav-view .post-object .overlay:hover
-{
-  background: rgba(0, 0, 0, 0);
-}
-
-
-#loopcontainer.nav-view .post-object .overlay *
-{
-  display:none;
 }
 
 #objectcontainer #overlaycontainer
@@ -155,7 +100,297 @@ div.object-image object{
 }
 
 
-@media all and (min-width: 980px){
+
+
+
+
+
+
+
+/* items grid */
+/* overview page - TODO check width for small screens .. */
+.grid-view .post-artifact.panorama
+{
+  width: calc(70% - 30px);
+}
+.grid-view .post-artifact.landscape
+{
+  width: calc(40% - 30px); /* col 5 3x : 60%; */
+}
+.grid-view .post-artifact.portrait
+{
+  width: calc(30% - 30px); /* col 5 1x : 20%; */
+}
+.grid-view .post-artifact.square
+{
+  width: calc(30% - 30px); /* col 5 2x : 40%; */
+}
+
+.post-object
+{
+  position:relative;
+  margin:15px;
+}
+
+.isotope.grid-view div.post-object.portrait
+{
+  max-width:320px;
+}
+.isotope.grid-view div.post-object.square
+{
+  max-width:320px;
+}
+.isotope.grid-view div.post-object.landscape
+{
+  max-width:420px;
+}
+.isotope.grid-view div.post-object.panorama
+{
+  max-width:680px;
+}
+
+#loopcontainer.grid-view .post-artifact
+{
+  -webkit-box-shadow: 0px 5px 11px -1px rgba(0,0,0,0.56);
+  box-shadow: 0px 5px 11px -1px rgba(0,0,0,0.56);
+}
+#loopcontainer.grid-view .post-artifact img
+{
+  transition: transform .5s ease;
+}
+#loopcontainer.grid-view .post-artifact.hover img
+{
+  cursor:pointer;
+  transform: scale(1.5) !important; /* (150% zoom) */
+}
+
+
+
+
+
+
+
+/* item icon buttons */
+#loopcontainer.grid-view .item-icons
+{
+  min-height:80px;
+}
+#loopcontainer.grid-view .item-icons ul
+{
+  padding:0 !important;
+  display:flex;
+  display: -webkit-flex;
+  justify-content: center;
+}
+#loopcontainer.grid-view .item-icons ul li
+{
+  display:inline-block;
+  padding:5px;
+  list-style-type: none;
+  background-size:cover;
+  width:56px;
+  height:56px;
+  cursor: pointer;
+  /* filter: brightness(0) invert(1); */
+}
+#loopcontainer.grid-view .item-icons ul li:hover,
+#loopcontainer.grid-view .item-icons ul li.selected
+{
+  filter:none;
+}
+.medium #loopcontainer.grid-view .post-artifact .overlay .entry-title,
+.small #loopcontainer.grid-view .post-artifact .overlay .entry-title
+{
+  font-size:0.8em !important;
+}
+.medium #loopcontainer.grid-view .item-icons ul li,
+.small #loopcontainer.grid-view .item-icons ul li
+{
+  display:inline-block;
+  padding:2px;
+  list-style-type: none;
+  background-size:cover;
+  width:36px;
+  height:36px;
+  margin-bottom:10px;
+  cursor:pointer;
+  /* filter: brightness(0) invert(1); */
+}
+.medium #loopcontainer.grid-view .item-icons ul li span,
+.small #loopcontainer.grid-view .item-icons ul li span
+{
+  font-size:0.8em;
+  bottom:-10px;
+}
+.medium #loopcontainer.grid-view .post-artifact .overlay .item-excerpt,
+.small #loopcontainer.grid-view .post-artifact .overlay .item-excerpt
+{
+  display:none;
+}
+.medium #loopcontainer.grid-view .post-artifact .overlay,
+.small #loopcontainer.grid-view .post-artifact .overlay
+{
+  padding:5px;
+}
+
+
+
+
+
+
+
+
+/* items list */
+#loopcontainer.list-view
+{
+  padding-top:15px;
+}
+#loopcontainer.list-view .post-artifact
+{
+  position: relative;
+  display:block;
+  width: 100%;
+  margin-bottom:15px;
+  clear:both;
+}
+#loopcontainer.list-view .post-artifact .innerpadding
+{
+  position:relative;
+  display: flex;
+  min-height:160px;
+  padding:2vh;
+  margin:2px 2px;
+  max-width:640px;
+  margin:0px auto;
+  border:3px solid #C8CCD2;
+  background-color:#ffffff;
+}
+#loopcontainer.list-view .post-artifact .artifact-image
+{
+  position:relative;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  height:14vh;
+  width:14vw;
+  flex:2;
+  text-align: center;
+  margin-right:2vh;
+  overflow:hidden;
+}
+#loopcontainer.list-view .post-artifact img.wp-post-image
+{
+  height:100%;
+  width::auto;
+}
+
+#loopcontainer.list-view .post-artifact.landscape img.wp-post-image,
+#loopcontainer.list-view .post-artifact.panorama img.wp-post-image
+{
+  width:100%;
+  height:auto;
+}
+
+#loopcontainer.list-view .post-artifact .overlay
+{
+flex:4;
+}
+#loopcontainer.list-view .post-artifact .overlay .item-icons
+{
+}
+#loopcontainer.list-view .post-artifact .overlay h2.entry-title a,
+.entry-header a
+{
+  color: #000000; /* #00A3E8; */
+}
+#loopcontainer.list-view .post-artifact .overlay .item-excerpt
+{
+  color:#000000;
+}
+
+#loopcontainer.list-view .item-icons ul
+{
+height:56px;
+display:flex;
+display: -webkit-flex;
+/* transform: scale(0.7); */
+}
+#loopcontainer.list-view .item-icons ul li
+{
+  display:inline-block;
+  padding:5px;
+  list-style-type: none;
+  background-size:cover;
+  width:36px;
+  height:36px;
+  cursor:pointer;
+}
+
+#loopcontainer.list-view .item-icons ul li:hover,
+#loopcontainer.list-view .item-icons ul li.selected
+{
+}
+
+
+
+
+
+
+/* items grid */
+
+#loopcontainer.grid-view .post-artifact.panorama
+{
+  min-width:580px;
+}
+#loopcontainer.grid-view .post-artifact.landscape
+{
+  min-width:460px;
+}
+#loopcontainer.grid-view .post-artifact.portrait
+{
+  min-width:240px;
+}
+#loopcontainer.grid-view .post-artifact.square
+{
+  min-width:240px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#loopcontainer.isotope.nav-view
+{
+  display:none;
+}
+
+
+@media all and (min-width: 1000px){
+
+
+  .site-logo img {
+    max-height: none !important;
+    max-width:300px;
+    transition: height 0.15s linear, width 0.15s linear, max-height 0.15s linear;
+  }
+
 
   #optionbar
   {
@@ -163,14 +398,24 @@ div.object-image object{
     max-width: 168rem;
     display:flex;
   }
-  #typemenu
+  #typemenu,
+  #typemenu .collection-types
   {
-    flex:5;
+    width:100%;
   }
+
   #display-options
   {
     flex:4;
   }
+
+  #loopcontainer.isotope.nav-view
+  {
+    display:block;
+  }
+
+
+
 
   #loopcontainer
   {
@@ -183,6 +428,28 @@ div.object-image object{
     max-width: 168rem;
     padding-right:8vw;
   }
+  #loopcontainer.isotope.nav-view
+  {
+    position:fixed !important;
+    height:70vh !important;
+    width:8vw;
+    right:0px;
+    top:180px;
+    overflow-y: scroll;
+    background-color: grey;
+  }
+  #loopcontainer.nav-view .post-object .overlay {
+    opacity: 1;
+  }
 
+  #loopcontainer.nav-view .post-object .overlay:hover
+  {
+    background: rgba(0, 0, 0, 0);
+  }
+
+  #loopcontainer.nav-view .post-object .overlay *
+  {
+    display:none;
+  }
 
 }

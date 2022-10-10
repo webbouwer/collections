@@ -60,6 +60,54 @@
 }
 
 
+@media all and (max-width:700px){
+
+  .closeoverlay, .closeinfobox, .closeintrobox {
+    height: 32px;
+    width: 32px;
+    z-index: 90;
+    background-color: transparent;
+    background-image: url('../icons/menu_open.png');
+    background-size:cover;
+    cursor: pointer;
+  }
+
+  .icon-button, .media-icon {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    font-family: "Archery", Arial, Helvetica, sans-serif;
+    background-position: center;
+    background-size:cover;
+    cursor:pointer;
+    cursor:hand;
+  }
+
+  .icon-button:hover span,
+  .icon-button.selected span,
+  .media-icon:hover span,
+  .media-icon.selected span,
+  .column .media-icon span
+  {
+    position:absolute;
+    display:block;
+    left:-10px;
+    bottom:-20px;
+    width:100%;
+    text-align:center;
+    color:#ADB4BE;
+    font-size: 16px;
+    letter-spacing:0.1em;
+  }
+
+}
+
+@media all and (min-width:700px){
+
+
+}
+
+
 
 
 /*
@@ -131,38 +179,47 @@
 .but-foto
 {
   background-image:url('../icons/menu_icon_grey_foto.png');
+  order: 1;
 }
 .but-audio
 {
   background-image:url('../icons/menu_icon_grey_audio.png');
+  order: 2;
 }
 .but-gedicht
 {
   background-image:url('../icons/menu_icon_grey_gedicht.png');
+  order: 3;
 }
 .but-sculptuur
 {
   background-image:url('../icons/menu_icon_grey_sculptuur.png');
+  order: 4;
 }
 .but-video
 {
   background-image:url('../icons/menu_icon_grey_video.png');
+  order: 5;
 }
 .but-schilderij
 {
   background-image:url('../icons/menu_icon_grey_schilderij.png');
+  order: 6;
 }
 .but-verhaal
 {
   background-image:url('../icons/menu_icon_grey_geschrift.png');
+  order: 7;
 }
 .but-pers
 {
   background-image:url('../icons/menu_icon_grey_newspaper.png');
+  order: 8;
 }
 .but-overige
 {
   background-image:url('../icons/menu_icon_grey_overig.png');
+  order: 9;
 }
 
 
@@ -242,45 +299,4 @@
 .column .media-icon.but-overige
 {
   background-image:url('../icons/menu_icon_white_overig.png');
-}
-
-
-
-
-
-#loopcontainer .post-object .item-icons .but-foto
-{
-  order: 1;
-}
-#loopcontainer .post-object .item-icons .but-audio
-{
-  order: 2;
-}
-#loopcontainer .post-object .item-icons .but-gedicht
-{
-  order: 3;
-}
-#loopcontainer .post-object .item-icons .but-sculptuur
-{
-  order: 4;
-}
-#loopcontainer .post-object .item-icons .but-video
-{
-  order: 5;
-}
-#loopcontainer .post-object .item-icons .but-schilderij
-{
-  order: 6;
-}
-#loopcontainer .post-object .item-icons .but-verhaal
-{
-  order: 7;
-}
-#loopcontainer .post-object .item-icons .but-pers
-{
-  order: 8;
-}
-#loopcontainer .post-object .item-icons .but-overige
-{
-  order: 9;
 }
