@@ -1,23 +1,15 @@
 /* util styling */
 
-#display-options
-{
-  position:absolute;
-}
-#display-toggle
-{
-  position:absolute;
-}
 
-#helpinfo,
-#overlaycontainer .closeoverlay {
+#helpinfo {
   color: #ADB4BE;
   /*font-family: "Archery", Arial, Helvetica, sans-serif;*/
-  font-size: 1.2em;
+  font-size: 0.8em;
   position: absolute;
-  right: 2rem;
-  margin-top: 10px;
+  right: 1.8rem;
+  margin-top: 6px;
   cursor: pointer;
+  z-index:80;
 }
 .closeinfobox {
   position: absolute;
@@ -25,8 +17,8 @@
   top: 10px;
   z-index: 90;
   cursor: pointer;
-  height: 64px;
-  width: 64px;
+  height: 36px;
+  width: 36px;
 }
 #infoboxcontainer {
   position: fixed;
@@ -64,11 +56,151 @@
 
 
 
+#isotopemenu
+{
+    position:relative;
+    width:96%;
+    max-width: 176rem;
+    margin:6px auto 0px;
+    z-index:80;
+}
 
-#show-recent {
+
+
+/* toggle grid / list */
+#display-toggle
+{
+  position:absolute;
+  right:0px;
+  top:-10px;
+  z-index:80;
+}
+
+#display-toggle a
+{
+  position:relative;
+  width:36px;
+  height:36px;
+  cursor:pointer;
+}
+
+.grid-view #display-toggle a.list
+{
+  display:block;
+  background-image:url('../icons/menu_icon_list_grey.png');
+  background-size:cover;
+}
+
+.list-view #display-toggle a.grid
+{
+  display:block;
+  background-image:url('../icons/menu_icon_grid_grey.png');
+  background-size:cover;
+}
+
+
+#display-toggle a span
+{
+  display:none;
+}
+
+#display-toggle a span{ /* :hover */
+  display:block;
+  position:absolute;
+  top:-10px;
+  left:6px;
+  width:32px;
+  font-size:0.6em;
   color: #ADB4BE;
   /*font-family: "Archery", Arial, Helvetica, sans-serif;*/
-  font-size: 0.9em;
+}
+
+.grid-view a.grid
+{
+  display:none;
+}
+
+.list-view a.list
+{
+  display:none;
+}
+
+
+
+#display-options
+{
+  position:absolute;
+  right:calc(2% + 30px);
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+
+#display-options ul
+{
+  display:block;
+  list-style:none;
+  margin:0;
+}
+#display-options span,
+#display-options ul li
+{
+  font-size:0.8em;
+  color: #ADB4BE;
+  min-width:36px;
+  /*ont-family: "Archery", Arial, Helvetica, sans-serif;*/
+}
+#display-options ul.orderby li,
+#display-options ul.order li
+{
+  cursor:pointer;
+  height:24px;
+  margin-top:-2px;
+  padding:0px 2px;
+}
+#display-options span
+{
+  display:inline-block;
+  height:24px;
+}
+#display-options ul li.selected
+{
+  color: #C8CCD2;
+}
+#display-options ul li:hover,
+#display-options ul li.selected:hover
+{
+  background-color:#ffffff;
+  color: #5E6877;
+}
+#display-options ul.orderby li:not(.selected),
+#display-options ul.order li:not(.selected)
+{
+  display:none;
+}
+#display-options ul.orderby:hover li:not(.selected),
+#display-options ul.order:hover li:not(.selected)
+{
+  background-color:#ffffff;
+  display:block;
+}
+
+
+
+p {
+  line-height: 1.2;
+  margin: 0 0 0.6em 0;
+}
+
+
+
+#show-recent {
+  position:absolute;
+  top:6px;
+  margin-left:0px;
+  color: #ADB4BE;
+  /*font-family: "Archery", Arial, Helvetica, sans-serif;*/
+  font-size: 0.8em;
   cursor: pointer;
 }
 
@@ -81,4 +213,37 @@
 }
 
 @media all and (min-width: 1000px){
+
+  #show-recent {
+    position:absolute;
+    color: #ADB4BE;
+    /*font-family: "Archery", Arial, Helvetica, sans-serif;*/
+    font-size: 0.8em;
+    cursor: pointer;
+    top:6px;
+    left:none;
+    right:60px;
+    margin-top:0px;
+    margin-bottom:0px;
+  }
+
+
+  #isotopemenu
+  {
+    margin-top:-26px;
+  }
+  #display-toggle
+  {
+    right:7px;
+  }
+
+  #display-options span,
+  #display-options ul li
+  {
+    font-size:1em;
+    color: #ADB4BE;
+    min-width:50px;
+    /*ont-family: "Archery", Arial, Helvetica, sans-serif;*/
+  }
+
 }

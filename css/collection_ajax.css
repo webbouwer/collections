@@ -12,11 +12,18 @@ blauw : #00A3E8;
 {
   width: 100%; /*calc(100% - 20px); */
   max-width: 168rem;
+  margin-top:30px;
   /*margin:0px auto;
   margin-left:13px;*/
+  min-height:60vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
+
 #site-footer,
-#loopcontainer:after {
+#loopcontainer .post-object:last-child:after {
 	content: '';
 	display: block;
 	clear: both;
@@ -25,6 +32,7 @@ blauw : #00A3E8;
 
 #loopcontainer.grid-view .post-object
 {
+  flex:2;
   /*margin-bottom:12px;*/
 }
 
@@ -68,12 +76,14 @@ blauw : #00A3E8;
   background: rgba(0, 0, 0, .5);
   opacity: 0;
   text-align: center;
+  overflow:hidden;
   -webkit-transition: all .5s ease-in-out;
   transition: all .5s ease-in-out;
 }
 #loopcontainer.grid-view .post-object:hover .overlay,
 #loopcontainer.grid-view .post-object.hovered .overlay {
   opacity: 1;
+  z-index:70;
 }
 
 
@@ -106,6 +116,88 @@ blauw : #00A3E8;
   display: block;
   width: 100%;
 }
+#loopcontainer.grid-view .post-object .overlay .item-excerpt
+{
+  color:#ffffff;
+}
+
+
+
+
+
+#loopcontainer.list-view
+{
+  padding-top:15px;
+  width: 96%;
+  max-width: 168rem;
+  margin:0px auto;
+}
+#loopcontainer.list-view .post-object
+{
+  position: relative;
+  display:block;
+  width: 100%;
+  margin-top:15px;
+  clear:both;
+}
+#loopcontainer.list-view .post-object .innerpadding
+{
+  position:relative;
+  display: flex;
+  min-height:160px;
+  padding:2vh;
+  margin:2px 2px;
+  margin:0px auto;
+  border:3px solid #C8CCD2;
+  background-color:#ffffff;
+}
+#loopcontainer.list-view .post-object .object-image
+{
+  position:relative;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  height:14vh;
+  width:14vw;
+  max-width:200px;
+  flex:2;
+  text-align: center;
+  margin-right:2vh;
+  overflow:hidden;
+}
+#loopcontainer.list-view .post-object img.wp-post-image
+{
+  height:100%;
+  width::auto;
+}
+
+#loopcontainer.list-view .post-object.landscape img.wp-post-image,
+#loopcontainer.list-view .post-object.panorama img.wp-post-image
+{
+  width:100%;
+  height:auto;
+}
+
+#loopcontainer.list-view .post-object .overlay
+{
+flex:4;
+}
+#loopcontainer.list-view .post-object .overlay .item-icons
+{
+}
+#loopcontainer.list-view .post-object .overlay h2.entry-title a,
+.entry-header a
+{
+  color: #000000; /* #00A3E8; */
+}
+#loopcontainer.list-view .post-object .overlay .item-excerpt
+{
+  color:#000000;
+}
+
+
+
+
 
 #objectcontainer #overlaycontainer
 {
@@ -141,20 +233,11 @@ div.object-image object{
 
 @media all and (max-width: 700px){
 
-  #loopcontainer.isotope.nav-view
+  #loopcontainer.isotope.nav-view,
+  #loopcontainer.grid-view .post-object .overlay .item-excerpt
    {
      display:none;
-     /*
-     position:fixed !important;
-     height:80px !important;
-     width:100vw;
-     left:0px;
-     bottom:0px;
-     overflow-y: none;
-     overflow-x: scroll;
-     */
    }
-
 
 
 }
@@ -170,9 +253,10 @@ div.object-image object{
   #loopcontainer,
   #objectcontainer .outermargin
   {
-    width: 98%;
-    max-width: 178rem;
+    width: 96%;
+    max-width: 176rem;
     margin:0px auto;
+    padding-top:30px;
   }
 
 
@@ -204,13 +288,18 @@ div.object-image object{
   /* items object nav view */
   #loopcontainer.isotope.nav-view
    {
-     position:fixed !important;
-     height:70vh !important;
-     width:8vw;
-     right:0px;
-     top:180px;
+     /*
+     position:absolute !important;
+     height:calc(100%-300px) !important;
+     max-height:70vh;
+     width:7vw;
+     right:10px;
+     bottom:10px;
      overflow-y: scroll;
      background-color: grey;
+     z-index:80;
+     */
+     display:none;
    }
 
 
@@ -220,69 +309,7 @@ div.object-image object{
    /* items list view */
    #loopcontainer.list-view
    {
-     padding-top:15px;
-   }
-   #loopcontainer.list-view .post-object
-   {
-     position: relative;
-     display:block;
-     width: 100%;
-     margin-bottom:15px;
-     clear:both;
-   }
-   #loopcontainer.list-view .post-object .innerpadding
-   {
-     position:relative;
-     display: flex;
-     min-height:160px;
-     padding:2vh;
-     margin:2px 2px;
-     max-width:640px;
-     margin:0px auto;
-     border:3px solid #C8CCD2;
-     background-color:#ffffff;
-   }
-   #loopcontainer.list-view .post-object .object-image
-   {
-     position:relative;
-     display:flex;
-     align-items: center;
-     justify-content: center;
-     height:14vh;
-     width:14vw;
-     flex:2;
-     text-align: center;
-     margin-right:2vh;
-     overflow:hidden;
-   }
-   #loopcontainer.list-view .post-object img.wp-post-image
-   {
-     height:100%;
-     width::auto;
-   }
-
-   #loopcontainer.list-view .post-object.landscape img.wp-post-image,
-   #loopcontainer.list-view .post-object.panorama img.wp-post-image
-   {
-     width:100%;
-     height:auto;
-   }
-
-   #loopcontainer.list-view .post-object .overlay
-   {
-   flex:4;
-   }
-   #loopcontainer.list-view .post-object .overlay .item-icons
-   {
-   }
-   #loopcontainer.list-view .post-object .overlay h2.entry-title a,
-   .entry-header a
-   {
-     color: #000000; /* #00A3E8; */
-   }
-   #loopcontainer.list-view .post-object .overlay .item-excerpt
-   {
-     color:#000000;
+     padding-top:30px;
    }
 
 }

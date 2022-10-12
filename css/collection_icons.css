@@ -2,23 +2,33 @@
 #typemenu ul.object-types,
 .item-icons ul
 {
+  position:relative;
+
   display:flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   flex-direction:row;
+
+
   margin:0px;
   padding:0px;
   text-align:center;
 }
 
-#typemenu ul.collection-types li,
-#typemenu ul.object-types li,
-.item-icons ul li
+.item-icons ul
 {
-  flex:1;
-  list-style-type:none;
+  position:relative;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
   margin:0px;
   padding:0px;
+  text-align:center;
 }
 
 /* base icon buttons */
@@ -68,15 +78,38 @@
   order: 9;
 }
 
+#typemenu ul.collection-types li,
+#typemenu ul.object-types li,
+.item-icons ul li,
 .icon-button, .media-icon {
   position: relative;
-  width: 48px;
-  height: 48px;
+  list-style-type:none;
+  flex:1;
+  flex-grow: 0;     /* do not grow   - initial value: 0 */
+  flex-shrink: 0;   /* do not shrink - initial value: 1 */
+  flex-basis: 36px;
+  width: 36px;
+  height: 36px;
+  margin:0px;
+  padding:0px;
   font-family: "Archery", Arial, Helvetica, sans-serif;
   background-position: center;
   background-size:cover;
+  background-repeat:no-repeat;
   cursor:pointer;
   cursor:hand;
+  z-index:80;
+}
+
+.item-icons ul li
+{
+  margin-bottom:14px;
+}
+.item-icons ul li a
+{
+  position:relative;
+  display:block;
+  height:100%;
 }
 
 .icon-button span,
@@ -96,21 +129,204 @@
 {
   position:absolute;
   display:block;
-  left:0px;
-  bottom:-20px;
+  left:-8px;
+  bottom:-16px;
   width:100%;
   text-align:center;
   color:#ADB4BE;
-  font-size: 16px;
+  font-size: 11px;
   letter-spacing:0.1em;
+}
+
+#typemenu ul li.notavailable {
+  opacity: 0.2;
+}
+#typemenu .icon-button.available:hover{
+  background-color:#ADB4BE;
+}
+
+#typemenu .icon-button.available.selected,
+#typemenu .icon-button.available.selected:hover,
+.column .media-icon:hover,
+.column .media-icon.selected {
+  background-color:#FF004D;
+}
+
+#typemenu .but-foto.available:hover,
+#typemenu .but-foto.available.selected,
+#loopcontainer.grid-view .post-object .item-icons .but-foto,
+.column .media-icon.but-foto
+{
+  background-image:url('../icons/menu_icon_white_foto.png');
+}
+#typemenu .but-audio.available:hover,
+#typemenu .but-audio.available.selected,
+#loopcontainer.grid-view .post-object .item-icons .but-audio,
+.column .media-icon.but-audio
+{
+  background-image:url('../icons/menu_icon_white_audio.png');
+}
+#typemenu .but-gedicht.available:hover,
+#typemenu .but-gedicht.available.selected,
+#loopcontainer.grid-view .post-object .item-icons .but-gedicht,
+.column .media-icon.but-gedicht
+{
+  background-image:url('../icons/menu_icon_white_gedicht.png');
+}
+#typemenu .but-sculptuur.available:hover,
+#typemenu .but-sculptuur.available.selected,
+#loopcontainer.grid-view .post-object .item-icons .but-sculptuur,
+.column .media-icon.but-sculptuur
+{
+  background-image:url('../icons/menu_icon_white_sculptuur.png');
+}
+#typemenu .but-video.available:hover,
+#typemenu .but-video.available.selected,
+#loopcontainer.grid-view .post-object .item-icons .but-video,
+.column .media-icon.but-video
+{
+  background-image:url('../icons/menu_icon_white_video.png');
+}
+#typemenu .but-schilderij.available:hover,
+#typemenu .but-schilderij.available.selected,
+#loopcontainer.grid-view .post-object .item-icons .but-schilderij,
+.column .media-icon.but-schilderij
+{
+  background-image:url('../icons/menu_icon_white_schilderij.png');
+}
+#typemenu .but-verhaal.available:hover,
+#typemenu .but-verhaal.available.selected,
+#loopcontainer.grid-view .post-object .item-icons .but-verhaal,
+.column .media-icon.but-verhaal
+{
+  background-image:url('../icons/menu_icon_white_geschrift.png');
+}
+#typemenu .but-pers.available:hover,
+#typemenu .but-pers.available.selected,
+#loopcontainer.grid-view .post-object .item-icons .but-pers,
+.column .media-icon.but-pers
+{
+  background-image:url('../icons/menu_icon_white_newspaper.png');
+}
+#typemenu .but-overige.available:hover,
+#typemenu .but-overige.available.selected,
+#loopcontainer.grid-view .post-object .item-icons .but-overige,
+.column .media-icon.but-overige
+{
+  background-image:url('../icons/menu_icon_white_overig.png');
+}
+
+#typemenu .innerpadding
+{
+  padding-bottom:18px;
+}
+#typemenu .menuinfo
+{
+  position:absolute;
+  bottom:-3px;
+  margin-left:-3px;
+  color: #ADB4BE;
+  /*font-family: "Archery", Arial, Helvetica, sans-serif;*/
+  font-size: 0.6em;
+  font-weight:normal !important;
+}
+
+
+
+
+
+.closeoverlay, .closeinfobox, .closeintrobox {
+  width: 36px;
+  height: 36px;
+  z-index: 90;
+  background-color: transparent;
+  background-size: cover;
+  background-image: url('../icons/menu_open.png');
+  cursor: pointer;
+}
+
+.closeoverlay span,
+.closeinfobox span
+{
+  display:none;
 }
 
 
 @media all and (max-width: 700px){
+
 }
 
-@media all and (min-width: 700px and max-width: 1000px){
+@media all and (min-width: 700px) and (max-width: 1000px){
+
+  #typemenu ul.collection-types li,
+  #typemenu ul.object-types li,
+  .item-icons ul li,
+  .icon-button, .media-icon {
+    position: relative;
+    list-style-type:none;
+    flex:1;
+    flex-grow: 0;     /* do not grow   - initial value: 0 */
+    flex-shrink: 0;   /* do not shrink - initial value: 1 */
+    flex-basis: 48px;
+    width: 48px;
+    height: 48px;
+  }
+
 }
 
 @media all and (min-width: 1000px){
+
+  #typemenu .innerpadding
+  {
+    padding-bottom:0px;
+  }
+
+  #typemenu ul.collection-types li,
+  #typemenu ul.object-types li,
+  .item-icons ul li,
+  .icon-button, .media-icon {
+    position: relative;
+    list-style-type:none;
+    flex:1;
+    flex-grow: 0;     /* do not grow   - initial value: 0 */
+    flex-shrink: 0;   /* do not shrink - initial value: 1 */
+    flex-basis: 56px;
+    width: 56px;
+    height: 56px;
+  }
+
+  .item-icons ul li
+  {
+    margin-bottom:24px;
+  }
+
+
+  .icon-button:hover span,
+  .icon-button.selected span,
+  .media-icon:hover span,
+  .media-icon.selected span,
+  .column .media-icon span
+  {
+    position:absolute;
+    display:block;
+    left:0px;
+    bottom:-26px;
+    min-width:100%;
+    text-align:center;
+    color:#ADB4BE;
+    font-size: 16px;
+    letter-spacing:0.1em;
+  }
+
+  #typemenu .menuinfo
+  {
+    position:absolute;
+    bottom:14px;
+    margin-left:0px;
+  }
+
+  .closeoverlay, .closeinfobox, .closeintrobox {
+      height: 64px;
+      width: 64px;
+  }
 }
