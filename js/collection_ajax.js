@@ -813,7 +813,7 @@ jQuery(function($) {
       setCookie();
         setTimeout( function(){
           $('html, body').stop().animate({
-                  'scrollTop': $('#content').offset().top
+                  'scrollTop': $('#loopcontainer').offset().top
             }, 800, 'swing',
             function () {
               var content = '<video controls autoplay width="640" height="480"><source type="video/mp4" src="wp-content/uploads/2021/10/intro_de_hoekse_schatkist.mp4"></video><div class="skippintro"><span>Introductie overslaan</span></div>';
@@ -830,7 +830,7 @@ jQuery(function($) {
 
 
               $('body').find('#typemenu ul li.selected').trigger('click');
-              //alert('check'); 
+              //alert('check');
 
 
 
