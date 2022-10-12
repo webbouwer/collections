@@ -1,5 +1,27 @@
-/* util styling */
+/*
+rood roze : #FF004D
+grijs standaard : #ADB4BE
+licht grijs   :#C8CCD2
+Donker grijs   :#5E6877
+blauw : #00A3E8;
+*/
 
+
+
+/* util styling */
+button .toggle-inner .toggle-text
+{
+  color: #FF004D !important;
+  font-family: "Archery", Arial, Helvetica, sans-serif;
+  font-size:1.3em !important;
+  letter-spacing:0.06em;
+}
+
+button .toggle-inner .toggle-icon,
+button .toggle-inner .svg-icon
+{
+  color: #FF004D !important;
+}
 
 #helpinfo {
   color: #ADB4BE;
@@ -191,6 +213,7 @@ p {
   line-height: 1.2;
   margin: 0 0 0.6em 0;
 }
+
 
 
 

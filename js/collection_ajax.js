@@ -141,7 +141,7 @@ jQuery(function($) {
           },
           timeout: 60000
         });
-        return false; 
+        return false;
       }
     }
   }
@@ -423,7 +423,7 @@ jQuery(function($) {
           '<div class="prevnextnav"><div id="prevmedia"><span>Prev</span></div><div id="nextmedia"><span>Next</span></div></div>'+
           '<div class="mediabox">'+
           '<div class="cover '+ p.orientation +'"><img src="'+ p.image +'" class="wp-post-image" alt="" />'+
-          '<div class="title"><h1>' + p.title + '<h1></div><div class="text">' + p.content + '</div></div>'+
+          '<div class="title"><h1>' + p.title + '</h1></div><div class="text">' + p.content + '</div></div>'+
           '</div>';
 
         var bundle = json.data.postmedia;
@@ -508,7 +508,8 @@ jQuery(function($) {
       if( qtype != ''){
         type = qtype;
       }
-      $('body').find('#typemenu ul.collection-types li.but-'+type).addClass('selected');
+      $('body').find('#typemenu ul li.but-'+type).addClass('selected');
+
     }
 
     setTypeMenu();
@@ -823,8 +824,13 @@ jQuery(function($) {
 
       } //console.log(document.cookie);
 
+
+
     }
 
+
+              $('body').find('#typemenu ul li.selected').trigger('click');
+              //alert('check'); 
 
 
 

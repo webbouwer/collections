@@ -76,8 +76,8 @@ H1,H2,
 .modal-menu > li > a,
 .modal-menu > li > .ancestor-wrapper > a
 {
-  font-size:36px;
-  letter-spacing:0.04em !important;
+  font-size:27px;
+  letter-spacing:0.06em !important;
 }
 
 
