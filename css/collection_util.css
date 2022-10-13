@@ -245,9 +245,20 @@ p {
     cursor: pointer;
     top:6px;
     left:none;
-    right:60px;
+    right:47%;
     margin-top:0px;
     margin-bottom:0px;
+  }
+
+  #helpinfo {
+    color: #ADB4BE;
+    /*font-family: "Archery", Arial, Helvetica, sans-serif;*/
+    font-size: 0.8em;
+    position: absolute;
+    right: 44%;
+    margin-top: 6px;
+    cursor: pointer;
+    z-index:80;
   }
 
 

@@ -5,8 +5,10 @@ licht grijs   :#C8CCD2
 Donker grijs   :#5E6877
 blauw : #00A3E8;
 */
-
-
+body
+{
+  min-height:100%;
+}
 #loopcontainer,
 #objectcontainer .outermargin
 {
@@ -15,11 +17,19 @@ blauw : #00A3E8;
   margin-top:30px;
   /*margin:0px auto;
   margin-left:13px;*/
-  min-height:60vh;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: center;+
+}
+
+
+
+footer#site-footer
+{
+  margin-top: 2rem;
+  font-size: 1.4rem;
+  padding: 1rem 0;
 }
 
 #site-footer,
@@ -257,6 +267,7 @@ div.object-image object{
     max-width: 176rem;
     margin:0px auto;
     padding-top:30px;
+    min-height:60vh;
   }
 
 
@@ -303,7 +314,10 @@ div.object-image object{
    }
 
 
-
+   #loopcontainer.grid-view .post-object .overlay .item-excerpt
+   {
+     font-size:13px !important; 
+   }
 
 
    /* items list view */
